@@ -1,0 +1,12 @@
+{
+    "name": "POTA_Notifier",
+    "description": "Flow to Notify for POTA operators or locations",
+    "version": "0.0.1",
+    "dependencies": {},
+    "node-red": {
+        "settings": {
+            "flowFile": "flow.json",
+            "credentialsFile": "flow_cred.json"
+        }
+    }
+}
