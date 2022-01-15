@@ -1,1 +1,893 @@
-[]
+[
+    {
+        "id": "6fd9c5c3c10bf6a2",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "50a9dd15acb28546",
+        "type": "ui_tab",
+        "name": "POTA Notifier",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "d0d073ec2c91ebda",
+        "type": "ui_group",
+        "name": "POTA Map by Spot Age",
+        "tab": "50a9dd15acb28546",
+        "order": 2,
+        "disp": true,
+        "width": 24,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "f6eff3d72acf92e0",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "b1cd10a7.e2eab",
+        "type": "ui_group",
+        "name": "POTA Spots",
+        "tab": "4640c0fb.326128",
+        "order": 6,
+        "disp": true,
+        "width": 16,
+        "collapse": false
+    },
+    {
+        "id": "4640c0fb.326128",
+        "type": "ui_tab",
+        "name": "DX Cluster Raw",
+        "icon": "fa-solid fa-rocket",
+        "order": 7,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "5255f96a02d65e0a",
+        "type": "ui_group",
+        "name": "General Spot Stats",
+        "tab": "50a9dd15acb28546",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "310b567a804ff916",
+        "type": "ui_group",
+        "name": "Mode Spot Stats",
+        "tab": "50a9dd15acb28546",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "0b0b1d35bd8369f6",
+        "type": "ui_group",
+        "name": "POTA Map by Spot Mode < 30 Min",
+        "tab": "50a9dd15acb28546",
+        "order": 4,
+        "disp": true,
+        "width": 24,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "76bf248642e29f7e",
+        "type": "ui_spacer",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "spacer",
+        "group": "0b0b1d35bd8369f6",
+        "order": 2,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "13d6ea7a25fc94a5",
+        "type": "ui_spacer",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "spacer",
+        "group": "0b0b1d35bd8369f6",
+        "order": 3,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "f9a51377e5b99e77",
+        "type": "ui_spacer",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "spacer",
+        "group": "0b0b1d35bd8369f6",
+        "order": 4,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "aad5689c2cba308c",
+        "type": "ui_spacer",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "spacer",
+        "group": "0b0b1d35bd8369f6",
+        "order": 5,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "d1839a1bc4a58b9a",
+        "type": "ui_spacer",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "spacer",
+        "group": "0b0b1d35bd8369f6",
+        "order": 6,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "ad9565d86c676efe",
+        "type": "ui_spacer",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "spacer",
+        "group": "0b0b1d35bd8369f6",
+        "order": 7,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "825c62b4af5d5129",
+        "type": "ui_spacer",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "spacer",
+        "group": "0b0b1d35bd8369f6",
+        "order": 8,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "05041c0946e08ee3",
+        "type": "ui_spacer",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "spacer",
+        "group": "0b0b1d35bd8369f6",
+        "order": 9,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "2844db6520b0f0f3",
+        "type": "ui_spacer",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "spacer",
+        "group": "0b0b1d35bd8369f6",
+        "order": 10,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "96e75b83cb9ba3bf",
+        "type": "ui_spacer",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "spacer",
+        "group": "0b0b1d35bd8369f6",
+        "order": 11,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "850ca437ae98928a",
+        "type": "ui_spacer",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "spacer",
+        "group": "0b0b1d35bd8369f6",
+        "order": 12,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "7dfbf25f8f9e3e9d",
+        "type": "ui_worldmap",
+        "z": "6fd9c5c3c10bf6a2",
+        "group": "d0d073ec2c91ebda",
+        "order": 1,
+        "width": 24,
+        "height": 11,
+        "name": "",
+        "lat": "",
+        "lon": "",
+        "zoom": "",
+        "layer": "OSMG",
+        "cluster": "",
+        "maxage": "",
+        "usermenu": "hide",
+        "layers": "hide",
+        "panit": "false",
+        "panlock": "false",
+        "zoomlock": "false",
+        "hiderightclick": "true",
+        "coords": "none",
+        "showgrid": "false",
+        "allowFileDrop": "false",
+        "path": "/potamapage",
+        "overlist": "DR,CO,RA,DN,HM",
+        "maplist": "OSMG,OSMC,EsriC,EsriS,EsriT,EsriDG,UKOS,SW",
+        "mapname": "",
+        "mapurl": "",
+        "mapopt": "",
+        "mapwms": false,
+        "x": 1890,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "f9ed3b0b.0726c8",
+        "type": "inject",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Every 2 mins",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "120",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 560,
+        "wires": [
+            [
+                "b9746139.dc1ea"
+            ]
+        ]
+    },
+    {
+        "id": "b9746139.dc1ea",
+        "type": "http request",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://api.pota.app/spot/activator",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 310,
+        "y": 560,
+        "wires": [
+            [
+                "8ab6a6b6.193008"
+            ]
+        ]
+    },
+    {
+        "id": "a39eb29.44da95",
+        "type": "comment",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "POTA Spotting Network - https://api.pota.app/spot/activator",
+        "info": "",
+        "x": 270,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "b6dbdd91.34748",
+        "type": "function",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Format Spot",
+        "func": "\nlet type = \"spot\";\nlet spotID = msg.payload.spotId;\nlet freq1 = msg.payload.frequency;\nlet freq = parseFloat(freq1).toFixed(1)\nlet mode = msg.payload.mode;\nlet call = msg.payload.activator;\nlet commentpad = msg.payload.comments;\nlet comment = commentpad.padEnd(25);\nlet timeraw = msg.payload.spotTime;\nlet x = msg.payload.spotTime.replace(\":\",\"\");\nlet time = x.substr(11,4)+\"Z\";\nlet qthstatus = \"\";\nlet source = \"PO\";\nlet state = msg.payload.state;\nlet calllength = call.length;\nlet parkref = msg.payload.reference;\nlet parkname = msg.payload.parkName;\nlet grid = msg.payload.grid6;\nlet lat = msg.payload.latitude;\nlet lon = msg.payload.longitude;\n\nreturn {payload : {type:type,spotID:spotID,freq:freq,call:call,comment:comment,time:time,qthstatus:qthstatus,source:source,\nstate:state,calllength:calllength,parkref:parkref,parkname:parkname,grid:grid,lat:lat,lon:lon}};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1250,
+        "y": 560,
+        "wires": [
+            [
+                "af418ce6.31d9b",
+                "10f3f9f4195aff4b"
+            ]
+        ]
+    },
+    {
+        "id": "8ab6a6b6.193008",
+        "type": "split",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 450,
+        "y": 560,
+        "wires": [
+            [
+                "52da224e.7c358c",
+                "97d14070.d7033"
+            ]
+        ]
+    },
+    {
+        "id": "5bbe4d93.fe20d4",
+        "type": "ui_table",
+        "z": "6fd9c5c3c10bf6a2",
+        "group": "b1cd10a7.e2eab",
+        "name": "POTA Spots",
+        "order": 1,
+        "width": 16,
+        "height": 12,
+        "columns": [
+            {
+                "field": "freq",
+                "title": "Freq",
+                "width": "15%",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "call",
+                "title": "Call",
+                "width": "15%",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "state",
+                "title": "State",
+                "width": "10%",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "parkref",
+                "title": "Ref#",
+                "width": "10%",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "parkname",
+                "title": "Park",
+                "width": "20%",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "comment",
+                "title": "Comment",
+                "width": "20%",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "time",
+                "title": "Time",
+                "width": "10%",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            }
+        ],
+        "outputs": 1,
+        "cts": true,
+        "x": 1590,
+        "y": 560,
+        "wires": [
+            [
+                "3c88bb62.a328a4"
+            ]
+        ]
+    },
+    {
+        "id": "52da224e.7c358c",
+        "type": "debug",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "2a5f2b17.aec8a4",
+        "type": "string",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Format State",
+        "methods": [
+            {
+                "name": "replaceAll",
+                "params": [
+                    {
+                        "type": "str",
+                        "value": ",US-"
+                    },
+                    {
+                        "type": "str",
+                        "value": ","
+                    }
+                ]
+            },
+            {
+                "name": "replaceAll",
+                "params": [
+                    {
+                        "type": "str",
+                        "value": "US-"
+                    },
+                    {
+                        "type": "str",
+                        "value": ""
+                    }
+                ]
+            }
+        ],
+        "prop": "payload.locationDesc",
+        "propout": "payload.state",
+        "object": "msg",
+        "objectout": "msg",
+        "x": 770,
+        "y": 540,
+        "wires": [
+            [
+                "9d4763c9a7c186c6"
+            ]
+        ]
+    },
+    {
+        "id": "af418ce6.31d9b",
+        "type": "debug",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1470,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "e24a55b1.935c28",
+        "type": "debug",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1670,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "3c88bb62.a328a4",
+        "type": "debug",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1790,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "97d14070.d7033",
+        "type": "switch",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "US or CAN",
+        "property": "payload.locationDesc",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "US-",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "CA-",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 610,
+        "y": 560,
+        "wires": [
+            [
+                "2a5f2b17.aec8a4"
+            ],
+            [
+                "53434631.8ab898"
+            ]
+        ]
+    },
+    {
+        "id": "53434631.8ab898",
+        "type": "string",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Format Prov",
+        "methods": [
+            {
+                "name": "chompLeft",
+                "params": [
+                    {
+                        "type": "str",
+                        "value": "CA-"
+                    }
+                ]
+            },
+            {
+                "name": "left",
+                "params": [
+                    {
+                        "type": "num",
+                        "value": "2"
+                    }
+                ]
+            }
+        ],
+        "prop": "payload.locationDesc",
+        "propout": "payload.state",
+        "object": "msg",
+        "objectout": "msg",
+        "x": 770,
+        "y": 580,
+        "wires": [
+            [
+                "9d4763c9a7c186c6"
+            ]
+        ]
+    },
+    {
+        "id": "10f3f9f4195aff4b",
+        "type": "function",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Table Format",
+        "func": "let spot = msg.payload\n\nlet freq = spot.freq;\nlet call = spot.call;\nlet comment = spot.comment;\nlet time = spot.time\nlet state = spot.state;\nlet parkref = spot.parkref;\nlet parkname = spot.parkname;\n\n\nreturn {payload:{\n    command:\"addData\",\n    arguments:[\n        {\n            freq:freq,call:call,comment:comment,time:time,state:state,parkref:parkref,parkname:parkname\n        },\n        true\n    ],\n    returnPromise:true\n    }\n};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1410,
+        "y": 560,
+        "wires": [
+            [
+                "5bbe4d93.fe20d4",
+                "e24a55b1.935c28"
+            ]
+        ]
+    },
+    {
+        "id": "9d4763c9a7c186c6",
+        "type": "string",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Comment to 23 ToUpperCase",
+        "methods": [
+            {
+                "name": "left",
+                "params": [
+                    {
+                        "type": "num",
+                        "value": "25"
+                    }
+                ]
+            }
+        ],
+        "prop": "payload.comments",
+        "propout": "payload.comments",
+        "object": "msg",
+        "objectout": "msg",
+        "x": 1030,
+        "y": 560,
+        "wires": [
+            [
+                "b6dbdd91.34748"
+            ]
+        ]
+    },
+    {
+        "id": "1a33c8b4d4c72571",
+        "type": "switch",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Count <=2 ",
+        "property": "payload.count",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lte",
+                "v": "2",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 150,
+        "y": 820,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4c15ed9b5b31db14",
+        "type": "comment",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Flow Outline",
+        "info": "User enters in callsigns into database\nUser enteres in parks they have worked\n\nProgram gets spots\n\nProgram compares spots (activators and parks) against database\n\nSends out notifications (1 per hour per type)\n - email with all activators and parks\n - email with all parks\n - parsed by mode\n - \n \nMap 1 shows all spots with the following layers\n- location of spots\n- spot age with legend\n\nMap 2 shows all spots with the follow layers\n- location of spots\n- mode of spots\n- \nAll spots are erased if QRT in the comments\n\n\nGraphs show\n- # of spots\n- # of cw\n- # of ssb\n- # of digital\n- \n\nDatabase schema\nspotID\nactivator\nfreq\nmode\nreference\nparkname\nspottime\nspotter\ncomments\nsource\nname\nlocationdesc\ngrid4\ngrid6\nlat\nlon\ncount\n\nDatabase schema to add\nnotifiedspot - boolean\nnotifiedspottime - date\n",
+        "x": 320,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "c14e24429f015f45",
+        "type": "http request",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://api.pota.app/user/",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "basic",
+        "senderr": false,
+        "x": 330,
+        "y": 1020,
+        "wires": [
+            [
+                "54f8d3cc8e71f4ac"
+            ]
+        ]
+    },
+    {
+        "id": "d1c260ddae08e8dc",
+        "type": "inject",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 170,
+        "y": 1020,
+        "wires": [
+            [
+                "c14e24429f015f45"
+            ]
+        ]
+    },
+    {
+        "id": "54f8d3cc8e71f4ac",
+        "type": "debug",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "0a5c1edbe6988c73",
+        "type": "function",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1700,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d39aecc1645caf74",
+        "type": "ui_worldmap",
+        "z": "6fd9c5c3c10bf6a2",
+        "group": "0b0b1d35bd8369f6",
+        "order": 1,
+        "width": 23,
+        "height": 11,
+        "name": "",
+        "lat": "",
+        "lon": "",
+        "zoom": "",
+        "layer": "OSMG",
+        "cluster": "",
+        "maxage": "",
+        "usermenu": "hide",
+        "layers": "hide",
+        "panit": "false",
+        "panlock": "false",
+        "zoomlock": "false",
+        "hiderightclick": "true",
+        "coords": "none",
+        "showgrid": "false",
+        "allowFileDrop": "false",
+        "path": "/potamapmode",
+        "overlist": "DR,CO,RA,DN,HM",
+        "maplist": "OSMG,OSMC,EsriC,EsriS,EsriT,EsriDG,UKOS,SW",
+        "mapname": "",
+        "mapurl": "",
+        "mapopt": "",
+        "mapwms": false,
+        "x": 1900,
+        "y": 240,
+        "wires": []
+    }
+]
