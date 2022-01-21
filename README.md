@@ -1,4 +1,4 @@
-POTA_Notifier
+POTA Dashboard & Notifier
 =============
 
 Flow to Notify for POTA operators or locations
