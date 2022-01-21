@@ -154,7 +154,7 @@
         "type": "ui_group",
         "name": "POTA Spot Map by Band < 30 Min",
         "tab": "50a9dd15acb28546",
-        "order": 3,
+        "order": 4,
         "disp": true,
         "width": "20",
         "collapse": false,
@@ -263,7 +263,7 @@
         "type": "ui_group",
         "name": "POTA Spots",
         "tab": "50a9dd15acb28546",
-        "order": 5,
+        "order": 6,
         "disp": true,
         "width": 30,
         "collapse": false
@@ -286,7 +286,7 @@
         "tab": "50a9dd15acb28546",
         "order": 2,
         "disp": true,
-        "width": 20,
+        "width": 16,
         "collapse": false,
         "className": ""
     },
@@ -295,7 +295,7 @@
         "type": "ui_group",
         "name": "POTA Spot Map by Mode < 30 Min",
         "tab": "50a9dd15acb28546",
-        "order": 4,
+        "order": 5,
         "disp": true,
         "width": "20",
         "collapse": false,
@@ -425,6 +425,17 @@
         "order": 4,
         "disp": true,
         "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "1ea01737847609c8",
+        "type": "ui_group",
+        "name": "Refresh Countdown",
+        "tab": "50a9dd15acb28546",
+        "order": 3,
+        "disp": true,
+        "width": "4",
         "collapse": false,
         "className": ""
     },
@@ -3288,7 +3299,8 @@
         "y": 560,
         "wires": [
             [
-                "b9746139.dc1ea"
+                "b9746139.dc1ea",
+                "a2e0696df46306dd"
             ]
         ]
     },
@@ -3395,7 +3407,7 @@
             },
             {
                 "field": "call",
-                "title": "Call",
+                "title": "Callsign",
                 "width": "10%",
                 "align": "left",
                 "formatter": "plaintext",
@@ -3405,7 +3417,7 @@
             },
             {
                 "field": "state",
-                "title": "State or Country",
+                "title": "State/Prov or Country",
                 "width": "10%",
                 "align": "left",
                 "formatter": "plaintext",
@@ -3415,7 +3427,7 @@
             },
             {
                 "field": "parkref",
-                "title": "Ref#",
+                "title": "Park Ref#",
                 "width": "10%",
                 "align": "left",
                 "formatter": "plaintext",
@@ -3425,7 +3437,7 @@
             },
             {
                 "field": "parkname",
-                "title": "Park",
+                "title": "Park Name",
                 "width": "20%",
                 "align": "left",
                 "formatter": "plaintext",
@@ -3445,7 +3457,7 @@
             },
             {
                 "field": "time",
-                "title": "Time",
+                "title": "Initial Spot Time",
                 "width": "10%",
                 "align": "left",
                 "formatter": "plaintext",
@@ -3638,7 +3650,7 @@
         "name": "Gauge Total Active Spots",
         "group": "5255f96a02d65e0a",
         "order": 1,
-        "width": 5,
+        "width": 4,
         "height": 3,
         "gtype": "gage",
         "title": "Active Spots",
@@ -3665,7 +3677,7 @@
         "name": "SSB Spots",
         "group": "310b567a804ff916",
         "order": 1,
-        "width": 5,
+        "width": 4,
         "height": 3,
         "gtype": "gage",
         "title": "SSB Spots",
@@ -3692,7 +3704,7 @@
         "name": "CW Spots",
         "group": "310b567a804ff916",
         "order": 2,
-        "width": 5,
+        "width": 4,
         "height": 3,
         "gtype": "gage",
         "title": "CW Spots",
@@ -3719,7 +3731,7 @@
         "name": "FT8/FT4 Spots",
         "group": "310b567a804ff916",
         "order": 3,
-        "width": 5,
+        "width": 4,
         "height": 3,
         "gtype": "gage",
         "title": "FT8/FT4 Spots",
@@ -3829,7 +3841,7 @@
         "repair": false,
         "outputs": 5,
         "x": 1420,
-        "y": 820,
+        "y": 760,
         "wires": [
             [
                 "ce831311c1287bbc"
@@ -3915,7 +3927,7 @@
         "name": "Other Spots",
         "group": "310b567a804ff916",
         "order": 4,
-        "width": 5,
+        "width": 4,
         "height": 3,
         "gtype": "gage",
         "title": "Other Spots",
@@ -4600,7 +4612,7 @@
         "name": "40M Spots",
         "group": "5255f96a02d65e0a",
         "order": 2,
-        "width": 5,
+        "width": 4,
         "height": 3,
         "gtype": "gage",
         "title": "40M Spots",
@@ -4627,7 +4639,7 @@
         "name": "20M Spots",
         "group": "5255f96a02d65e0a",
         "order": 3,
-        "width": 5,
+        "width": 4,
         "height": 3,
         "gtype": "gage",
         "title": "20M Spots",
@@ -4654,7 +4666,7 @@
         "name": "15M Spots",
         "group": "5255f96a02d65e0a",
         "order": 4,
-        "width": 5,
+        "width": 4,
         "height": 3,
         "gtype": "gage",
         "title": "15M Spots",
@@ -5051,6 +5063,107 @@
                 "dcc130a144cbd46b"
             ]
         ]
+    },
+    {
+        "id": "e48a4bd35ee01ec6",
+        "type": "ui_gauge",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "10M Spots",
+        "group": "5255f96a02d65e0a",
+        "order": 5,
+        "width": 4,
+        "height": 3,
+        "gtype": "gage",
+        "title": "10M Spots",
+        "label": "spots",
+        "format": "{{msg.payload}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 2010,
+        "y": 1240,
+        "wires": []
+    },
+    {
+        "id": "461fad0b6e254f69",
+        "type": "countdown",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "1 Min Countdown",
+        "topic": "",
+        "payloadTimerStart": "true",
+        "payloadTimerStartType": "bool",
+        "payloadTimerStop": "false",
+        "payloadTimerStopType": "bool",
+        "timer": "60",
+        "resetWhileRunning": true,
+        "setTimeToNewWhileRunning": true,
+        "startCountdownOnControlMessage": true,
+        "x": 730,
+        "y": 220,
+        "wires": [
+            [],
+            [
+                "8eb5d4cf348b33fc"
+            ]
+        ]
+    },
+    {
+        "id": "a2e0696df46306dd",
+        "type": "change",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "60",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "control",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 520,
+        "y": 220,
+        "wires": [
+            [
+                "461fad0b6e254f69"
+            ]
+        ]
+    },
+    {
+        "id": "8eb5d4cf348b33fc",
+        "type": "ui_text",
+        "z": "6fd9c5c3c10bf6a2",
+        "group": "1ea01737847609c8",
+        "order": 1,
+        "width": 4,
+        "height": 3,
+        "name": "Countdown Timer",
+        "label": "",
+        "format": "<font size = 50> {{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "x": 950,
+        "y": 220,
+        "wires": []
     },
     {
         "id": "4dd753c0.4c51fc",
@@ -6183,7 +6296,7 @@
         "type": "ui_form",
         "z": "1950552b.d4018b",
         "name": "Call Sign Delete",
-        "label": "Call Sign Delete",
+        "label": "Callsign Delete",
         "group": "1d9dce79.e995e2",
         "order": 4,
         "width": 0,
