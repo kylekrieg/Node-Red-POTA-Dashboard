@@ -2,10 +2,143 @@
     {
         "id": "6fd9c5c3c10bf6a2",
         "type": "tab",
-        "label": "Flow 1",
+        "label": "Stats",
         "disabled": false,
         "info": "",
         "env": []
+    },
+    {
+        "id": "1950552b.d4018b",
+        "type": "tab",
+        "label": "DBase Maint & Notifier",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "af115e9cb7244fd2",
+        "type": "tab",
+        "label": "Not Used",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "c9611467dc313430",
+        "type": "subflow",
+        "name": "Band Pin Color Parser",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 540,
+                "y": 360,
+                "wires": [
+                    {
+                        "id": "af429b2782adbaa7"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 1980,
+                "y": 320,
+                "wires": [
+                    {
+                        "id": "e140bd1326a604e7",
+                        "port": 0
+                    },
+                    {
+                        "id": "d7eecaed14d89601",
+                        "port": 0
+                    },
+                    {
+                        "id": "5cf206da68509424",
+                        "port": 0
+                    },
+                    {
+                        "id": "e2d981c2c24c6e4f",
+                        "port": 0
+                    },
+                    {
+                        "id": "d7dc7fa1d3799ada",
+                        "port": 0
+                    },
+                    {
+                        "id": "53c0cd92b15d3320",
+                        "port": 0
+                    },
+                    {
+                        "id": "af85e794677f30f0",
+                        "port": 0
+                    },
+                    {
+                        "id": "e25ae21f9ac978c6",
+                        "port": 0
+                    },
+                    {
+                        "id": "20e9ecd94f6a68d5",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
+    },
+    {
+        "id": "8d355125d2e4edb6",
+        "type": "subflow",
+        "name": "Band & Mode Parse",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 80,
+                "y": 340,
+                "wires": [
+                    {
+                        "id": "e0179a67.9640b8"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 2620,
+                "y": 240,
+                "wires": [
+                    {
+                        "id": "336c664dfb6d90d0",
+                        "port": 0
+                    },
+                    {
+                        "id": "1bb72f4a0819f216",
+                        "port": 0
+                    },
+                    {
+                        "id": "b3ee8487b8373fb4",
+                        "port": 0
+                    },
+                    {
+                        "id": "aa263a60635166f2",
+                        "port": 0
+                    },
+                    {
+                        "id": "6592f02193b4f720",
+                        "port": 0
+                    },
+                    {
+                        "id": "a75bb0a4cd22dce9",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [],
+        "meta": {},
+        "color": "#DDAA99"
     },
     {
         "id": "50a9dd15acb28546",
@@ -19,11 +152,11 @@
     {
         "id": "d0d073ec2c91ebda",
         "type": "ui_group",
-        "name": "POTA Map by Spot Age",
+        "name": "POTA Spot Map by Band < 30 Min",
         "tab": "50a9dd15acb28546",
-        "order": 2,
+        "order": 3,
         "disp": true,
-        "width": 24,
+        "width": "20",
         "collapse": false,
         "className": ""
     },
@@ -31,7 +164,7 @@
         "id": "f6eff3d72acf92e0",
         "type": "ui_base",
         "theme": {
-            "name": "theme-light",
+            "name": "theme-dark",
             "lightTheme": {
                 "default": "#0094CE",
                 "baseColor": "#0094CE",
@@ -43,7 +176,8 @@
                 "default": "#097479",
                 "baseColor": "#097479",
                 "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
-                "edited": false
+                "edited": true,
+                "reset": false
             },
             "customTheme": {
                 "name": "Untitled Theme 1",
@@ -53,44 +187,44 @@
             },
             "themeState": {
                 "base-color": {
-                    "default": "#0094CE",
-                    "value": "#0094CE",
+                    "default": "#097479",
+                    "value": "#097479",
                     "edited": false
                 },
                 "page-titlebar-backgroundColor": {
-                    "value": "#0094CE",
+                    "value": "#097479",
                     "edited": false
                 },
                 "page-backgroundColor": {
-                    "value": "#fafafa",
-                    "edited": false
-                },
-                "page-sidebar-backgroundColor": {
-                    "value": "#ffffff",
-                    "edited": false
-                },
-                "group-textColor": {
-                    "value": "#1bbfff",
-                    "edited": false
-                },
-                "group-borderColor": {
-                    "value": "#ffffff",
-                    "edited": false
-                },
-                "group-backgroundColor": {
-                    "value": "#ffffff",
-                    "edited": false
-                },
-                "widget-textColor": {
                     "value": "#111111",
                     "edited": false
                 },
+                "page-sidebar-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#0eb8c0",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#555555",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#eeeeee",
+                    "edited": false
+                },
                 "widget-backgroundColor": {
-                    "value": "#0094ce",
+                    "value": "#097479",
                     "edited": false
                 },
                 "widget-borderColor": {
-                    "value": "#ffffff",
+                    "value": "#333333",
                     "edited": false
                 },
                 "base-font": {
@@ -128,20 +262,11 @@
         "id": "b1cd10a7.e2eab",
         "type": "ui_group",
         "name": "POTA Spots",
-        "tab": "4640c0fb.326128",
-        "order": 6,
+        "tab": "50a9dd15acb28546",
+        "order": 5,
         "disp": true,
-        "width": 16,
+        "width": 30,
         "collapse": false
-    },
-    {
-        "id": "4640c0fb.326128",
-        "type": "ui_tab",
-        "name": "DX Cluster Raw",
-        "icon": "fa-solid fa-rocket",
-        "order": 7,
-        "disabled": false,
-        "hidden": false
     },
     {
         "id": "5255f96a02d65e0a",
@@ -150,15 +275,142 @@
         "tab": "50a9dd15acb28546",
         "order": 1,
         "disp": true,
-        "width": "6",
+        "width": 20,
         "collapse": false,
         "className": ""
     },
     {
         "id": "310b567a804ff916",
         "type": "ui_group",
-        "name": "Mode Spot Stats",
+        "name": "Spots Stats by Mode",
         "tab": "50a9dd15acb28546",
+        "order": 2,
+        "disp": true,
+        "width": 20,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "0b0b1d35bd8369f6",
+        "type": "ui_group",
+        "name": "POTA Spot Map by Mode < 30 Min",
+        "tab": "50a9dd15acb28546",
+        "order": 4,
+        "disp": true,
+        "width": "20",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "266fc73.4322c38",
+        "type": "ui_group",
+        "name": "Database Adds",
+        "tab": "a002cc51.3d92e",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "1ea6c0ad.787d0f",
+        "type": "ui_group",
+        "name": "SSB Database Inputs (uppercase)",
+        "tab": "",
+        "order": 2,
+        "disp": true,
+        "width": 7,
+        "collapse": false
+    },
+    {
+        "id": "95ec6ea4.0816c",
+        "type": "ui_group",
+        "name": "Digital Database Inputs (uppercase)",
+        "tab": "",
+        "order": 2,
+        "disp": true,
+        "width": 7,
+        "collapse": false
+    },
+    {
+        "id": "8ad1b77eebb71f03",
+        "type": "sqlitedb",
+        "db": "pota",
+        "mode": "RWC"
+    },
+    {
+        "id": "d0ac2fe7.d9f9c",
+        "type": "ui_group",
+        "name": "Wanted States",
+        "tab": "d08296a1.bb1fe8",
+        "order": 3,
+        "disp": true,
+        "width": 4,
+        "collapse": false
+    },
+    {
+        "id": "64ea1b22.59ae54",
+        "type": "ui_group",
+        "name": "N1MM QSO Counts",
+        "tab": "d08296a1.bb1fe8",
+        "order": 4,
+        "disp": true,
+        "width": 4,
+        "collapse": false
+    },
+    {
+        "id": "1541b6e8.7af069",
+        "type": "ui_group",
+        "name": "Rovers",
+        "tab": "d08296a1.bb1fe8",
+        "order": 1,
+        "disp": true,
+        "width": 4,
+        "collapse": false
+    },
+    {
+        "id": "79199164.02dcb",
+        "type": "ui_group",
+        "name": "In State",
+        "tab": "d08296a1.bb1fe8",
+        "order": 2,
+        "disp": true,
+        "width": 4,
+        "collapse": false
+    },
+    {
+        "id": "1d9dce79.e995e2",
+        "type": "ui_group",
+        "name": "Database Deletes",
+        "tab": "a002cc51.3d92e",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "a002cc51.3d92e",
+        "type": "ui_tab",
+        "name": "Database",
+        "icon": "dashboard",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "d08296a1.bb1fe8",
+        "type": "ui_tab",
+        "name": "Database Maintenance",
+        "icon": "dashboard",
+        "order": 9,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "5543b98b5680f25b",
+        "type": "ui_group",
+        "name": "Callsign Output",
+        "tab": "a002cc51.3d92e",
         "order": 3,
         "disp": true,
         "width": "6",
@@ -166,125 +418,2816 @@
         "className": ""
     },
     {
-        "id": "0b0b1d35bd8369f6",
+        "id": "55d6abfe8c5c758e",
         "type": "ui_group",
-        "name": "POTA Map by Spot Mode < 30 Min",
-        "tab": "50a9dd15acb28546",
+        "name": "Country Output",
+        "tab": "a002cc51.3d92e",
         "order": 4,
         "disp": true,
-        "width": 24,
+        "width": "6",
         "collapse": false,
         "className": ""
     },
     {
-        "id": "76bf248642e29f7e",
-        "type": "ui_spacer",
-        "z": "6fd9c5c3c10bf6a2",
-        "name": "spacer",
-        "group": "0b0b1d35bd8369f6",
-        "order": 2,
-        "width": 1,
-        "height": 1
+        "id": "63e24272d68f8982",
+        "type": "switch",
+        "z": "c9611467dc313430",
+        "name": "Get Band",
+        "property": "payload.band",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "160M",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "80M",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "40M",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "20M",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "15M",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "10M",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "6M",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "2M",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "70cm",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 10,
+        "x": 1280,
+        "y": 340,
+        "wires": [
+            [
+                "e140bd1326a604e7"
+            ],
+            [
+                "d7eecaed14d89601"
+            ],
+            [
+                "5cf206da68509424"
+            ],
+            [
+                "d7dc7fa1d3799ada"
+            ],
+            [
+                "e2d981c2c24c6e4f"
+            ],
+            [
+                "53c0cd92b15d3320"
+            ],
+            [
+                "af85e794677f30f0"
+            ],
+            [
+                "e25ae21f9ac978c6"
+            ],
+            [],
+            [
+                "20e9ecd94f6a68d5"
+            ]
+        ]
     },
     {
-        "id": "13d6ea7a25fc94a5",
-        "type": "ui_spacer",
-        "z": "6fd9c5c3c10bf6a2",
-        "name": "spacer",
-        "group": "0b0b1d35bd8369f6",
-        "order": 3,
-        "width": 1,
-        "height": 1
+        "id": "e140bd1326a604e7",
+        "type": "change",
+        "z": "c9611467dc313430",
+        "name": "160M Color Purple",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "#800080",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "160M",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.layer",
+                "pt": "msg",
+                "to": "160M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1610,
+        "y": 200,
+        "wires": [
+            []
+        ]
     },
     {
-        "id": "f9a51377e5b99e77",
-        "type": "ui_spacer",
-        "z": "6fd9c5c3c10bf6a2",
-        "name": "spacer",
-        "group": "0b0b1d35bd8369f6",
-        "order": 4,
-        "width": 1,
-        "height": 1
+        "id": "d7eecaed14d89601",
+        "type": "change",
+        "z": "c9611467dc313430",
+        "name": "80M Color Green",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "#008000",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "80M",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.layer",
+                "pt": "msg",
+                "to": "80M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1610,
+        "y": 240,
+        "wires": [
+            []
+        ]
     },
     {
-        "id": "aad5689c2cba308c",
-        "type": "ui_spacer",
-        "z": "6fd9c5c3c10bf6a2",
-        "name": "spacer",
-        "group": "0b0b1d35bd8369f6",
-        "order": 5,
-        "width": 1,
-        "height": 1
+        "id": "5cf206da68509424",
+        "type": "change",
+        "z": "c9611467dc313430",
+        "name": "40M Color Blue",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "#0000FF",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "40M",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.layer",
+                "pt": "msg",
+                "to": "40M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1610,
+        "y": 280,
+        "wires": [
+            []
+        ]
     },
     {
-        "id": "d1839a1bc4a58b9a",
-        "type": "ui_spacer",
-        "z": "6fd9c5c3c10bf6a2",
-        "name": "spacer",
-        "group": "0b0b1d35bd8369f6",
-        "order": 6,
-        "width": 1,
-        "height": 1
+        "id": "d7dc7fa1d3799ada",
+        "type": "change",
+        "z": "c9611467dc313430",
+        "name": "20M Color Red",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "#FF0000",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "20M",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.layer",
+                "pt": "msg",
+                "to": "20M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1610,
+        "y": 320,
+        "wires": [
+            []
+        ]
     },
     {
-        "id": "ad9565d86c676efe",
-        "type": "ui_spacer",
-        "z": "6fd9c5c3c10bf6a2",
-        "name": "spacer",
-        "group": "0b0b1d35bd8369f6",
-        "order": 7,
-        "width": 1,
-        "height": 1
+        "id": "e2d981c2c24c6e4f",
+        "type": "change",
+        "z": "c9611467dc313430",
+        "name": "15M Color Yellow",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "#FFFF00",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "15M",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.layer",
+                "pt": "msg",
+                "to": "15M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1610,
+        "y": 360,
+        "wires": [
+            []
+        ]
     },
     {
-        "id": "825c62b4af5d5129",
-        "type": "ui_spacer",
-        "z": "6fd9c5c3c10bf6a2",
-        "name": "spacer",
-        "group": "0b0b1d35bd8369f6",
-        "order": 8,
-        "width": 1,
-        "height": 1
+        "id": "53c0cd92b15d3320",
+        "type": "change",
+        "z": "c9611467dc313430",
+        "name": "10M Color Orange",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "#FF8C00",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "10M",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.layer",
+                "pt": "msg",
+                "to": "10M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1610,
+        "y": 400,
+        "wires": [
+            []
+        ]
     },
     {
-        "id": "05041c0946e08ee3",
-        "type": "ui_spacer",
-        "z": "6fd9c5c3c10bf6a2",
-        "name": "spacer",
-        "group": "0b0b1d35bd8369f6",
-        "order": 9,
-        "width": 1,
-        "height": 1
+        "id": "af85e794677f30f0",
+        "type": "change",
+        "z": "c9611467dc313430",
+        "name": "6M Color White",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "#FFFFFF",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "6M",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.layer",
+                "pt": "msg",
+                "to": "6M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1610,
+        "y": 440,
+        "wires": [
+            []
+        ]
     },
     {
-        "id": "2844db6520b0f0f3",
-        "type": "ui_spacer",
-        "z": "6fd9c5c3c10bf6a2",
-        "name": "spacer",
-        "group": "0b0b1d35bd8369f6",
-        "order": 10,
-        "width": 1,
-        "height": 1
+        "id": "e25ae21f9ac978c6",
+        "type": "change",
+        "z": "c9611467dc313430",
+        "name": "2M Color Lime",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "#00FF00",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "2M",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.layer",
+                "pt": "msg",
+                "to": "2M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1610,
+        "y": 480,
+        "wires": [
+            []
+        ]
     },
     {
-        "id": "96e75b83cb9ba3bf",
-        "type": "ui_spacer",
-        "z": "6fd9c5c3c10bf6a2",
-        "name": "spacer",
-        "group": "0b0b1d35bd8369f6",
-        "order": 11,
-        "width": 1,
-        "height": 1
+        "id": "20e9ecd94f6a68d5",
+        "type": "change",
+        "z": "c9611467dc313430",
+        "name": "Else Color Black",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "#000000",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.layer",
+                "pt": "msg",
+                "to": "Other",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1610,
+        "y": 520,
+        "wires": [
+            []
+        ]
     },
     {
-        "id": "850ca437ae98928a",
-        "type": "ui_spacer",
-        "z": "6fd9c5c3c10bf6a2",
-        "name": "spacer",
-        "group": "0b0b1d35bd8369f6",
-        "order": 12,
-        "width": 1,
-        "height": 1
+        "id": "af429b2782adbaa7",
+        "type": "switch",
+        "z": "c9611467dc313430",
+        "name": "Band Parser",
+        "property": "payload.frequency",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "btwn",
+                "v": "1800.0",
+                "vt": "num",
+                "v2": "2000.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "3500.0",
+                "vt": "num",
+                "v2": "4000.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "7000.0",
+                "vt": "num",
+                "v2": "7300.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "14000.0",
+                "vt": "num",
+                "v2": "14350.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "21000.0",
+                "vt": "num",
+                "v2": "21450.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "28000.0",
+                "vt": "num",
+                "v2": "29700.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "50000.0",
+                "vt": "num",
+                "v2": "54000.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "144000.0",
+                "vt": "num",
+                "v2": "148000.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "440000.0",
+                "vt": "num",
+                "v2": "448000.0",
+                "v2t": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 9,
+        "x": 730,
+        "y": 360,
+        "wires": [
+            [
+                "ef8b6e8518b22adc"
+            ],
+            [
+                "ea50a7f15651220e"
+            ],
+            [
+                "23a7f9d79dab3468"
+            ],
+            [
+                "91fedb8d3623772a"
+            ],
+            [
+                "74508556ea148805"
+            ],
+            [
+                "4f9433ab5b7037ac"
+            ],
+            [
+                "38e6926a3d3fec0a"
+            ],
+            [
+                "a2b4847bbf948415"
+            ],
+            [
+                "ee6e2d8dd8273aef"
+            ]
+        ]
+    },
+    {
+        "id": "7a5fab8617b7fb13",
+        "type": "comment",
+        "z": "c9611467dc313430",
+        "name": "Input Frequency",
+        "info": "",
+        "x": 750,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "ef8b6e8518b22adc",
+        "type": "change",
+        "z": "c9611467dc313430",
+        "name": "Set Band 160M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "160M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1000,
+        "y": 200,
+        "wires": [
+            [
+                "63e24272d68f8982"
+            ]
+        ]
+    },
+    {
+        "id": "ea50a7f15651220e",
+        "type": "change",
+        "z": "c9611467dc313430",
+        "name": "Set Band 80M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "80M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1000,
+        "y": 240,
+        "wires": [
+            [
+                "63e24272d68f8982"
+            ]
+        ]
+    },
+    {
+        "id": "23a7f9d79dab3468",
+        "type": "change",
+        "z": "c9611467dc313430",
+        "name": "Set Band 40M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "40M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1000,
+        "y": 280,
+        "wires": [
+            [
+                "63e24272d68f8982"
+            ]
+        ]
+    },
+    {
+        "id": "91fedb8d3623772a",
+        "type": "change",
+        "z": "c9611467dc313430",
+        "name": "Set Band 20M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "20M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1000,
+        "y": 320,
+        "wires": [
+            [
+                "63e24272d68f8982"
+            ]
+        ]
+    },
+    {
+        "id": "74508556ea148805",
+        "type": "change",
+        "z": "c9611467dc313430",
+        "name": "Set Band 15M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "15M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1000,
+        "y": 360,
+        "wires": [
+            [
+                "63e24272d68f8982"
+            ]
+        ]
+    },
+    {
+        "id": "4f9433ab5b7037ac",
+        "type": "change",
+        "z": "c9611467dc313430",
+        "name": "Set Band 10M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "10M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1000,
+        "y": 400,
+        "wires": [
+            [
+                "63e24272d68f8982"
+            ]
+        ]
+    },
+    {
+        "id": "38e6926a3d3fec0a",
+        "type": "change",
+        "z": "c9611467dc313430",
+        "name": "Set Band 6M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "6M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1010,
+        "y": 440,
+        "wires": [
+            [
+                "63e24272d68f8982"
+            ]
+        ]
+    },
+    {
+        "id": "a2b4847bbf948415",
+        "type": "change",
+        "z": "c9611467dc313430",
+        "name": "Set Band 2M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "2M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1010,
+        "y": 480,
+        "wires": [
+            [
+                "63e24272d68f8982"
+            ]
+        ]
+    },
+    {
+        "id": "ee6e2d8dd8273aef",
+        "type": "change",
+        "z": "c9611467dc313430",
+        "name": "Set Band 70CM",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "70CM",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1000,
+        "y": 520,
+        "wires": [
+            [
+                "63e24272d68f8982"
+            ]
+        ]
+    },
+    {
+        "id": "6797a328bc23a222",
+        "type": "comment",
+        "z": "c9611467dc313430",
+        "name": "To Do",
+        "info": "Add WARC bands with colors",
+        "x": 1280,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "e0179a67.9640b8",
+        "type": "switch",
+        "z": "8d355125d2e4edb6",
+        "name": "Band Parser",
+        "property": "payload.freq",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "btwn",
+                "v": "1800.0",
+                "vt": "num",
+                "v2": "2000.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "3500.0",
+                "vt": "num",
+                "v2": "4000.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "7000.0",
+                "vt": "num",
+                "v2": "7300.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "10100.0",
+                "vt": "num",
+                "v2": "10150.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "14000.0",
+                "vt": "num",
+                "v2": "14350.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "18068.0",
+                "vt": "num",
+                "v2": "18168.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "21000.0",
+                "vt": "num",
+                "v2": "21450.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "24890.0",
+                "vt": "num",
+                "v2": "24990.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "28000.0",
+                "vt": "num",
+                "v2": "29700.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "50000.0",
+                "vt": "num",
+                "v2": "54000.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "144000.0",
+                "vt": "num",
+                "v2": "148000.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "440000.0",
+                "vt": "num",
+                "v2": "448000.0",
+                "v2t": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 12,
+        "x": 230,
+        "y": 720,
+        "wires": [
+            [
+                "0b9f1ae73ad69039"
+            ],
+            [
+                "175f3aa602517e49"
+            ],
+            [
+                "f06592db926fcf84"
+            ],
+            [
+                "9633e9970c340a42"
+            ],
+            [
+                "9753acbeeebf4656"
+            ],
+            [
+                "657f7ed9e70dc511"
+            ],
+            [
+                "827074b7c4b5c52f"
+            ],
+            [
+                "97b1aecc1370f875"
+            ],
+            [
+                "b081cc28cab2d511"
+            ],
+            [
+                "601d12c10f0705d4"
+            ],
+            [
+                "ea2c06042157739b"
+            ],
+            [
+                "cd4d5af286e17fe4"
+            ]
+        ]
+    },
+    {
+        "id": "83d55f2c.f5d7f",
+        "type": "switch",
+        "z": "8d355125d2e4edb6",
+        "name": "160M Mode Parser",
+        "property": "payload.freq",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "btwn",
+                "v": "1800.0",
+                "vt": "num",
+                "v2": "1837.9",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "1838.0",
+                "vt": "num",
+                "v2": "1839.9",
+                "v2t": "num"
+            },
+            {
+                "t": "eq",
+                "v": "1840.0",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "1845.0",
+                "vt": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "1860.0",
+                "vt": "num",
+                "v2": "2000.0",
+                "v2t": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 5,
+        "x": 1670,
+        "y": 740,
+        "wires": [
+            [
+                "336c664dfb6d90d0"
+            ],
+            [
+                "1bb72f4a0819f216"
+            ],
+            [
+                "6592f02193b4f720"
+            ],
+            [
+                "a75bb0a4cd22dce9"
+            ],
+            [
+                "b3ee8487b8373fb4"
+            ]
+        ]
+    },
+    {
+        "id": "c629474c.113e38",
+        "type": "switch",
+        "z": "8d355125d2e4edb6",
+        "name": "80M Mode Parser",
+        "property": "payload.freq",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "btwn",
+                "v": "3500.0",
+                "vt": "num",
+                "v2": "3572.9",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "3573.0",
+                "vt": "num",
+                "v2": "3650.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "3651.0",
+                "vt": "num",
+                "v2": "4000.0",
+                "v2t": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 1670,
+        "y": 860,
+        "wires": [
+            [
+                "336c664dfb6d90d0"
+            ],
+            [
+                "1bb72f4a0819f216"
+            ],
+            [
+                "b3ee8487b8373fb4"
+            ]
+        ]
+    },
+    {
+        "id": "d704dd26.1aca3",
+        "type": "switch",
+        "z": "8d355125d2e4edb6",
+        "name": "40M Mode Parser",
+        "property": "payload.freq",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "btwn",
+                "v": "7000.0",
+                "vt": "num",
+                "v2": "7069.9",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "7070.0",
+                "vt": "num",
+                "v2": "7100.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "7100.1",
+                "vt": "num",
+                "v2": "7300.0",
+                "v2t": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 1670,
+        "y": 920,
+        "wires": [
+            [
+                "336c664dfb6d90d0"
+            ],
+            [
+                "1bb72f4a0819f216"
+            ],
+            [
+                "b3ee8487b8373fb4"
+            ]
+        ]
+    },
+    {
+        "id": "26752e6f.8b0412",
+        "type": "switch",
+        "z": "8d355125d2e4edb6",
+        "name": "20M Mode Parser",
+        "property": "payload.freq",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "btwn",
+                "v": "14000.0",
+                "vt": "num",
+                "v2": "14069.9",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "14070.0",
+                "vt": "num",
+                "v2": "14149.9",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "14150.0",
+                "vt": "num",
+                "v2": "14350.0",
+                "v2t": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 1670,
+        "y": 1040,
+        "wires": [
+            [
+                "336c664dfb6d90d0"
+            ],
+            [
+                "1bb72f4a0819f216"
+            ],
+            [
+                "b3ee8487b8373fb4"
+            ]
+        ]
+    },
+    {
+        "id": "3ebd4ba0.5ac374",
+        "type": "switch",
+        "z": "8d355125d2e4edb6",
+        "name": "15M Mode Parser",
+        "property": "payload.freq",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "btwn",
+                "v": "21000.0",
+                "vt": "num",
+                "v2": "21069.9",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "21070.0",
+                "vt": "num",
+                "v2": "21100.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "21100.1",
+                "vt": "num",
+                "v2": "21450.0",
+                "v2t": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 1670,
+        "y": 1160,
+        "wires": [
+            [
+                "336c664dfb6d90d0"
+            ],
+            [
+                "1bb72f4a0819f216"
+            ],
+            [
+                "b3ee8487b8373fb4"
+            ]
+        ]
+    },
+    {
+        "id": "590b9a84.2eda94",
+        "type": "switch",
+        "z": "8d355125d2e4edb6",
+        "name": "10M Mode Parser",
+        "property": "payload.freq",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "btwn",
+                "v": "28000",
+                "vt": "num",
+                "v2": "28073.9",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "28074.0",
+                "vt": "num",
+                "v2": "28299.9",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "28300.0",
+                "vt": "num",
+                "v2": "29700.0",
+                "v2t": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 1670,
+        "y": 1280,
+        "wires": [
+            [
+                "336c664dfb6d90d0"
+            ],
+            [
+                "1bb72f4a0819f216"
+            ],
+            [
+                "b3ee8487b8373fb4"
+            ]
+        ]
+    },
+    {
+        "id": "3cffd6b7.5568ea",
+        "type": "switch",
+        "z": "8d355125d2e4edb6",
+        "name": "6M Mode Parser",
+        "property": "payload.freq",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "btwn",
+                "v": "50000.0",
+                "vt": "num",
+                "v2": "50100.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "50200",
+                "vt": "num",
+                "v2": "50500.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "50100.1",
+                "vt": "num",
+                "v2": "50199.9",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "50500.1",
+                "vt": "num",
+                "v2": "54000",
+                "v2t": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 4,
+        "x": 1680,
+        "y": 1340,
+        "wires": [
+            [
+                "336c664dfb6d90d0"
+            ],
+            [
+                "1bb72f4a0819f216"
+            ],
+            [
+                "b3ee8487b8373fb4"
+            ],
+            [
+                "b3ee8487b8373fb4"
+            ]
+        ]
+    },
+    {
+        "id": "ab26e4cc.250b48",
+        "type": "comment",
+        "z": "8d355125d2e4edb6",
+        "name": "Input Frequency",
+        "info": "",
+        "x": 250,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "0b9f1ae73ad69039",
+        "type": "change",
+        "z": "8d355125d2e4edb6",
+        "name": "Set Band 160M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "160M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 500,
+        "y": 80,
+        "wires": [
+            [
+                "269ebb5a81c35055"
+            ]
+        ]
+    },
+    {
+        "id": "175f3aa602517e49",
+        "type": "change",
+        "z": "8d355125d2e4edb6",
+        "name": "Set Band 80M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "80M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 500,
+        "y": 220,
+        "wires": [
+            [
+                "34d9a1b4550bd48a"
+            ]
+        ]
+    },
+    {
+        "id": "f06592db926fcf84",
+        "type": "change",
+        "z": "8d355125d2e4edb6",
+        "name": "Set Band 40M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "40M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 500,
+        "y": 360,
+        "wires": [
+            [
+                "1cd63e8bfc41e0e2"
+            ]
+        ]
+    },
+    {
+        "id": "9753acbeeebf4656",
+        "type": "change",
+        "z": "8d355125d2e4edb6",
+        "name": "Set Band 20M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "20M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 500,
+        "y": 640,
+        "wires": [
+            [
+                "2cb6ad1881950a92"
+            ]
+        ]
+    },
+    {
+        "id": "827074b7c4b5c52f",
+        "type": "change",
+        "z": "8d355125d2e4edb6",
+        "name": "Set Band 15M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "15M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 500,
+        "y": 920,
+        "wires": [
+            [
+                "7f9c0f571555a36c"
+            ]
+        ]
+    },
+    {
+        "id": "b081cc28cab2d511",
+        "type": "change",
+        "z": "8d355125d2e4edb6",
+        "name": "Set Band 10M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "10M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 500,
+        "y": 1200,
+        "wires": [
+            [
+                "2a1d40058df1a0c0"
+            ]
+        ]
+    },
+    {
+        "id": "601d12c10f0705d4",
+        "type": "change",
+        "z": "8d355125d2e4edb6",
+        "name": "Set Band 6M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "6M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 510,
+        "y": 1340,
+        "wires": [
+            [
+                "6c0df889d77bb079"
+            ]
+        ]
+    },
+    {
+        "id": "336c664dfb6d90d0",
+        "type": "change",
+        "z": "8d355125d2e4edb6",
+        "name": "Set Mode CW",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.mode",
+                "pt": "msg",
+                "to": "CW",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2020,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b3ee8487b8373fb4",
+        "type": "change",
+        "z": "8d355125d2e4edb6",
+        "name": "Set Mode SSB",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.mode",
+                "pt": "msg",
+                "to": "SSB",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2020,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1bb72f4a0819f216",
+        "type": "change",
+        "z": "8d355125d2e4edb6",
+        "name": "Set Mode RTTY",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.mode",
+                "pt": "msg",
+                "to": "RTTY",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2020,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ea2c06042157739b",
+        "type": "change",
+        "z": "8d355125d2e4edb6",
+        "name": "Set Band 2M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "2M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 530,
+        "y": 1620,
+        "wires": [
+            [
+                "1a3d73e8503ccb11"
+            ]
+        ]
+    },
+    {
+        "id": "cd4d5af286e17fe4",
+        "type": "change",
+        "z": "8d355125d2e4edb6",
+        "name": "Set Band 70CM",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "70CM",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 520,
+        "y": 1680,
+        "wires": [
+            [
+                "1a3d73e8503ccb11"
+            ]
+        ]
+    },
+    {
+        "id": "1a3d73e8503ccb11",
+        "type": "change",
+        "z": "8d355125d2e4edb6",
+        "name": "Set Mode FM",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.mode",
+                "pt": "msg",
+                "to": "FM",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1680,
+        "y": 1440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "269ebb5a81c35055",
+        "type": "switch",
+        "z": "8d355125d2e4edb6",
+        "name": "Mode in Comment",
+        "property": "payload.comment",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "CW",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "RTTY",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "FT8",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "FT4",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "PSK31",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "LSB",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "SSB",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "USB",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 9,
+        "x": 730,
+        "y": 80,
+        "wires": [
+            [
+                "336c664dfb6d90d0"
+            ],
+            [
+                "1bb72f4a0819f216"
+            ],
+            [
+                "6592f02193b4f720"
+            ],
+            [
+                "a75bb0a4cd22dce9"
+            ],
+            [
+                "aa263a60635166f2"
+            ],
+            [
+                "b3ee8487b8373fb4"
+            ],
+            [
+                "b3ee8487b8373fb4"
+            ],
+            [
+                "b3ee8487b8373fb4"
+            ],
+            [
+                "83d55f2c.f5d7f"
+            ]
+        ]
+    },
+    {
+        "id": "34d9a1b4550bd48a",
+        "type": "switch",
+        "z": "8d355125d2e4edb6",
+        "name": "Mode in Comment",
+        "property": "payload.comment",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "CW",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "RTTY",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "FT8",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "FT4",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "PSK31",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "LSB",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "SSB",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "USB",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 9,
+        "x": 730,
+        "y": 220,
+        "wires": [
+            [
+                "336c664dfb6d90d0"
+            ],
+            [
+                "1bb72f4a0819f216"
+            ],
+            [
+                "6592f02193b4f720"
+            ],
+            [
+                "a75bb0a4cd22dce9"
+            ],
+            [
+                "aa263a60635166f2"
+            ],
+            [
+                "b3ee8487b8373fb4"
+            ],
+            [
+                "b3ee8487b8373fb4"
+            ],
+            [
+                "b3ee8487b8373fb4"
+            ],
+            [
+                "c629474c.113e38"
+            ]
+        ]
+    },
+    {
+        "id": "1cd63e8bfc41e0e2",
+        "type": "switch",
+        "z": "8d355125d2e4edb6",
+        "name": "Mode in Comment",
+        "property": "payload.comment",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "CW",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "RTTY",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "FT8",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "FT4",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "PSK31",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "LSB",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "SSB",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "USB",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 9,
+        "x": 730,
+        "y": 360,
+        "wires": [
+            [
+                "336c664dfb6d90d0"
+            ],
+            [
+                "1bb72f4a0819f216"
+            ],
+            [
+                "6592f02193b4f720"
+            ],
+            [
+                "a75bb0a4cd22dce9"
+            ],
+            [
+                "aa263a60635166f2"
+            ],
+            [
+                "b3ee8487b8373fb4"
+            ],
+            [
+                "b3ee8487b8373fb4"
+            ],
+            [
+                "b3ee8487b8373fb4"
+            ],
+            [
+                "d704dd26.1aca3"
+            ]
+        ]
+    },
+    {
+        "id": "2cb6ad1881950a92",
+        "type": "switch",
+        "z": "8d355125d2e4edb6",
+        "name": "Mode in Comment",
+        "property": "payload.comment",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "CW",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "RTTY",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "FT8",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "FT4",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "PSK31",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "LSB",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "SSB",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "USB",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 9,
+        "x": 730,
+        "y": 640,
+        "wires": [
+            [
+                "336c664dfb6d90d0"
+            ],
+            [
+                "1bb72f4a0819f216"
+            ],
+            [
+                "6592f02193b4f720"
+            ],
+            [
+                "a75bb0a4cd22dce9"
+            ],
+            [
+                "aa263a60635166f2"
+            ],
+            [
+                "b3ee8487b8373fb4"
+            ],
+            [
+                "b3ee8487b8373fb4"
+            ],
+            [
+                "b3ee8487b8373fb4"
+            ],
+            [
+                "26752e6f.8b0412"
+            ]
+        ]
+    },
+    {
+        "id": "7f9c0f571555a36c",
+        "type": "switch",
+        "z": "8d355125d2e4edb6",
+        "name": "Mode in Comment",
+        "property": "payload.comment",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "CW",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "RTTY",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "FT8",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "FT4",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "PSK31",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "LSB",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "SSB",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "USB",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 9,
+        "x": 730,
+        "y": 920,
+        "wires": [
+            [
+                "336c664dfb6d90d0"
+            ],
+            [
+                "1bb72f4a0819f216"
+            ],
+            [
+                "6592f02193b4f720"
+            ],
+            [
+                "a75bb0a4cd22dce9"
+            ],
+            [
+                "aa263a60635166f2"
+            ],
+            [
+                "b3ee8487b8373fb4"
+            ],
+            [
+                "b3ee8487b8373fb4"
+            ],
+            [
+                "b3ee8487b8373fb4"
+            ],
+            [
+                "3ebd4ba0.5ac374"
+            ]
+        ]
+    },
+    {
+        "id": "2a1d40058df1a0c0",
+        "type": "switch",
+        "z": "8d355125d2e4edb6",
+        "name": "Mode in Comment",
+        "property": "payload.comment",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "CW",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "RTTY",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "FT8",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "FT4",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "PSK31",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "LSB",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "SSB",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "USB",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 9,
+        "x": 730,
+        "y": 1200,
+        "wires": [
+            [
+                "336c664dfb6d90d0"
+            ],
+            [
+                "1bb72f4a0819f216"
+            ],
+            [
+                "6592f02193b4f720"
+            ],
+            [
+                "a75bb0a4cd22dce9"
+            ],
+            [
+                "aa263a60635166f2"
+            ],
+            [
+                "b3ee8487b8373fb4"
+            ],
+            [
+                "b3ee8487b8373fb4"
+            ],
+            [
+                "b3ee8487b8373fb4"
+            ],
+            [
+                "590b9a84.2eda94"
+            ]
+        ]
+    },
+    {
+        "id": "6c0df889d77bb079",
+        "type": "switch",
+        "z": "8d355125d2e4edb6",
+        "name": "Mode in Comment",
+        "property": "payload.comment",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "CW",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "RTTY",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "FT8",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "FT4",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "PSK31",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "LSB",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "SSB",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "USB",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 9,
+        "x": 730,
+        "y": 1340,
+        "wires": [
+            [
+                "336c664dfb6d90d0"
+            ],
+            [
+                "1bb72f4a0819f216"
+            ],
+            [
+                "6592f02193b4f720"
+            ],
+            [
+                "a75bb0a4cd22dce9"
+            ],
+            [
+                "aa263a60635166f2"
+            ],
+            [
+                "b3ee8487b8373fb4"
+            ],
+            [
+                "b3ee8487b8373fb4"
+            ],
+            [
+                "b3ee8487b8373fb4"
+            ],
+            [
+                "3cffd6b7.5568ea"
+            ]
+        ]
+    },
+    {
+        "id": "aa263a60635166f2",
+        "type": "change",
+        "z": "8d355125d2e4edb6",
+        "name": "Set Mode PSK",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.mode",
+                "pt": "msg",
+                "to": "PSK",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2020,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6592f02193b4f720",
+        "type": "change",
+        "z": "8d355125d2e4edb6",
+        "name": "Set Mode FT8",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.mode",
+                "pt": "msg",
+                "to": "FT8",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2020,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a75bb0a4cd22dce9",
+        "type": "change",
+        "z": "8d355125d2e4edb6",
+        "name": "Set Mode FT4",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.mode",
+                "pt": "msg",
+                "to": "FT4",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2020,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9633e9970c340a42",
+        "type": "change",
+        "z": "8d355125d2e4edb6",
+        "name": "Set Band 30M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "30M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 500,
+        "y": 500,
+        "wires": [
+            [
+                "5aecbd82f0d3a3c8"
+            ]
+        ]
+    },
+    {
+        "id": "5aecbd82f0d3a3c8",
+        "type": "switch",
+        "z": "8d355125d2e4edb6",
+        "name": "Mode in Comment",
+        "property": "payload.comment",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "CW",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "RTTY",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "FT8",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "FT4",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "PSK31",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "LSB",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "SSB",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "USB",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 9,
+        "x": 730,
+        "y": 500,
+        "wires": [
+            [
+                "336c664dfb6d90d0"
+            ],
+            [
+                "1bb72f4a0819f216"
+            ],
+            [
+                "6592f02193b4f720"
+            ],
+            [
+                "a75bb0a4cd22dce9"
+            ],
+            [
+                "aa263a60635166f2"
+            ],
+            [
+                "b3ee8487b8373fb4"
+            ],
+            [
+                "b3ee8487b8373fb4"
+            ],
+            [
+                "b3ee8487b8373fb4"
+            ],
+            [
+                "fcf3ece224ef9deb"
+            ]
+        ]
+    },
+    {
+        "id": "657f7ed9e70dc511",
+        "type": "change",
+        "z": "8d355125d2e4edb6",
+        "name": "Set Band 17M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "17M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 500,
+        "y": 780,
+        "wires": [
+            [
+                "1476dd53b206a912"
+            ]
+        ]
+    },
+    {
+        "id": "1476dd53b206a912",
+        "type": "switch",
+        "z": "8d355125d2e4edb6",
+        "name": "Mode in Comment",
+        "property": "payload.comment",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "CW",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "RTTY",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "FT8",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "FT4",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "PSK31",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "LSB",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "SSB",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "USB",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 9,
+        "x": 730,
+        "y": 780,
+        "wires": [
+            [
+                "336c664dfb6d90d0"
+            ],
+            [
+                "1bb72f4a0819f216"
+            ],
+            [
+                "6592f02193b4f720"
+            ],
+            [
+                "a75bb0a4cd22dce9"
+            ],
+            [
+                "aa263a60635166f2"
+            ],
+            [
+                "b3ee8487b8373fb4"
+            ],
+            [
+                "b3ee8487b8373fb4"
+            ],
+            [
+                "b3ee8487b8373fb4"
+            ],
+            [
+                "b8e6e94848e85e84"
+            ]
+        ]
+    },
+    {
+        "id": "97b1aecc1370f875",
+        "type": "change",
+        "z": "8d355125d2e4edb6",
+        "name": "Set Band 12M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "12M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 500,
+        "y": 1060,
+        "wires": [
+            [
+                "cbcd8a4415438004"
+            ]
+        ]
+    },
+    {
+        "id": "cbcd8a4415438004",
+        "type": "switch",
+        "z": "8d355125d2e4edb6",
+        "name": "Mode in Comment",
+        "property": "payload.comment",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "CW",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "RTTY",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "FT8",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "FT4",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "PSK31",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "LSB",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "SSB",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "USB",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 9,
+        "x": 730,
+        "y": 1060,
+        "wires": [
+            [
+                "336c664dfb6d90d0"
+            ],
+            [
+                "1bb72f4a0819f216"
+            ],
+            [
+                "6592f02193b4f720"
+            ],
+            [
+                "a75bb0a4cd22dce9"
+            ],
+            [
+                "aa263a60635166f2"
+            ],
+            [
+                "b3ee8487b8373fb4"
+            ],
+            [
+                "b3ee8487b8373fb4"
+            ],
+            [
+                "b3ee8487b8373fb4"
+            ],
+            [
+                "f9c68a742409fc86"
+            ]
+        ]
+    },
+    {
+        "id": "fcf3ece224ef9deb",
+        "type": "switch",
+        "z": "8d355125d2e4edb6",
+        "name": "30M Mode Parser",
+        "property": "payload.freq",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "btwn",
+                "v": "21000.0",
+                "vt": "num",
+                "v2": "21069.9",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "21070.0",
+                "vt": "num",
+                "v2": "21100.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "21100.1",
+                "vt": "num",
+                "v2": "21450.0",
+                "v2t": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 1670,
+        "y": 980,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "b8e6e94848e85e84",
+        "type": "switch",
+        "z": "8d355125d2e4edb6",
+        "name": "17M Mode Parser",
+        "property": "payload.freq",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "btwn",
+                "v": "21000.0",
+                "vt": "num",
+                "v2": "21069.9",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "21070.0",
+                "vt": "num",
+                "v2": "21100.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "21100.1",
+                "vt": "num",
+                "v2": "21450.0",
+                "v2t": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 1670,
+        "y": 1100,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "f9c68a742409fc86",
+        "type": "switch",
+        "z": "8d355125d2e4edb6",
+        "name": "12M Mode Parser",
+        "property": "payload.freq",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "btwn",
+                "v": "21000.0",
+                "vt": "num",
+                "v2": "21069.9",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "21070.0",
+                "vt": "num",
+                "v2": "21100.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "21100.1",
+                "vt": "num",
+                "v2": "21450.0",
+                "v2t": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 1670,
+        "y": 1220,
+        "wires": [
+            [],
+            [],
+            []
+        ]
     },
     {
         "id": "7dfbf25f8f9e3e9d",
@@ -292,7 +3235,7 @@
         "z": "6fd9c5c3c10bf6a2",
         "group": "d0d073ec2c91ebda",
         "order": 1,
-        "width": 24,
+        "width": 20,
         "height": 11,
         "name": "",
         "lat": "",
@@ -302,7 +3245,7 @@
         "cluster": "",
         "maxage": "",
         "usermenu": "hide",
-        "layers": "hide",
+        "layers": "show",
         "panit": "false",
         "panlock": "false",
         "zoomlock": "false",
@@ -317,15 +3260,15 @@
         "mapurl": "",
         "mapopt": "",
         "mapwms": false,
-        "x": 1890,
-        "y": 180,
+        "x": 1750,
+        "y": 200,
         "wires": []
     },
     {
         "id": "f9ed3b0b.0726c8",
         "type": "inject",
         "z": "6fd9c5c3c10bf6a2",
-        "name": "Every 2 mins",
+        "name": "Every 1 mins",
         "props": [
             {
                 "p": "payload"
@@ -335,7 +3278,7 @@
                 "vt": "str"
             }
         ],
-        "repeat": "120",
+        "repeat": "60",
         "crontab": "",
         "once": true,
         "onceDelay": 0.1,
@@ -385,18 +3328,19 @@
         "type": "function",
         "z": "6fd9c5c3c10bf6a2",
         "name": "Format Spot",
-        "func": "\nlet type = \"spot\";\nlet spotID = msg.payload.spotId;\nlet freq1 = msg.payload.frequency;\nlet freq = parseFloat(freq1).toFixed(1)\nlet mode = msg.payload.mode;\nlet call = msg.payload.activator;\nlet commentpad = msg.payload.comments;\nlet comment = commentpad.padEnd(25);\nlet timeraw = msg.payload.spotTime;\nlet x = msg.payload.spotTime.replace(\":\",\"\");\nlet time = x.substr(11,4)+\"Z\";\nlet qthstatus = \"\";\nlet source = \"PO\";\nlet state = msg.payload.state;\nlet calllength = call.length;\nlet parkref = msg.payload.reference;\nlet parkname = msg.payload.parkName;\nlet grid = msg.payload.grid6;\nlet lat = msg.payload.latitude;\nlet lon = msg.payload.longitude;\n\nreturn {payload : {type:type,spotID:spotID,freq:freq,call:call,comment:comment,time:time,qthstatus:qthstatus,source:source,\nstate:state,calllength:calllength,parkref:parkref,parkname:parkname,grid:grid,lat:lat,lon:lon}};\n",
+        "func": "\nlet type = \"spot\";\nlet spotID = msg.payload.spotId;\nlet freq1 = msg.payload.frequency;\nlet freq = parseFloat(freq1).toFixed(1)\nlet mode = msg.payload.mode;\nlet call = msg.payload.activator;\nlet commentpad = msg.payload.comments;\nlet comment = commentpad.padEnd(25);\nlet timeraw = msg.payload.spotTime;\nlet x = msg.payload.spotTime.replace(\":\",\"\");\nlet time = x.substr(11,4)+\"Z\";\nlet state = msg.payload.state;\nlet calllength = call.length;\nlet parkref = msg.payload.reference;\nlet parkname = msg.payload.name;\nlet grid = msg.payload.grid6;\nlet lat = msg.payload.latitude;\nlet lon = msg.payload.longitude;\n\nreturn {payload : {type:type,spotID:spotID,freq:freq, mode:mode,call:call,comment:comment,time:time,\nstate:state,calllength:calllength,parkref:parkref,parkname:parkname,grid:grid,lat:lat,lon:lon}};\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1250,
-        "y": 560,
+        "x": 1530,
+        "y": 500,
         "wires": [
             [
                 "af418ce6.31d9b",
-                "10f3f9f4195aff4b"
+                "10f3f9f4195aff4b",
+                "d0e7720d176d20b6"
             ]
         ]
     },
@@ -415,8 +3359,7 @@
         "y": 560,
         "wires": [
             [
-                "52da224e.7c358c",
-                "97d14070.d7033"
+                "8fc3bf58d94f8c94"
             ]
         ]
     },
@@ -427,13 +3370,23 @@
         "group": "b1cd10a7.e2eab",
         "name": "POTA Spots",
         "order": 1,
-        "width": 16,
-        "height": 12,
+        "width": 30,
+        "height": 11,
         "columns": [
             {
                 "field": "freq",
                 "title": "Freq",
-                "width": "15%",
+                "width": "10%",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "mode",
+                "title": "Mode",
+                "width": "10%",
                 "align": "left",
                 "formatter": "plaintext",
                 "formatterParams": {
@@ -443,7 +3396,7 @@
             {
                 "field": "call",
                 "title": "Call",
-                "width": "15%",
+                "width": "10%",
                 "align": "left",
                 "formatter": "plaintext",
                 "formatterParams": {
@@ -452,7 +3405,7 @@
             },
             {
                 "field": "state",
-                "title": "State",
+                "title": "State or Country",
                 "width": "10%",
                 "align": "left",
                 "formatter": "plaintext",
@@ -503,8 +3456,8 @@
         ],
         "outputs": 1,
         "cts": true,
-        "x": 1590,
-        "y": 560,
+        "x": 2170,
+        "y": 500,
         "wires": [
             [
                 "3c88bb62.a328a4"
@@ -524,8 +3477,1326 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 610,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "af418ce6.31d9b",
+        "type": "debug",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1730,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "e24a55b1.935c28",
+        "type": "debug",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2170,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "3c88bb62.a328a4",
+        "type": "debug",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2350,
         "y": 500,
         "wires": []
+    },
+    {
+        "id": "10f3f9f4195aff4b",
+        "type": "function",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Table Format",
+        "func": "let spot = msg.payload\n\nlet freq = spot.freq;\nlet mode = spot.mode;\nlet call = spot.call;\nlet comment = spot.comment;\nlet time = spot.time\nlet state = spot.state;\nlet parkref = spot.parkref;\nlet parkname = spot.parkname;\n\n\nreturn {payload:{\n    command:\"addData\",\n    arguments:[\n        {\n            freq:freq,call:call,mode:mode,comment:comment,time:time,state:state,parkref:parkref,parkname:parkname\n        },\n        true\n    ],\n    returnPromise:true\n    }\n};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1730,
+        "y": 500,
+        "wires": [
+            [
+                "e24a55b1.935c28",
+                "ff4d7a3c18855c24"
+            ]
+        ]
+    },
+    {
+        "id": "4c15ed9b5b31db14",
+        "type": "comment",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Flow Outline",
+        "info": "User enters in callsigns into database\nUser enteres in parks they have worked\n\nProgram gets spots\n\nProgram compares spots (activators and parks) against database\n\nSends out notifications (1 per hour per type)\n - email with all activators and parks\n - email with all parks\n - parsed by mode\n - \n \nMap 1 shows all spots with the following layers\n- location of spots\n- spot age with legend\n- spots not hunted\n\nMap 2 shows all spots with the follow layers\n- location of spots\n- mode of spots\n- spots not hunted\n\n\nAll spots are erased if QRT in the comments\n\n\nGraphs show\n- # of total spots\n- # of cw\n- # of ssb\n- # of digital\n- # of spots with calls you are following\n\nDatabase spots schema\nspotID unique\nactivator\nfreq\nmode\nreference\nparkname\nspottime\nspotter\ncomments\nsource\nname\nlocationdesc\ngrid4\ngrid6\nlat\nlon\ncount\n\nDatabase schema to add\nnotifiedspot - boolean\nnotifiedspottime - date\n\n\nHunted schema\nDXCC Entity\nLocation\nHASC\nReference type text unique\nPark Name\nFirst QSO Date\nQSOs\n\n",
+        "x": 320,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "0a5c1edbe6988c73",
+        "type": "function",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Format Spot",
+        "func": "\nlet freq = msg.payload.frequency\nlet mode = msg.payload.mode;\nlet call = msg.payload.activator;\nlet comment = msg.payload.comments;\nlet timeraw = msg.payload.spotTime;\nlet state = msg.payload.state;\nlet parkref = msg.payload.reference;\nlet parkname = msg.payload.parkName;\nlet grid = msg.payload.grid6;\nlet lat = msg.payload.latitude;\nlet lon = msg.payload.longitude;\n\nreturn {payload : {name:parkref,lat:lat,lon:lon, frequency:freq, operator:call, mode:mode, ttl:55}};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1290,
+        "y": 340,
+        "wires": [
+            [
+                "d829bd3a106b2c23",
+                "7cf8bc60c0fb51ea"
+            ]
+        ]
+    },
+    {
+        "id": "d39aecc1645caf74",
+        "type": "ui_worldmap",
+        "z": "6fd9c5c3c10bf6a2",
+        "group": "0b0b1d35bd8369f6",
+        "order": 1,
+        "width": 20,
+        "height": 11,
+        "name": "",
+        "lat": "",
+        "lon": "",
+        "zoom": "",
+        "layer": "OSMG",
+        "cluster": "",
+        "maxage": "",
+        "usermenu": "hide",
+        "layers": "show",
+        "panit": "false",
+        "panlock": "false",
+        "zoomlock": "false",
+        "hiderightclick": "true",
+        "coords": "none",
+        "showgrid": "false",
+        "allowFileDrop": "false",
+        "path": "/potamapmode",
+        "overlist": "DR,CO,RA,DN,HM",
+        "maplist": "OSMG,OSMC,EsriC,EsriS,EsriT,EsriDG,UKOS,SW",
+        "mapname": "",
+        "mapurl": "",
+        "mapopt": "",
+        "mapwms": false,
+        "x": 2180,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "ae9572035930f1ba",
+        "type": "Message Counter",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "units": "minutes",
+        "interval": "1",
+        "alignToClock": true,
+        "generator": "internal",
+        "x": 1770,
+        "y": 620,
+        "wires": [
+            [
+                "9ffa6f1018ac3159"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "9ffa6f1018ac3159",
+        "type": "ui_gauge",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Gauge Total Active Spots",
+        "group": "5255f96a02d65e0a",
+        "order": 1,
+        "width": 5,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Active Spots",
+        "label": "Spots",
+        "format": "{{msg.payload}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 2030,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "4da632e4e8461a46",
+        "type": "ui_gauge",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "SSB Spots",
+        "group": "310b567a804ff916",
+        "order": 1,
+        "width": 5,
+        "height": 3,
+        "gtype": "gage",
+        "title": "SSB Spots",
+        "label": "spots",
+        "format": "{{msg.payload}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 2010,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "947b620fdcc88f80",
+        "type": "ui_gauge",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "CW Spots",
+        "group": "310b567a804ff916",
+        "order": 2,
+        "width": 5,
+        "height": 3,
+        "gtype": "gage",
+        "title": "CW Spots",
+        "label": "spots",
+        "format": "{{msg.payload}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 2000,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "bdffb77946f203cf",
+        "type": "ui_gauge",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "FT8/FT4 Spots",
+        "group": "310b567a804ff916",
+        "order": 3,
+        "width": 5,
+        "height": 3,
+        "gtype": "gage",
+        "title": "FT8/FT4 Spots",
+        "label": "spots",
+        "format": "{{msg.payload}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 2020,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "247130072e4481da",
+        "type": "Message Counter",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "units": "minutes",
+        "interval": "1",
+        "alignToClock": true,
+        "generator": "internal",
+        "x": 1770,
+        "y": 800,
+        "wires": [
+            [
+                "bdffb77946f203cf"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "a7db4631c91692ba",
+        "type": "Message Counter",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "units": "minutes",
+        "interval": "1",
+        "alignToClock": true,
+        "generator": "internal",
+        "x": 1770,
+        "y": 740,
+        "wires": [
+            [
+                "947b620fdcc88f80"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "ce831311c1287bbc",
+        "type": "Message Counter",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "units": "minutes",
+        "interval": "1",
+        "alignToClock": true,
+        "generator": "internal",
+        "x": 1770,
+        "y": 680,
+        "wires": [
+            [
+                "4da632e4e8461a46"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "206b9b013e38e777",
+        "type": "switch",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Get Mode",
+        "property": "payload.mode",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "SSB",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "CW",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "FT8",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "FT4",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 5,
+        "x": 1420,
+        "y": 820,
+        "wires": [
+            [
+                "ce831311c1287bbc"
+            ],
+            [
+                "a7db4631c91692ba"
+            ],
+            [
+                "247130072e4481da"
+            ],
+            [
+                "247130072e4481da"
+            ],
+            [
+                "5e4644a296cfe468"
+            ]
+        ]
+    },
+    {
+        "id": "d829bd3a106b2c23",
+        "type": "subflow:c9611467dc313430",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "x": 1520,
+        "y": 200,
+        "wires": [
+            [
+                "7dfbf25f8f9e3e9d"
+            ]
+        ]
+    },
+    {
+        "id": "df2fbb83c76d6dab",
+        "type": "inject",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "props": [
+            {
+                "p": "payload.command",
+                "v": "{ \"legend\": \"<b>Band Pin Color</b></br> <i style=\\\"background: #00FF00\\\"></i> 2M<br> <i style=\\\"background: #FFFFFF\\\"></i> 6M<br> <i style=\\\"background: #FF8C00\\\"></i> 10M<br> <i style=\\\"background: #FFFF00\\\"></i> 15M<br> <i style=\\\"background: #FF0000\\\"></i> 20M<br> <i style=\\\"background: #0000FF\\\"></i> 40M<br> <i style=\\\"background: #008000\\\"></i> 80M<br> <i style=\\\"background: #800080\\\"></i> 160M<br> <i style=\\\"background: #000000\\\"></i> Else<br> \" }",
+                "vt": "json"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "x": 1670,
+        "y": 140,
+        "wires": [
+            [
+                "7dfbf25f8f9e3e9d"
+            ]
+        ]
+    },
+    {
+        "id": "5e4644a296cfe468",
+        "type": "Message Counter",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "units": "minutes",
+        "interval": "1",
+        "alignToClock": true,
+        "generator": "internal",
+        "x": 1770,
+        "y": 860,
+        "wires": [
+            [
+                "ea46acf79de9bec4"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "ea46acf79de9bec4",
+        "type": "ui_gauge",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Other Spots",
+        "group": "310b567a804ff916",
+        "order": 4,
+        "width": 5,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Other Spots",
+        "label": "spots",
+        "format": "{{msg.payload}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 2010,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "7cf8bc60c0fb51ea",
+        "type": "switch",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Get Mode",
+        "property": "payload.mode",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "CW",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "SSB",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "FT8",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "FT4",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 5,
+        "x": 1520,
+        "y": 340,
+        "wires": [
+            [
+                "136debc9556aeec7"
+            ],
+            [
+                "5076c91160c8973e"
+            ],
+            [
+                "0b4dfb56efbf89f3"
+            ],
+            [
+                "0b4dfb56efbf89f3"
+            ],
+            [
+                "a30253dac2641936"
+            ]
+        ]
+    },
+    {
+        "id": "136debc9556aeec7",
+        "type": "change",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "CW Color Green",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "#008000",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.layer",
+                "pt": "msg",
+                "to": "CW",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1840,
+        "y": 280,
+        "wires": [
+            [
+                "d39aecc1645caf74"
+            ]
+        ]
+    },
+    {
+        "id": "5076c91160c8973e",
+        "type": "change",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "SSB Color Blue",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "#0000FF",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.layer",
+                "pt": "msg",
+                "to": "SSB",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1840,
+        "y": 320,
+        "wires": [
+            [
+                "d39aecc1645caf74"
+            ]
+        ]
+    },
+    {
+        "id": "0b4dfb56efbf89f3",
+        "type": "change",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "FT8/FT4 Color Red",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "#FF0000",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.layer",
+                "pt": "msg",
+                "to": "FT8",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1850,
+        "y": 360,
+        "wires": [
+            [
+                "d39aecc1645caf74"
+            ]
+        ]
+    },
+    {
+        "id": "a30253dac2641936",
+        "type": "change",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Other Color Yellow",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "#FFFF00",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.layer",
+                "pt": "msg",
+                "to": "Other",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1850,
+        "y": 400,
+        "wires": [
+            [
+                "d39aecc1645caf74"
+            ]
+        ]
+    },
+    {
+        "id": "572955c601ec2541",
+        "type": "inject",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "props": [
+            {
+                "p": "payload.command",
+                "v": "{ \"legend\": \"<b>Mode Pin Color</b></br> <i style=\\\"background: #008000\\\"></i> CW<br> <i style=\\\"background: #0000FF\\\"></i> SSB<br> <i style=\\\"background: #FF0000\\\"></i> FT8/FT4<br> <i style=\\\"background: #FFFF00\\\"></i> Other<br> \" }",
+                "vt": "json"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "x": 2110,
+        "y": 280,
+        "wires": [
+            [
+                "d39aecc1645caf74"
+            ]
+        ]
+    },
+    {
+        "id": "9e12995503002ffb",
+        "type": "trigger",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "op1": "",
+        "op2": "",
+        "op1type": "nul",
+        "op2type": "date",
+        "duration": "2",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 1220,
+        "y": 920,
+        "wires": [
+            [
+                "caa8d0c9bdad9e44"
+            ]
+        ]
+    },
+    {
+        "id": "caa8d0c9bdad9e44",
+        "type": "function",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Send Report",
+        "func": "msg.payload = \"report\";\nmsg.topic = \"mc-control\";\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1390,
+        "y": 920,
+        "wires": [
+            [
+                "ce831311c1287bbc",
+                "a7db4631c91692ba",
+                "247130072e4481da",
+                "5e4644a296cfe468",
+                "ae9572035930f1ba",
+                "1947caf9250c063c",
+                "8fd6acd9afc55565",
+                "d62200d61be9e0c3"
+            ]
+        ]
+    },
+    {
+        "id": "92f7e19c0efada2e",
+        "type": "change",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Set Band 160M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "160M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2340,
+        "y": 1420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f07f0bd8a03a420c",
+        "type": "change",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Set Band 80M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "80M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2340,
+        "y": 1460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "09845a5739fc55b7",
+        "type": "change",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Set Band 40M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "40M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2340,
+        "y": 1500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "463203f501cfdff7",
+        "type": "change",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Set Band 20M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "20M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2340,
+        "y": 1540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f4243c4861582a44",
+        "type": "change",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Set Band 15M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "15M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2340,
+        "y": 1580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0a02597e4871d7f1",
+        "type": "change",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Set Band 10M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "10M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2340,
+        "y": 1620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e4f874a5f221cc05",
+        "type": "change",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Set Band 6M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "6M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2350,
+        "y": 1660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7fec6ead3b30c9bc",
+        "type": "change",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Set Band 2M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "2M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2350,
+        "y": 1700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "598aa5437b217875",
+        "type": "change",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Set Band 70CM",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "70CM",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2340,
+        "y": 1740,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "373c0acdcdfb5d58",
+        "type": "switch",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Band Parser",
+        "property": "payload.frequency",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "btwn",
+                "v": "1800.0",
+                "vt": "num",
+                "v2": "2000.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "3500.0",
+                "vt": "num",
+                "v2": "4000.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "7000.0",
+                "vt": "num",
+                "v2": "7300.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "14000.0",
+                "vt": "num",
+                "v2": "14350.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "21000.0",
+                "vt": "num",
+                "v2": "21450.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "28000.0",
+                "vt": "num",
+                "v2": "29700.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "50000.0",
+                "vt": "num",
+                "v2": "54000.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "144000.0",
+                "vt": "num",
+                "v2": "148000.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "440000.0",
+                "vt": "num",
+                "v2": "448000.0",
+                "v2t": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 9,
+        "x": 2070,
+        "y": 1560,
+        "wires": [
+            [
+                "92f7e19c0efada2e"
+            ],
+            [
+                "f07f0bd8a03a420c"
+            ],
+            [
+                "09845a5739fc55b7"
+            ],
+            [
+                "463203f501cfdff7"
+            ],
+            [
+                "f4243c4861582a44"
+            ],
+            [
+                "0a02597e4871d7f1"
+            ],
+            [
+                "e4f874a5f221cc05"
+            ],
+            [
+                "7fec6ead3b30c9bc"
+            ],
+            [
+                "598aa5437b217875"
+            ]
+        ]
+    },
+    {
+        "id": "1947caf9250c063c",
+        "type": "Message Counter",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "units": "minutes",
+        "interval": "1",
+        "alignToClock": true,
+        "generator": "internal",
+        "x": 1770,
+        "y": 1060,
+        "wires": [
+            [
+                "47e265f69792faba",
+                "9cc9d875ee6a196b"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "8fd6acd9afc55565",
+        "type": "Message Counter",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "units": "minutes",
+        "interval": "1",
+        "alignToClock": true,
+        "generator": "internal",
+        "x": 1770,
+        "y": 1120,
+        "wires": [
+            [
+                "e8b86bbd5fbe4952"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "d62200d61be9e0c3",
+        "type": "Message Counter",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "units": "minutes",
+        "interval": "1",
+        "alignToClock": true,
+        "generator": "internal",
+        "x": 1770,
+        "y": 1180,
+        "wires": [
+            [
+                "7988789a4e8e7ba0"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "47e265f69792faba",
+        "type": "ui_gauge",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "40M Spots",
+        "group": "5255f96a02d65e0a",
+        "order": 2,
+        "width": 5,
+        "height": 3,
+        "gtype": "gage",
+        "title": "40M Spots",
+        "label": "spots",
+        "format": "{{msg.payload}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 2010,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "e8b86bbd5fbe4952",
+        "type": "ui_gauge",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "20M Spots",
+        "group": "5255f96a02d65e0a",
+        "order": 3,
+        "width": 5,
+        "height": 3,
+        "gtype": "gage",
+        "title": "20M Spots",
+        "label": "spots",
+        "format": "{{msg.payload}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 2010,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "7988789a4e8e7ba0",
+        "type": "ui_gauge",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "15M Spots",
+        "group": "5255f96a02d65e0a",
+        "order": 4,
+        "width": 5,
+        "height": 3,
+        "gtype": "gage",
+        "title": "15M Spots",
+        "label": "spots",
+        "format": "{{msg.payload}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 2010,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "9cc9d875ee6a196b",
+        "type": "debug",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2010,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "b43e42ad76030b6d",
+        "type": "string",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Comment to 23 ToUpperCase",
+        "methods": [
+            {
+                "name": "left",
+                "params": [
+                    {
+                        "type": "num",
+                        "value": "25"
+                    }
+                ]
+            }
+        ],
+        "prop": "payload.comments",
+        "propout": "payload.comments",
+        "object": "msg",
+        "objectout": "msg",
+        "x": 650,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8fc3bf58d94f8c94",
+        "type": "switch",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Is NOT QRT",
+        "property": "payload.comments",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "regex",
+                "v": "qrt",
+                "vt": "str",
+                "case": true
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 630,
+        "y": 560,
+        "wires": [
+            [
+                "52da224e.7c358c"
+            ],
+            [
+                "206b9b013e38e777",
+                "9e12995503002ffb",
+                "ae9572035930f1ba",
+                "557b188d05668207",
+                "97d14070.d7033",
+                "ce4210fc1abb2be3",
+                "99686b3a60ee656b"
+            ]
+        ]
+    },
+    {
+        "id": "391c457ae5059438",
+        "type": "function",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "func": "const epochtime = Math.round(Date.now() / 1000);\n\nlet epochspottime = msg.payload.epochspottime;\n\nlet goaltime = epochtime - 1800;\n\nif (epochspottime => goaltime)\n{\n    let x = (epochspottime - goaltime) / 60;\n    msg.payload.spotage = parseInt(x)\n    return msg;\n}\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1120,
+        "y": 340,
+        "wires": [
+            [
+                "0a5c1edbe6988c73"
+            ]
+        ]
+    },
+    {
+        "id": "557b188d05668207",
+        "type": "moment",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Spot to Epoch",
+        "topic": "",
+        "input": "payload.spotTime",
+        "inputType": "msg",
+        "inTz": "ETC/UTC",
+        "adjAmount": 0,
+        "adjType": "days",
+        "adjDir": "add",
+        "format": "X",
+        "locale": "en-GB",
+        "output": "payload.epochspottime",
+        "outputType": "msg",
+        "outTz": "ETC/UTC",
+        "x": 940,
+        "y": 340,
+        "wires": [
+            [
+                "391c457ae5059438"
+            ]
+        ]
     },
     {
         "id": "2a5f2b17.aec8a4",
@@ -564,61 +4835,13 @@
         "propout": "payload.state",
         "object": "msg",
         "objectout": "msg",
-        "x": 770,
-        "y": 540,
+        "x": 1170,
+        "y": 460,
         "wires": [
             [
-                "9d4763c9a7c186c6"
+                "b6dbdd91.34748"
             ]
         ]
-    },
-    {
-        "id": "af418ce6.31d9b",
-        "type": "debug",
-        "z": "6fd9c5c3c10bf6a2",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1470,
-        "y": 520,
-        "wires": []
-    },
-    {
-        "id": "e24a55b1.935c28",
-        "type": "debug",
-        "z": "6fd9c5c3c10bf6a2",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1670,
-        "y": 520,
-        "wires": []
-    },
-    {
-        "id": "3c88bb62.a328a4",
-        "type": "debug",
-        "z": "6fd9c5c3c10bf6a2",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1790,
-        "y": 560,
-        "wires": []
     },
     {
         "id": "97d14070.d7033",
@@ -637,19 +4860,25 @@
                 "t": "cont",
                 "v": "CA-",
                 "vt": "str"
+            },
+            {
+                "t": "else"
             }
         ],
         "checkall": "true",
         "repair": false,
-        "outputs": 2,
-        "x": 610,
-        "y": 560,
+        "outputs": 3,
+        "x": 990,
+        "y": 500,
         "wires": [
             [
                 "2a5f2b17.aec8a4"
             ],
             [
                 "53434631.8ab898"
+            ],
+            [
+                "8e9aba1e2c5ef505"
             ]
         ]
     },
@@ -682,56 +4911,8 @@
         "propout": "payload.state",
         "object": "msg",
         "objectout": "msg",
-        "x": 770,
-        "y": 580,
-        "wires": [
-            [
-                "9d4763c9a7c186c6"
-            ]
-        ]
-    },
-    {
-        "id": "10f3f9f4195aff4b",
-        "type": "function",
-        "z": "6fd9c5c3c10bf6a2",
-        "name": "Table Format",
-        "func": "let spot = msg.payload\n\nlet freq = spot.freq;\nlet call = spot.call;\nlet comment = spot.comment;\nlet time = spot.time\nlet state = spot.state;\nlet parkref = spot.parkref;\nlet parkname = spot.parkname;\n\n\nreturn {payload:{\n    command:\"addData\",\n    arguments:[\n        {\n            freq:freq,call:call,comment:comment,time:time,state:state,parkref:parkref,parkname:parkname\n        },\n        true\n    ],\n    returnPromise:true\n    }\n};",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1410,
-        "y": 560,
-        "wires": [
-            [
-                "5bbe4d93.fe20d4",
-                "e24a55b1.935c28"
-            ]
-        ]
-    },
-    {
-        "id": "9d4763c9a7c186c6",
-        "type": "string",
-        "z": "6fd9c5c3c10bf6a2",
-        "name": "Comment to 23 ToUpperCase",
-        "methods": [
-            {
-                "name": "left",
-                "params": [
-                    {
-                        "type": "num",
-                        "value": "25"
-                    }
-                ]
-            }
-        ],
-        "prop": "payload.comments",
-        "propout": "payload.comments",
-        "object": "msg",
-        "objectout": "msg",
-        "x": 1030,
-        "y": 560,
+        "x": 1170,
+        "y": 500,
         "wires": [
             [
                 "b6dbdd91.34748"
@@ -739,64 +4920,350 @@
         ]
     },
     {
-        "id": "1a33c8b4d4c72571",
-        "type": "switch",
+        "id": "ce4210fc1abb2be3",
+        "type": "debug",
         "z": "6fd9c5c3c10bf6a2",
-        "name": "Count <=2 ",
-        "property": "payload.count",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "lte",
-                "v": "2",
-                "vt": "str"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 1,
-        "x": 150,
-        "y": 820,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "4c15ed9b5b31db14",
-        "type": "comment",
-        "z": "6fd9c5c3c10bf6a2",
-        "name": "Flow Outline",
-        "info": "User enters in callsigns into database\nUser enteres in parks they have worked\n\nProgram gets spots\n\nProgram compares spots (activators and parks) against database\n\nSends out notifications (1 per hour per type)\n - email with all activators and parks\n - email with all parks\n - parsed by mode\n - \n \nMap 1 shows all spots with the following layers\n- location of spots\n- spot age with legend\n\nMap 2 shows all spots with the follow layers\n- location of spots\n- mode of spots\n- \nAll spots are erased if QRT in the comments\n\n\nGraphs show\n- # of spots\n- # of cw\n- # of ssb\n- # of digital\n- \n\nDatabase schema\nspotID\nactivator\nfreq\nmode\nreference\nparkname\nspottime\nspotter\ncomments\nsource\nname\nlocationdesc\ngrid4\ngrid6\nlat\nlon\ncount\n\nDatabase schema to add\nnotifiedspot - boolean\nnotifiedspottime - date\n",
-        "x": 320,
-        "y": 140,
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1150,
+        "y": 640,
         "wires": []
     },
     {
-        "id": "c14e24429f015f45",
-        "type": "http request",
+        "id": "99686b3a60ee656b",
+        "type": "link out",
         "z": "6fd9c5c3c10bf6a2",
-        "name": "",
-        "method": "GET",
-        "ret": "obj",
-        "paytoqs": "ignore",
-        "url": "https://api.pota.app/user/",
-        "tls": "",
-        "persist": false,
-        "proxy": "",
-        "authType": "basic",
-        "senderr": false,
-        "x": 330,
-        "y": 1020,
+        "name": "POTA Spots OUT",
+        "mode": "link",
+        "links": [],
+        "x": 935,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "8e9aba1e2c5ef505",
+        "type": "string",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Format Country",
+        "methods": [
+            {
+                "name": "chompLeft",
+                "params": [
+                    {
+                        "type": "str",
+                        "value": "-"
+                    }
+                ]
+            },
+            {
+                "name": "left",
+                "params": [
+                    {
+                        "type": "num",
+                        "value": "2"
+                    }
+                ]
+            }
+        ],
+        "prop": "payload.locationDesc",
+        "propout": "payload.state",
+        "object": "msg",
+        "objectout": "msg",
+        "x": 1180,
+        "y": 540,
         "wires": [
             [
-                "54f8d3cc8e71f4ac"
+                "b6dbdd91.34748"
             ]
         ]
     },
     {
-        "id": "d1c260ddae08e8dc",
-        "type": "inject",
+        "id": "ff4d7a3c18855c24",
+        "type": "delay",
         "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "3",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1960,
+        "y": 500,
+        "wires": [
+            [
+                "5bbe4d93.fe20d4"
+            ]
+        ]
+    },
+    {
+        "id": "dcc130a144cbd46b",
+        "type": "function",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Send *****",
+        "func": "let spot = msg.payload\n\nlet freq = \"****\";\nlet mode = \"****\";\nlet call = \"****\";\nlet comment = \"****\";\nlet time = \"*****\"\nlet state = \"****\";\nlet parkref = \"****\";\nlet parkname = \"****\";\n\n\nreturn {payload:{\n    command:\"addData\",\n    arguments:[\n        {\n            freq:freq,call:call,mode:mode,comment:comment,time:time,state:state,parkref:parkref,parkname:parkname\n        },\n        true\n    ],\n    returnPromise:true\n    }\n};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1910,
+        "y": 560,
+        "wires": [
+            [
+                "5bbe4d93.fe20d4"
+            ]
+        ]
+    },
+    {
+        "id": "d0e7720d176d20b6",
+        "type": "delay",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "5",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1720,
+        "y": 560,
+        "wires": [
+            [
+                "dcc130a144cbd46b"
+            ]
+        ]
+    },
+    {
+        "id": "4dd753c0.4c51fc",
+        "type": "template",
+        "z": "1950552b.d4018b",
+        "name": "Insert Into DB",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "insert into parkalert (park) values ('{{payload.park}}');",
+        "output": "str",
+        "x": 560,
+        "y": 600,
+        "wires": [
+            [
+                "e2e48ac9.0fe508"
+            ]
+        ]
+    },
+    {
+        "id": "e376670c.2b9528",
+        "type": "template",
+        "z": "1950552b.d4018b",
+        "name": "Insert into DB",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "insert into designatoralert (designator) values ('{{payload.designator}}');",
+        "output": "str",
+        "x": 600,
+        "y": 280,
+        "wires": [
+            [
+                "b1be7214.9877b"
+            ]
+        ]
+    },
+    {
+        "id": "c1ccc881.7ed818",
+        "type": "template",
+        "z": "1950552b.d4018b",
+        "name": "Insert into DB",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "insert into callsignalert (callsign) values ('{{payload.call}}');",
+        "output": "str",
+        "x": 580,
+        "y": 120,
+        "wires": [
+            [
+                "85c377ad.ad8a68"
+            ]
+        ]
+    },
+    {
+        "id": "b1a200e4.5f4fe",
+        "type": "ui_form",
+        "z": "1950552b.d4018b",
+        "name": "Call Sign Input",
+        "label": "Callsign Add",
+        "group": "266fc73.4322c38",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "options": [
+            {
+                "label": "CALL",
+                "value": "call",
+                "type": "text",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "call": ""
+        },
+        "payload": "",
+        "submit": "submit",
+        "cancel": "cancel",
+        "topic": "topic",
+        "topicType": "msg",
+        "splitLayout": "",
+        "className": "",
+        "x": 300,
+        "y": 120,
+        "wires": [
+            [
+                "c1ccc881.7ed818"
+            ]
+        ]
+    },
+    {
+        "id": "f7cbb846.f9c478",
+        "type": "ui_form",
+        "z": "1950552b.d4018b",
+        "name": "Park Designator Add",
+        "label": "Park Designator Add",
+        "group": "266fc73.4322c38",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "options": [
+            {
+                "label": "Full Park Designator",
+                "value": "park",
+                "type": "text",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "park": ""
+        },
+        "payload": "",
+        "submit": "submit",
+        "cancel": "cancel",
+        "topic": "topic",
+        "topicType": "msg",
+        "splitLayout": "",
+        "className": "",
+        "x": 220,
+        "y": 600,
+        "wires": [
+            [
+                "4dd753c0.4c51fc"
+            ]
+        ]
+    },
+    {
+        "id": "e2e48ac9.0fe508",
+        "type": "sqlite",
+        "z": "1950552b.d4018b",
+        "mydb": "8ad1b77eebb71f03",
+        "sqlquery": "msg.topic",
+        "sql": "select * from wanted_states;",
+        "name": "",
+        "x": 730,
+        "y": 620,
+        "wires": [
+            [
+                "ae526751.368a48"
+            ]
+        ]
+    },
+    {
+        "id": "b1be7214.9877b",
+        "type": "sqlite",
+        "z": "1950552b.d4018b",
+        "mydb": "8ad1b77eebb71f03",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "",
+        "x": 770,
+        "y": 300,
+        "wires": [
+            [
+                "4b483271.d6656c"
+            ]
+        ]
+    },
+    {
+        "id": "85c377ad.ad8a68",
+        "type": "sqlite",
+        "z": "1950552b.d4018b",
+        "mydb": "8ad1b77eebb71f03",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "",
+        "x": 750,
+        "y": 140,
+        "wires": [
+            [
+                "a6a0b27e.7124b"
+            ]
+        ]
+    },
+    {
+        "id": "bd07a513.386db8",
+        "type": "comment",
+        "z": "1950552b.d4018b",
+        "name": "Insert SQL Commands",
+        "info": "Insert into database\n\ninsert into rover (callsign) values ('CALLSIGN');\ninsert into instate (callsign,county) values ('CALLSIGN','COUNTY');\n\n",
+        "x": 660,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "3c1b494e.5f3dc6",
+        "type": "template",
+        "z": "1950552b.d4018b",
+        "name": "Select All Wanted States",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "select * from wanted_states order by wanted_state desc",
+        "output": "str",
+        "x": 430,
+        "y": 1260,
+        "wires": [
+            [
+                "7c6faff2.e35a1"
+            ]
+        ]
+    },
+    {
+        "id": "2364f536.d6b11a",
+        "type": "inject",
+        "z": "1950552b.d4018b",
         "name": "",
         "props": [
             {
@@ -814,18 +5281,848 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 170,
-        "y": 1020,
+        "x": 180,
+        "y": 1260,
         "wires": [
             [
-                "c14e24429f015f45"
+                "3c1b494e.5f3dc6"
             ]
         ]
     },
     {
-        "id": "54f8d3cc8e71f4ac",
+        "id": "857d578d.0ef418",
+        "type": "split",
+        "z": "1950552b.d4018b",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 790,
+        "y": 1260,
+        "wires": [
+            [
+                "d66e9fd7.dc63c"
+            ]
+        ]
+    },
+    {
+        "id": "c6a13f52.c1ecd",
+        "type": "ui_table",
+        "z": "1950552b.d4018b",
+        "group": "d0ac2fe7.d9f9c",
+        "name": "Wanted States",
+        "order": 2,
+        "width": 4,
+        "height": 19,
+        "columns": [
+            {
+                "field": "state",
+                "title": "State",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            }
+        ],
+        "outputs": 0,
+        "cts": false,
+        "x": 1140,
+        "y": 1260,
+        "wires": []
+    },
+    {
+        "id": "d66e9fd7.dc63c",
+        "type": "function",
+        "z": "1950552b.d4018b",
+        "name": "Format Spot",
+        "func": "let state = msg.payload.wanted_state;\n\nreturn {\"payload\":{\n    \"command\":\"addData\",\n    \"arguments\":[\n        {\n            state:state\n        },\n        true\n    ],\n    \"returnPromise\":true\n    }\n};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 950,
+        "y": 1260,
+        "wires": [
+            [
+                "c6a13f52.c1ecd"
+            ]
+        ]
+    },
+    {
+        "id": "e4f38faf.931e7",
+        "type": "ui_table",
+        "z": "1950552b.d4018b",
+        "group": "64ea1b22.59ae54",
+        "name": "N1MM QSOs",
+        "order": 2,
+        "width": 4,
+        "height": 19,
+        "columns": [
+            {
+                "field": "exchange",
+                "title": "Exchange",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "count",
+                "title": "Count",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            }
+        ],
+        "outputs": 0,
+        "cts": false,
+        "x": 1130,
+        "y": 1460,
+        "wires": []
+    },
+    {
+        "id": "7d9b090f.e3cf98",
+        "type": "sqlite",
+        "z": "1950552b.d4018b",
+        "mydb": "8ad1b77eebb71f03",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "",
+        "x": 590,
+        "y": 1460,
+        "wires": [
+            [
+                "452ff671.fb8f48"
+            ]
+        ]
+    },
+    {
+        "id": "5493484b.89b838",
+        "type": "template",
+        "z": "1950552b.d4018b",
+        "name": "Select Logged QSO's",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "select count(exchange1) as count, exchange1 as exchange\nfrom qsos where RoverLocation='ADR' \ngroup by exchange1\norder by length(exchange1) desc",
+        "output": "str",
+        "x": 410,
+        "y": 1460,
+        "wires": [
+            [
+                "7d9b090f.e3cf98"
+            ]
+        ]
+    },
+    {
+        "id": "9d4a46ce.ce2008",
+        "type": "inject",
+        "z": "1950552b.d4018b",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 210,
+        "y": 1460,
+        "wires": [
+            [
+                "5493484b.89b838"
+            ]
+        ]
+    },
+    {
+        "id": "b1701b55.704828",
         "type": "debug",
-        "z": "6fd9c5c3c10bf6a2",
+        "z": "1950552b.d4018b",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 880,
+        "y": 1420,
+        "wires": []
+    },
+    {
+        "id": "452ff671.fb8f48",
+        "type": "split",
+        "z": "1950552b.d4018b",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 720,
+        "y": 1460,
+        "wires": [
+            [
+                "b1701b55.704828",
+                "a7e244ce.f07b68"
+            ]
+        ]
+    },
+    {
+        "id": "1e35c22b.0d72fe",
+        "type": "ui_button",
+        "z": "1950552b.d4018b",
+        "name": "List Parks Button",
+        "group": "64ea1b22.59ae54",
+        "order": 1,
+        "width": 4,
+        "height": 1,
+        "passthru": false,
+        "label": "List Parks",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "date",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 190,
+        "y": 1500,
+        "wires": [
+            [
+                "5493484b.89b838",
+                "bdb766e3.db8d38"
+            ]
+        ]
+    },
+    {
+        "id": "a7e244ce.f07b68",
+        "type": "function",
+        "z": "1950552b.d4018b",
+        "name": "Format Spot",
+        "func": "let exchange = msg.payload.exchange\nlet count = msg.payload.count\n\nreturn {\"payload\":{\n    \"command\":\"addData\",\n    \"arguments\":[\n        {\n            exchange:exchange,count:count\n        },\n        true\n    ],\n    \"returnPromise\":true\n    }\n};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 900,
+        "y": 1460,
+        "wires": [
+            [
+                "e4f38faf.931e7"
+            ]
+        ]
+    },
+    {
+        "id": "bdb766e3.db8d38",
+        "type": "delay",
+        "z": "1950552b.d4018b",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "2",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "outputs": 1,
+        "x": 710,
+        "y": 1500,
+        "wires": [
+            [
+                "7e7affd6.01b0a"
+            ]
+        ]
+    },
+    {
+        "id": "7e7affd6.01b0a",
+        "type": "function",
+        "z": "1950552b.d4018b",
+        "name": "Format Spot",
+        "func": "let exchange = '*********'\nlet count = '*******'\n\nreturn {\"payload\":{\n    \"command\":\"addData\",\n    \"arguments\":[\n        {\n            exchange:exchange,count:count\n        },\n        true\n    ],\n    \"returnPromise\":true\n    }\n};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 900,
+        "y": 1500,
+        "wires": [
+            [
+                "e4f38faf.931e7"
+            ]
+        ]
+    },
+    {
+        "id": "7c6faff2.e35a1",
+        "type": "sqlite",
+        "z": "1950552b.d4018b",
+        "mydb": "8ad1b77eebb71f03",
+        "sqlquery": "msg.topic",
+        "sql": "select * from wanted_states;",
+        "name": "",
+        "x": 610,
+        "y": 1260,
+        "wires": [
+            [
+                "857d578d.0ef418"
+            ]
+        ]
+    },
+    {
+        "id": "e59b44ec.9ef2b8",
+        "type": "ui_button",
+        "z": "1950552b.d4018b",
+        "name": "List State or Provs Button",
+        "group": "d0ac2fe7.d9f9c",
+        "order": 1,
+        "width": 4,
+        "height": 1,
+        "passthru": false,
+        "label": "List States or Provs",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "date",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 170,
+        "y": 1300,
+        "wires": [
+            [
+                "3c1b494e.5f3dc6",
+                "6136dd68.3d03f4"
+            ]
+        ]
+    },
+    {
+        "id": "6136dd68.3d03f4",
+        "type": "delay",
+        "z": "1950552b.d4018b",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "2",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "outputs": 1,
+        "x": 760,
+        "y": 1300,
+        "wires": [
+            [
+                "d6c6d44b.f27c78"
+            ]
+        ]
+    },
+    {
+        "id": "d6c6d44b.f27c78",
+        "type": "function",
+        "z": "1950552b.d4018b",
+        "name": "Format Spot",
+        "func": "let state = '********'\n\nreturn {\"payload\":{\n    \"command\":\"addData\",\n    \"arguments\":[\n        {\n            state:state\n        },\n        true\n    ],\n    \"returnPromise\":true\n    }\n};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 950,
+        "y": 1300,
+        "wires": [
+            [
+                "c6a13f52.c1ecd"
+            ]
+        ]
+    },
+    {
+        "id": "4e25eacd.d604b4",
+        "type": "template",
+        "z": "1950552b.d4018b",
+        "name": "Select All Callsigns",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "select * from callsignalert order by callsign desc",
+        "output": "str",
+        "x": 410,
+        "y": 880,
+        "wires": [
+            [
+                "92ae16d3.e67558"
+            ]
+        ]
+    },
+    {
+        "id": "a92b9b29.96bc58",
+        "type": "split",
+        "z": "1950552b.d4018b",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 750,
+        "y": 880,
+        "wires": [
+            [
+                "1a410a5.70ec5f6",
+                "20a817d7.f3ec98"
+            ]
+        ]
+    },
+    {
+        "id": "fab6ea40.1e4a98",
+        "type": "ui_table",
+        "z": "1950552b.d4018b",
+        "group": "5543b98b5680f25b",
+        "name": "Callsign Table",
+        "order": 2,
+        "width": 6,
+        "height": 19,
+        "columns": [
+            {
+                "field": "call",
+                "title": "Callsign",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            }
+        ],
+        "outputs": 0,
+        "cts": false,
+        "x": 1100,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "1a410a5.70ec5f6",
+        "type": "function",
+        "z": "1950552b.d4018b",
+        "name": "Format Spot",
+        "func": "let call = msg.payload.callsign;\n\nreturn {\"payload\":{\n    \"command\":\"addData\",\n    \"arguments\":[\n        {\n            call:call\n        },\n        true\n    ],\n    \"returnPromise\":true\n    }\n};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 910,
+        "y": 880,
+        "wires": [
+            [
+                "fab6ea40.1e4a98"
+            ]
+        ]
+    },
+    {
+        "id": "92ae16d3.e67558",
+        "type": "sqlite",
+        "z": "1950552b.d4018b",
+        "mydb": "8ad1b77eebb71f03",
+        "sqlquery": "msg.topic",
+        "sql": "select * from wanted_states;",
+        "name": "",
+        "x": 590,
+        "y": 880,
+        "wires": [
+            [
+                "a92b9b29.96bc58"
+            ]
+        ]
+    },
+    {
+        "id": "433612f.6e2a8ec",
+        "type": "ui_button",
+        "z": "1950552b.d4018b",
+        "name": "List Callsign Button",
+        "group": "5543b98b5680f25b",
+        "order": 1,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "label": "List Callsigns",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "date",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 190,
+        "y": 920,
+        "wires": [
+            [
+                "4e25eacd.d604b4",
+                "2d6fc378.b88fbc"
+            ]
+        ]
+    },
+    {
+        "id": "6c48208a.bce4c",
+        "type": "function",
+        "z": "1950552b.d4018b",
+        "name": "Format Spot",
+        "func": "let call = '*******'\n\nreturn {\"payload\":{\n    \"command\":\"addRow\",\n    \"arguments\":[\n        {\n            call:call\n        },\n        true\n    ],\n    \"returnPromise\":true\n    }\n};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 910,
+        "y": 920,
+        "wires": [
+            [
+                "fab6ea40.1e4a98"
+            ]
+        ]
+    },
+    {
+        "id": "20a817d7.f3ec98",
+        "type": "debug",
+        "z": "1950552b.d4018b",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 940,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "2d6fc378.b88fbc",
+        "type": "delay",
+        "z": "1950552b.d4018b",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "2",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "outputs": 1,
+        "x": 760,
+        "y": 920,
+        "wires": [
+            [
+                "6c48208a.bce4c"
+            ]
+        ]
+    },
+    {
+        "id": "a6a0b27e.7124b",
+        "type": "function",
+        "z": "1950552b.d4018b",
+        "name": "Set Status",
+        "func": "topic = msg.topic\n\nstatus = topic +\" was successful\";\npri = '#00FF00';\n\nreturn {\"payload\":{\n    \"command\":\"addData\",\n    \"arguments\":[\n        {\n            pri:pri,status:status \n        },\n        true\n    ],\n    \"returnPromise\":true\n    }\n};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 910,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4b483271.d6656c",
+        "type": "function",
+        "z": "1950552b.d4018b",
+        "name": "Set Status",
+        "func": "topic = msg.topic\n\nstatus = topic +\" was successful\";\npri = '#00FF00';\n\nreturn {\"payload\":{\n    \"command\":\"addData\",\n    \"arguments\":[\n        {\n            pri:pri,status:status \n        },\n        true\n    ],\n    \"returnPromise\":true\n    }\n};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 930,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ae526751.368a48",
+        "type": "function",
+        "z": "1950552b.d4018b",
+        "name": "Set Status",
+        "func": "topic = msg.topic\n\nstatus = topic +\" was successful\";\npri = '#00FF00';\n\nreturn {\"payload\":{\n    \"command\":\"addData\",\n    \"arguments\":[\n        {\n            pri:pri,status:status \n        },\n        true\n    ],\n    \"returnPromise\":true\n    }\n};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 950,
+        "y": 620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e3748ae5.164e98",
+        "type": "comment",
+        "z": "1950552b.d4018b",
+        "name": "Insert SQL Commands",
+        "info": "In State Insert\n\ninsert into instate (callsign,county) values ('call','county');",
+        "x": 660,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "16eac13a.565fdf",
+        "type": "comment",
+        "z": "1950552b.d4018b",
+        "name": "Insert SQL Commands Wanted State",
+        "info": "Insert Wanted State\n\ninsert into wanted_states (wanted_state) values ('state');",
+        "x": 660,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "26b2b277.b8785e",
+        "type": "comment",
+        "z": "1950552b.d4018b",
+        "name": "Delete SQL Commands",
+        "info": "Delete SQL Commands\n\nDelete from database\n\ndelete from wanted_states where wanted_state=('state');",
+        "x": 960,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "a0394f63.c10c7",
+        "type": "template",
+        "z": "1950552b.d4018b",
+        "name": "Select All Countries",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "select * from designatoralert order by designator desc;",
+        "output": "str",
+        "x": 390,
+        "y": 1060,
+        "wires": [
+            [
+                "e89e8823.f25bc8"
+            ]
+        ]
+    },
+    {
+        "id": "386eb5ef.b370ea",
+        "type": "inject",
+        "z": "1950552b.d4018b",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 200,
+        "y": 1060,
+        "wires": [
+            [
+                "a0394f63.c10c7"
+            ]
+        ]
+    },
+    {
+        "id": "de8732.1184a8d",
+        "type": "split",
+        "z": "1950552b.d4018b",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 730,
+        "y": 1060,
+        "wires": [
+            [
+                "da4274f9.750608",
+                "6e3eacaa.4a3994"
+            ]
+        ]
+    },
+    {
+        "id": "d61681dd.77483",
+        "type": "ui_table",
+        "z": "1950552b.d4018b",
+        "group": "55d6abfe8c5c758e",
+        "name": "Country Designator Table",
+        "order": 2,
+        "width": 6,
+        "height": 19,
+        "columns": [
+            {
+                "field": "country",
+                "title": "Country Designator",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            }
+        ],
+        "outputs": 0,
+        "cts": false,
+        "x": 1130,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "da4274f9.750608",
+        "type": "function",
+        "z": "1950552b.d4018b",
+        "name": "Format Spot",
+        "func": "let country = msg.payload.designator\n\nreturn {\"payload\":{\n    \"command\":\"addData\",\n    \"arguments\":[\n        {\n            country:country\n        },\n        true\n    ],\n    \"returnPromise\":true\n    }\n};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 890,
+        "y": 1060,
+        "wires": [
+            [
+                "d61681dd.77483",
+                "f8d93a7f0517efb9"
+            ]
+        ]
+    },
+    {
+        "id": "e89e8823.f25bc8",
+        "type": "sqlite",
+        "z": "1950552b.d4018b",
+        "mydb": "8ad1b77eebb71f03",
+        "sqlquery": "msg.topic",
+        "sql": "select * from wanted_states;",
+        "name": "",
+        "x": 570,
+        "y": 1060,
+        "wires": [
+            [
+                "de8732.1184a8d"
+            ]
+        ]
+    },
+    {
+        "id": "1beace53.506ce2",
+        "type": "ui_button",
+        "z": "1950552b.d4018b",
+        "name": "List Countries Button",
+        "group": "55d6abfe8c5c758e",
+        "order": 1,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "label": "List Countries",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "date",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 160,
+        "y": 1100,
+        "wires": [
+            [
+                "a0394f63.c10c7",
+                "51d3be3e.7919a"
+            ]
+        ]
+    },
+    {
+        "id": "210843a5.d7f08c",
+        "type": "function",
+        "z": "1950552b.d4018b",
+        "name": "Format Spot",
+        "func": "let country = '*******'\n\nreturn {\"payload\":{\n    \"command\":\"addRow\",\n    \"arguments\":[\n        {\n            country:country\n        },\n        true\n    ],\n    \"returnPromise\":true\n    }\n};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 890,
+        "y": 1100,
+        "wires": [
+            [
+                "d61681dd.77483"
+            ]
+        ]
+    },
+    {
+        "id": "6e3eacaa.4a3994",
+        "type": "debug",
+        "z": "1950552b.d4018b",
         "name": "",
         "active": true,
         "tosidebar": true,
@@ -834,60 +6131,1064 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 550,
-        "y": 1020,
+        "x": 920,
+        "y": 1000,
         "wires": []
     },
     {
-        "id": "0a5c1edbe6988c73",
-        "type": "function",
-        "z": "6fd9c5c3c10bf6a2",
+        "id": "51d3be3e.7919a",
+        "type": "delay",
+        "z": "1950552b.d4018b",
         "name": "",
-        "func": "\nreturn msg;",
+        "pauseType": "delay",
+        "timeout": "2",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "outputs": 1,
+        "x": 740,
+        "y": 1100,
+        "wires": [
+            [
+                "210843a5.d7f08c"
+            ]
+        ]
+    },
+    {
+        "id": "50a9413d.75747",
+        "type": "template",
+        "z": "1950552b.d4018b",
+        "name": "Delete From DB",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "delete from callsignalert where callsign=('{{payload.call}}');",
+        "output": "str",
+        "x": 580,
+        "y": 160,
+        "wires": [
+            [
+                "85c377ad.ad8a68"
+            ]
+        ]
+    },
+    {
+        "id": "472ce15a.54707",
+        "type": "ui_form",
+        "z": "1950552b.d4018b",
+        "name": "Call Sign Delete",
+        "label": "Call Sign Delete",
+        "group": "1d9dce79.e995e2",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "options": [
+            {
+                "label": "CALL",
+                "value": "call",
+                "type": "text",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "call": ""
+        },
+        "payload": "",
+        "submit": "submit",
+        "cancel": "cancel",
+        "topic": "topic",
+        "topicType": "msg",
+        "splitLayout": "",
+        "className": "",
+        "x": 300,
+        "y": 160,
+        "wires": [
+            [
+                "50a9413d.75747"
+            ]
+        ]
+    },
+    {
+        "id": "32e7cef0.706e42",
+        "type": "template",
+        "z": "1950552b.d4018b",
+        "name": "Delete From DB",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "delete from designatoralert where designator=('{{payload.designator}}');",
+        "output": "str",
+        "x": 600,
+        "y": 320,
+        "wires": [
+            [
+                "b1be7214.9877b"
+            ]
+        ]
+    },
+    {
+        "id": "d923921b.49016",
+        "type": "ui_form",
+        "z": "1950552b.d4018b",
+        "name": "Country Designator Delete",
+        "label": "Counry Designator Delete",
+        "group": "1d9dce79.e995e2",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "options": [
+            {
+                "label": "Letter Country Designator",
+                "value": "designator",
+                "type": "text",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "designator": ""
+        },
+        "payload": "",
+        "submit": "submit",
+        "cancel": "cancel",
+        "topic": "topic",
+        "topicType": "msg",
+        "splitLayout": "",
+        "className": "",
+        "x": 240,
+        "y": 320,
+        "wires": [
+            [
+                "32e7cef0.706e42"
+            ]
+        ]
+    },
+    {
+        "id": "3daed50d.0c5d9a",
+        "type": "template",
+        "z": "1950552b.d4018b",
+        "name": "Delete From DB",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "delete from wanted_states where wanted_state=('{{payload.state}}');",
+        "output": "str",
+        "x": 560,
+        "y": 640,
+        "wires": [
+            [
+                "e2e48ac9.0fe508"
+            ]
+        ]
+    },
+    {
+        "id": "b0eee79d.ab6408",
+        "type": "ui_form",
+        "z": "1950552b.d4018b",
+        "name": "Park Designator Delete",
+        "label": "Park Designator Delete",
+        "group": "1d9dce79.e995e2",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "options": [
+            {
+                "label": "Full Park Designator",
+                "value": "state",
+                "type": "text",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "state": ""
+        },
+        "payload": "",
+        "submit": "submit",
+        "cancel": "cancel",
+        "topic": "topic",
+        "topicType": "msg",
+        "splitLayout": "",
+        "className": "",
+        "x": 210,
+        "y": 640,
+        "wires": [
+            [
+                "3daed50d.0c5d9a"
+            ]
+        ]
+    },
+    {
+        "id": "125a449f.5d5a7b",
+        "type": "ui_form",
+        "z": "1950552b.d4018b",
+        "name": "Country Designator Add",
+        "label": "Country Designator Add",
+        "group": "266fc73.4322c38",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "options": [
+            {
+                "label": "Letter Country Designator",
+                "value": "designator",
+                "type": "text",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "designator": ""
+        },
+        "payload": "",
+        "submit": "submit",
+        "cancel": "cancel",
+        "topic": "topic",
+        "topicType": "msg",
+        "splitLayout": "",
+        "className": "",
+        "x": 250,
+        "y": 280,
+        "wires": [
+            [
+                "e376670c.2b9528"
+            ]
+        ]
+    },
+    {
+        "id": "43a9426b.ff364c",
+        "type": "comment",
+        "z": "1950552b.d4018b",
+        "name": "Delete SQL Commands",
+        "info": "Delete from database\n\ndelete from rover where callsign=('CALLSIGN');\n\nselect exchange1,count(exchange1) from qsos group by exchange1;\n\n",
+        "x": 900,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "8bea1a19dce42213",
+        "type": "comment",
+        "z": "1950552b.d4018b",
+        "name": "Delete SQL Commands",
+        "info": "Delete from database\n\ndelete from rover where callsign=('CALLSIGN');\n\nselect exchange1,count(exchange1) from qsos group by exchange1;\n\n",
+        "x": 880,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "886f3d06b5ceb84d",
+        "type": "comment",
+        "z": "1950552b.d4018b",
+        "name": "Show All Callsigns to Alert On",
+        "info": "",
+        "x": 290,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "5c6ccfd2a4b5a5ff",
+        "type": "comment",
+        "z": "1950552b.d4018b",
+        "name": "Show All Country Designators to Alert On",
+        "info": "",
+        "x": 320,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "1088bcd99f4d8fd0",
+        "type": "comment",
+        "z": "1950552b.d4018b",
+        "name": "Show All Parks to Alert On",
+        "info": "",
+        "x": 320,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "68d9cc0e0cac36f8",
+        "type": "template",
+        "z": "1950552b.d4018b",
+        "name": "Insert into DB",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "insert into stateprovalert (stateprov) values ('{{payload.stateprov}}');",
+        "output": "str",
+        "x": 600,
+        "y": 420,
+        "wires": [
+            [
+                "064f98d9f0f79297"
+            ]
+        ]
+    },
+    {
+        "id": "064f98d9f0f79297",
+        "type": "sqlite",
+        "z": "1950552b.d4018b",
+        "mydb": "8ad1b77eebb71f03",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "",
+        "x": 770,
+        "y": 440,
+        "wires": [
+            [
+                "3fdc5832fbe44d07"
+            ]
+        ]
+    },
+    {
+        "id": "3fdc5832fbe44d07",
+        "type": "function",
+        "z": "1950552b.d4018b",
+        "name": "Set Status",
+        "func": "topic = msg.topic\n\nstatus = topic +\" was successful\";\npri = '#00FF00';\n\nreturn {\"payload\":{\n    \"command\":\"addData\",\n    \"arguments\":[\n        {\n            pri:pri,status:status \n        },\n        true\n    ],\n    \"returnPromise\":true\n    }\n};",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1700,
+        "x": 930,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d196a1dadc22ca47",
+        "type": "comment",
+        "z": "1950552b.d4018b",
+        "name": "Insert SQL Commands",
+        "info": "In State Insert\n\ninsert into instate (callsign,county) values ('call','county');",
+        "x": 660,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "555dda47951559c1",
+        "type": "template",
+        "z": "1950552b.d4018b",
+        "name": "Delete From DB",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "delete from stateprovalert where callsign=('{{payload.stateprov}}');",
+        "output": "str",
+        "x": 600,
+        "y": 460,
+        "wires": [
+            [
+                "064f98d9f0f79297"
+            ]
+        ]
+    },
+    {
+        "id": "b046e6fafb9ed47e",
+        "type": "ui_form",
+        "z": "1950552b.d4018b",
+        "name": "State or Prov Designator Delete",
+        "label": "State or Prov Designator Delete",
+        "group": "1d9dce79.e995e2",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "options": [
+            {
+                "label": "2 Letter State or Prov Designator",
+                "value": "stateprov",
+                "type": "text",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "stateprov": ""
+        },
+        "payload": "",
+        "submit": "submit",
+        "cancel": "cancel",
+        "topic": "topic",
+        "topicType": "msg",
+        "splitLayout": "",
+        "className": "",
+        "x": 250,
+        "y": 460,
+        "wires": [
+            [
+                "555dda47951559c1"
+            ]
+        ]
+    },
+    {
+        "id": "889ace0c028898e4",
+        "type": "ui_form",
+        "z": "1950552b.d4018b",
+        "name": "State or Prov Designator Add",
+        "label": "State or Prov Designator Add",
+        "group": "266fc73.4322c38",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "options": [
+            {
+                "label": "2 Letter State or Prov Designator",
+                "value": "stateprov",
+                "type": "text",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "stateprov": ""
+        },
+        "payload": "",
+        "submit": "submit",
+        "cancel": "cancel",
+        "topic": "topic",
+        "topicType": "msg",
+        "splitLayout": "",
+        "className": "",
+        "x": 260,
+        "y": 420,
+        "wires": [
+            [
+                "68d9cc0e0cac36f8"
+            ]
+        ]
+    },
+    {
+        "id": "1d929a68334ee5f6",
+        "type": "comment",
+        "z": "1950552b.d4018b",
+        "name": "Delete SQL Commands",
+        "info": "Delete from database\n\ndelete from rover where callsign=('CALLSIGN');\n\nselect exchange1,count(exchange1) from qsos group by exchange1;\n\n",
+        "x": 880,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "f8d93a7f0517efb9",
+        "type": "debug",
+        "z": "1950552b.d4018b",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1200,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "4413f7c1d1654e87",
+        "type": "switch",
+        "z": "af115e9cb7244fd2",
+        "name": "Get Mode",
+        "property": "payload.mode",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "CW",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "SSB",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "USB",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "LSB",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "RTTY",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "FM",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 6,
+        "x": 1000,
+        "y": 380,
+        "wires": [
+            [
+                "3a151d03d470a943"
+            ],
+            [
+                "5f4356e9056fb42b"
+            ],
+            [
+                "5f4356e9056fb42b"
+            ],
+            [
+                "5f4356e9056fb42b"
+            ],
+            [
+                "46854db151806588"
+            ],
+            [
+                "d358cf34ce14d76a"
+            ]
+        ]
+    },
+    {
+        "id": "3a151d03d470a943",
+        "type": "change",
+        "z": "af115e9cb7244fd2",
+        "name": "Label CW",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.mode",
+                "pt": "msg",
+                "to": "CW",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1200,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5f4356e9056fb42b",
+        "type": "change",
+        "z": "af115e9cb7244fd2",
+        "name": "Label SSB",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.mode",
+                "pt": "msg",
+                "to": "SSB",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1210,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "46854db151806588",
+        "type": "change",
+        "z": "af115e9cb7244fd2",
+        "name": "Label RTTY",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.mode",
+                "pt": "msg",
+                "to": "RTTY",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1210,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d358cf34ce14d76a",
+        "type": "change",
+        "z": "af115e9cb7244fd2",
+        "name": "Label FM",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.mode",
+                "pt": "msg",
+                "to": "FM",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1200,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "49fab24f25182628",
+        "type": "switch",
+        "z": "af115e9cb7244fd2",
+        "name": "Get Band",
+        "property": "payload.band",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1.8",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "3.5",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "7",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "14",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "21",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "28",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "50",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "144",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 9,
+        "x": 340,
+        "y": 320,
+        "wires": [
+            [
+                "5887ccdbdc839cca"
+            ],
+            [
+                "39b11d6b28004eaa"
+            ],
+            [
+                "7cb20fe1b39682fc"
+            ],
+            [
+                "f226533ba87727ce"
+            ],
+            [
+                "fde4a327648183d4"
+            ],
+            [
+                "b56772e518708cef"
+            ],
+            [
+                "b4c7987faa1d499a"
+            ],
+            [
+                "48ec636ae7e52cd5"
+            ],
+            [
+                "beec60bf65109e99"
+            ]
+        ]
+    },
+    {
+        "id": "5887ccdbdc839cca",
+        "type": "change",
+        "z": "af115e9cb7244fd2",
+        "name": "160M Color Purple",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "#800080",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "160M",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.layer",
+                "pt": "msg",
+                "to": "160M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 650,
         "y": 180,
         "wires": [
             []
         ]
     },
     {
-        "id": "d39aecc1645caf74",
-        "type": "ui_worldmap",
-        "z": "6fd9c5c3c10bf6a2",
-        "group": "0b0b1d35bd8369f6",
-        "order": 1,
-        "width": 23,
-        "height": 11,
-        "name": "",
-        "lat": "",
-        "lon": "",
-        "zoom": "",
-        "layer": "OSMG",
-        "cluster": "",
-        "maxage": "",
-        "usermenu": "hide",
-        "layers": "hide",
-        "panit": "false",
-        "panlock": "false",
-        "zoomlock": "false",
-        "hiderightclick": "true",
-        "coords": "none",
-        "showgrid": "false",
-        "allowFileDrop": "false",
-        "path": "/potamapmode",
-        "overlist": "DR,CO,RA,DN,HM",
-        "maplist": "OSMG,OSMC,EsriC,EsriS,EsriT,EsriDG,UKOS,SW",
-        "mapname": "",
-        "mapurl": "",
-        "mapopt": "",
-        "mapwms": false,
-        "x": 1900,
-        "y": 240,
-        "wires": []
+        "id": "39b11d6b28004eaa",
+        "type": "change",
+        "z": "af115e9cb7244fd2",
+        "name": "80M Color Green",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "#008000",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "80M",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.layer",
+                "pt": "msg",
+                "to": "80M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 650,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7cb20fe1b39682fc",
+        "type": "change",
+        "z": "af115e9cb7244fd2",
+        "name": "40M Color Blue",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "#0000FF",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "40M",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.layer",
+                "pt": "msg",
+                "to": "40M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 660,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f226533ba87727ce",
+        "type": "change",
+        "z": "af115e9cb7244fd2",
+        "name": "20M Color Red",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "#FF0000",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "20M",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.layer",
+                "pt": "msg",
+                "to": "20M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 660,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fde4a327648183d4",
+        "type": "change",
+        "z": "af115e9cb7244fd2",
+        "name": "15M Color Yellow",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "#FFFF00",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "15M",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.layer",
+                "pt": "msg",
+                "to": "15M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 650,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b56772e518708cef",
+        "type": "change",
+        "z": "af115e9cb7244fd2",
+        "name": "10M Color Orange",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "#FF8C00",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "10M",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.layer",
+                "pt": "msg",
+                "to": "10M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 650,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b4c7987faa1d499a",
+        "type": "change",
+        "z": "af115e9cb7244fd2",
+        "name": "6M Color White",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "#FFFFFF",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "6M",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.layer",
+                "pt": "msg",
+                "to": "6M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 660,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "48ec636ae7e52cd5",
+        "type": "change",
+        "z": "af115e9cb7244fd2",
+        "name": "2M Color Lime",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "#00FF00",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "2M",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.layer",
+                "pt": "msg",
+                "to": "2M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 660,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "beec60bf65109e99",
+        "type": "change",
+        "z": "af115e9cb7244fd2",
+        "name": "Else Color Black",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "#000000",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.layer",
+                "pt": "msg",
+                "to": "Other",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 660,
+        "y": 500,
+        "wires": [
+            []
+        ]
     }
 ]
