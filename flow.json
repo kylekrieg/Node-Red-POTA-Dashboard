@@ -17,7 +17,7 @@
     {
         "id": "af115e9cb7244fd2",
         "type": "tab",
-        "label": "Not Used",
+        "label": "Notification Checks",
         "disabled": false,
         "info": "",
         "env": []
@@ -79,6 +79,26 @@
                     {
                         "id": "20e9ecd94f6a68d5",
                         "port": 0
+                    },
+                    {
+                        "id": "258a2ed64a4e6b56",
+                        "port": 0
+                    },
+                    {
+                        "id": "e072594b8cf8774e",
+                        "port": 0
+                    },
+                    {
+                        "id": "f53163b98da1e27a",
+                        "port": 0
+                    },
+                    {
+                        "id": "ede60919683b5e49",
+                        "port": 0
+                    },
+                    {
+                        "id": "ccef6d35b655a407",
+                        "port": 0
                     }
                 ]
             }
@@ -106,31 +126,65 @@
         ],
         "out": [
             {
-                "x": 2620,
-                "y": 240,
+                "x": 2320,
+                "y": 140,
                 "wires": [
                     {
                         "id": "336c664dfb6d90d0",
                         "port": 0
-                    },
+                    }
+                ]
+            },
+            {
+                "x": 2320,
+                "y": 200,
+                "wires": [
                     {
                         "id": "1bb72f4a0819f216",
                         "port": 0
-                    },
-                    {
-                        "id": "b3ee8487b8373fb4",
-                        "port": 0
-                    },
-                    {
-                        "id": "aa263a60635166f2",
-                        "port": 0
-                    },
+                    }
+                ]
+            },
+            {
+                "x": 2320,
+                "y": 260,
+                "wires": [
                     {
                         "id": "6592f02193b4f720",
                         "port": 0
                     },
                     {
                         "id": "a75bb0a4cd22dce9",
+                        "port": 0
+                    }
+                ]
+            },
+            {
+                "x": 2320,
+                "y": 320,
+                "wires": [
+                    {
+                        "id": "aa263a60635166f2",
+                        "port": 0
+                    }
+                ]
+            },
+            {
+                "x": 2320,
+                "y": 380,
+                "wires": [
+                    {
+                        "id": "b3ee8487b8373fb4",
+                        "port": 0
+                    }
+                ]
+            },
+            {
+                "x": 2320,
+                "y": 440,
+                "wires": [
+                    {
+                        "id": "e8279fe0447232c9",
                         "port": 0
                     }
                 ]
@@ -141,9 +195,178 @@
         "color": "#DDAA99"
     },
     {
+        "id": "2924702c.b33a7",
+        "type": "subflow",
+        "name": "ui-table handler",
+        "info": "# ui-table handler\nUniversal handler for ui-table.\n## features\n- buffer table data\n- add or update individual rows or cells of the table\n- delete rows\n- clear tableData\n- handle column width\n- handle column order\n- hide und unhide columns\n- hide and unhide rows\n- records row order\n- support for nested columns [(column groups)](http://tabulator.info/examples/4.7#column-groups)\n- support for child rows (_children) [(nested data trees)](http://tabulator.info/examples/4.7#tree)\n\nFor real life example see:\n\n**syslog server** for logfile like table with filters\n\n**remote device table** for dynamically updated table with context menues\n\n**irrigation system** for sortable rows\n\n## sending data to ui-tabel\n\n- sending an `array` as discribed in ui-table will replace the complete table and delete all table edits\n  \n  if `msg.keepEdits=true` is added the existing edits will be kept.\n- send an `object` containing the updated properties of a table row by sending msg.<tableDataProp>.\n\n  The table is updated using the `updateOrAddData` command. You can alter the command used by adding the `msg.tabulatorCommand` and `msg.tabulatorParameter`\n\n```\nmsg.tabulatorCommand=\"addData\";\nmsg.tabulatorParameter=[true];\n```\n## configuration\n- `tabulator` json formatted object containing configuration of the table. See ui-table for more details.\n- `property` property of the msg object that contains the data to be passed to ui-table. I.e. *state* `msg.state`\n- `index` index column to identify individual rows. Each message containing data must have a unique `msg.topic` to identify the row. Messages without this `msg.topic` will be droped. It is not nessesary but possible to display the index column in the table. Do not enable editing on this column otherwise you will loose the connection and another row will be added to the table as soon as a new message arrives!\n\n   Defaults to *$topic* `msg.state.$topic`\n- `maxRows`maximum number of rows held by table widget. If grater than **0** the amount of rows in ui-table is limited. For this to work the index row must be a Number. ´rows < currentID-maxRows´ will be deleted.\n- `maxStore`maximum number of rows stored by this node for replay if a client connects. If grater than **0** the amount of rows in flow context is limited. for this to work the index row must be a Number. ´rows < currentID-maxStore´ will be deleted.\n- `dashboard` name of the dashboard tab to only update the table if the dashboard is visible. If empty the table will be updated on every tab change and connect.\n- `context` configuration of context data. The subflow will save or cache data in the flows context using `$parent.`. \n   **tableData** caches the incoming data to restore it on `ui-control´ *change* messages.\n   **tableConfig** saves column width and order to save the interactive table layot\n   **tableEdit** saves edits on the table data otherwise it would be overwritten when new data arrives\n```json\n{\n    \"tableData\": {\n        \"name\": \"tableData\"\n    },\n    \"tableConfig\": {\n        \"name\": \"tableConfig\",\n        \"storage\": \"file\"\n    },\n    \"tableEdit\": {\n        \"name\": \"tableEdit\",\n        \"storage\": \"file\"\n    }\n}\n```\n\n## commands\ncommands can be passed by sending a object as `msg.payload`\n\n```json\n{\n    \"command\": \"delete\",\n    \"object\": \"columnOrder\"\n}\n```\n\n- `deleteTable` tableCache\n- `deleteRow` delete single row. `object` matching index property\n- `ignoreRow` delete single row and put it on an ignore list. `object` matching index property\n- `unIgnoreRow`remove row from the ignore list.  `object` matching index property\n- `unIgnoreRows`delte the ignore list. \n- `deleteRowOrder` delete custom row order\n- `deleteColumnOrder` delete custom column order\n  This is important if you add or delete columns in the tabulator config otherwise the columns most likely don`t show up\n- `deleteColumnWidth` delete custom column width\n- `columnHide` hide a column. `object` matching column field\n- `columnUnHide` unhide a column. `object` matching column field\n- `columnsUnHide` unhide all hidden columns.\n- `setMaxStore` set maximum amount of rows in cache\n- `setMaxDisplay` set maximum amout of rows in ui-table\n- `getTable` get table data (as displayed) as an array (on 2nd output)\n \n## background\nui-table warps the powerfull tabluator library.  This subflow makes it easier to unleash the powerfull features of ui-table",
+        "category": "dashboard",
+        "in": [
+            {
+                "x": 54,
+                "y": 85,
+                "wires": [
+                    {
+                        "id": "5eb0bd6b.74b794"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 360,
+                "y": 85,
+                "wires": [
+                    {
+                        "id": "5eb0bd6b.74b794",
+                        "port": 1
+                    }
+                ]
+            },
+            {
+                "x": 360,
+                "y": 136,
+                "wires": [
+                    {
+                        "id": "5eb0bd6b.74b794",
+                        "port": 2
+                    }
+                ]
+            }
+        ],
+        "env": [
+            {
+                "name": "tabulator",
+                "type": "json",
+                "value": "{\"tabulator\":{\"responsiveLayout\":\"collapse\",\"responsiveLayoutCollapseStartOpen\":false,\"index\":\"$name\",\"layout\":\"fitColumns\",\"movableColumns\":true,\"groupBy\":\"\",\"columnResized\":\"function(column){     var newColumn = {         field: column._column.field,         visible: column._column.visible,         width: column._column.width,         widthFixed: column._column.widthFixed,         widthStyled: column._column.widthStyled     }; this.send({topic:this.config.topic,ui_control:{callback:'columnResized',columnWidths:newColumn}}); }\",\"columnMoved\":\"function(column, columns){     var newColumns=[];     columns.forEach(function (column) {         newColumns.push({'field': column._column.definition.field, 'title': column._column.definition.title});     });     this.send({topic:this.config.topic,ui_control:{callback:'columnMoved',columns:newColumns}}); }\",\"rowFormatter\":\"function(row){     var data = row.getData();     switch (data.$state) {         case \\\"lost\\\":             row.getElement().style.backgroundColor = \\\"#9e2e66\\\";             row.getElement().style.color = \\\"#a6a6a6\\\";             break;         case \\\"sleeping\\\":             row.getElement().style.backgroundColor = \\\"#336699\\\";             break;         case \\\"disconnected\\\":             row.getElement().style.backgroundColor = \\\"#cc3300\\\";             row.getElement().style.color = \\\"#a6a6a6\\\";             break;         case \\\"alert\\\":             row.getElement().style.backgroundColor = \\\"#A6A6DF\\\";             break;         case \\\"init\\\":             row.getElement().style.backgroundColor = \\\"#f2f20d\\\";             break;         case \\\"ready\\\":             row.getElement().style.backgroundColor = \\\"\\\";             row.getElement().style.color = \\\"\\\";             break;         } }\",\"columns\":[{\"formatter\":\"responsiveCollapse\",\"width\":30,\"minWidth\":30,\"align\":\"center\",\"resizable\":false,\"headerSort\":false,\"frozen\":true,\"title\":\"expand\",\"field\":\"expand\",\"headerVertical\":\"flip\"},{\"formatter\":\"function(cell, formatterParams, onRendered) {      var html = cell.getValue(); return html;  }\",\"title\":\"State\",\"field\":\"$stateIcon\",\"width\":100,\"frozen\":true,\"headerVertical\":\"flip\"},{\"formatter\":\"function(cell, formatterParams, onRendered) {     var html = cell.getValue(); return html;  }\",\"title\":\"Signal\",\"field\":\"signalIcon\",\"width\":100,\"frozen\":true,\"headerVertical\":\"flip\"},{\"title\":\"Name\",\"field\":\"$name\",\"width\":100,\"frozen\":true,\"headerVertical\":\"flip\"},{\"title\":\"State\",\"field\":\"$state\",\"width\":100,\"align\":\"center\",\"headerVertical\":\"flip\"},{\"title\":\"last-ready\",\"field\":\"lastSeenreadyFormatted\",\"width\":100,\"align\":\"left\",\"headerVertical\":\"flip\"},{\"title\":\"Homie\",\"field\":\"$homie\",\"width\":100,\"align\":\"left\",\"headerVertical\":\"flip\"},{\"title\":\"Platform\",\"field\":\"$implementation\",\"width\":100,\"align\":\"left\",\"headerVertical\":\"flip\"},{\"title\":\"Statistics\",\"columns\":[{\"title\":\"Interval\",\"field\":\"interval\",\"width\":100,\"headerVertical\":\"flip\"},{\"formatterParams\":{\"outputFormat\":\"d hh:mm:ss\",\"inputFormat\":\"seconds\",\"invalidPlaceholder\":\"(unknown)\"},\"title\":\"Uptime\",\"field\":\"uptime\",\"formatter\":\"function(cell, formatterParams, onRendered){     var pad = function (num) {         return (\\\"0\\\"+num).slice(-2);     };     var secs = Number(cell.getValue());     if (Number.isNaN(secs)) return;     var minutes = Math.floor(secs / 60);     secs = secs%60;     var hours = Math.floor(minutes/60);     minutes = minutes%60;     var days = Math.floor(hours/24);     hours = hours%24;     if (days>0)         return days+\\\"d \\\"+pad(hours)+\\\":\\\"+pad(minutes);     else         return pad(hours)+\\\":\\\"+pad(minutes)+\\\":\\\"+pad(secs); }\",\"width\":100,\"headerVertical\":\"flip\"},{\"formatterParams\":{\"min\":0,\"max\":100,\"color\":[\"red\",\"orange\",\"green\"],\"legend\":\"function (value) {if (value>0) return \\\"<span style='color:#FFFFFF;'>\\\"+value+\\\" %</span>\\\"; else return; }\",\"legendColor\":\"#FFFFFF\",\"legendAlign\":\"center\"},\"title\":\"Signal\",\"field\":\"signal\",\"formatter\":\"progress\",\"width\":100,\"headerVertical\":\"flip\"},{\"formatterParams\":{\"min\":2.5,\"max\":3.5,\"color\":[\"red\",\"green\",\"red\"],\"legend\":\"function (value) { if (value>0) return \\\"<span style='color:#FFFFFF;'>\\\"+value+\\\" V</span>\\\"; else return; }\",\"legendColor\":\"#101010\",\"legendAlign\":\"center\"},\"title\":\"Supply\",\"field\":\"supply\",\"formatter\":\"progress\",\"width\":100,\"headerVertical\":\"flip\"},{\"formatterParams\":{\"min\":0,\"max\":100,\"color\":[\"red\",\"orange\",\"green\"],\"legend\":\"function (value) {     if (value>0)         return \\\"<span style='color:#FFFFFF;'>\\\"+value+\\\" %</span>\\\";     else         return; }\",\"legendColor\":\"#101010\",\"legendAlign\":\"center\"},\"title\":\"Battery\",\"field\":\"battery\",\"formatter\":\"progress\",\"width\":100,\"headerVertical\":\"flip\"},{\"formatterParams\":{\"min\":0,\"max\":100000,\"color\":[\"red\",\"orange\",\"green\"],\"legend\":\"function (value) { if (value>0) return \\\"<span style='color:#FFFFFF;'>\\\"+(value/1024).toFixed(2)+\\\" kB</span>\\\"; else return; }\",\"legendColor\":\"#101010\",\"legendAlign\":\"center\"},\"title\":\"Memory\",\"field\":\"freeheap\",\"formatter\":\"progress\",\"width\":100,\"headerVertical\":\"flip\"},{\"formatterParams\":{\"target\":\"_blank\",\"min\":0,\"max\":100,\"color\":[\"red\",\"orange\",\"green\"],\"legend\":\"function (value) {     if (value>0)         return \\\"<span style='color:#FFFFFF;'>\\\"+value+\\\" %</span>\\\";     else         return; }\",\"legendColor\":\"#101010\",\"legendAlign\":\"center\"},\"title\":\"CPU load\",\"field\":\"cpuload\",\"formatter\":\"progress\",\"width\":100,\"headerVertical\":\"flip\"},{\"formatterParams\":{\"min\":20,\"max\":60,\"color\":[\"green\",\"orange\",\"red\"],\"legend\":\"function (value) { if (value>0) return \\\"<span style='color:#FFFFFF;'>\\\"+value+\\\" °C</span>\\\"; else return; }\",\"legendColor\":\"#101010\",\"legendAlign\":\"center\"},\"title\":\"CPU temp\",\"field\":\"cputemp\",\"formatter\":\"progress\",\"width\":100,\"headerVertical\":\"flip\"}]},{\"title\":\"Firmware\",\"columns\":[{\"formatter\":\"link\",\"formatterParams\":{\"labelField\":\"$localip\",\"urlPrefix\":\"http://\",\"target\":\"_blank\"},\"title\":\"IP\",\"field\":\"$localip\",\"width\":100},{\"title\":\"mac\",\"field\":\"$mac\",\"width\":100},{\"title\":\"Accsess Point\",\"field\":\"SSID\",\"width\":100},{\"title\":\"Firmware\",\"field\":\"name\",\"width\":100},{\"title\":\"Version\",\"field\":\"version\",\"width\":100},{\"title\":\"Last Boot Cause\",\"field\":\"lastBootCause\",\"width\":100},{\"title\":\"Reset Reason\",\"field\":\"resetReason\",\"width\":100}]}]},\"customHeight\":12}",
+                "ui": {
+                    "icon": "font-awesome/fa-table",
+                    "label": {
+                        "en-US": "Tabulator"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "json",
+                            "env"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "tableDataProp",
+                "type": "str",
+                "value": "row",
+                "ui": {
+                    "icon": "font-awesome/fa-tag",
+                    "label": {
+                        "en-US": "rowProperty"
+                    }
+                }
+            },
+            {
+                "name": "tableIndex",
+                "type": "str",
+                "value": "$topic",
+                "ui": {
+                    "icon": "font-awesome/fa-indent",
+                    "label": {
+                        "en-US": "Index"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "str",
+                            "json",
+                            "env"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "maxRows",
+                "type": "num",
+                "value": "0",
+                "ui": {
+                    "icon": "font-awesome/fa-list-ol",
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "num",
+                            "bool",
+                            "env"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "maxStore",
+                "type": "num",
+                "value": "0",
+                "ui": {
+                    "icon": "font-awesome/fa-database",
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "num",
+                            "env"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "dashboard",
+                "type": "str",
+                "value": "Remote Device Table",
+                "ui": {
+                    "icon": "font-awesome/fa-dashboard",
+                    "label": {
+                        "en-US": "Dashboard"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "str",
+                            "env"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "tableContext",
+                "type": "json",
+                "value": "{\"tableData\":{\"name\":\"tableData\"},\"tableConfig\":{\"name\":\"tableConfig\",\"storage\":\"file\"},\"tableEdit\":{\"name\":\"tableEdit\",\"storage\":\"file\"}}",
+                "ui": {
+                    "icon": "font-awesome/fa-database",
+                    "label": {
+                        "en-US": "Context"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "json",
+                            "env"
+                        ]
+                    }
+                }
+            }
+        ],
+        "color": "#3FADB5",
+        "icon": "node-red-dashboard/ui_slider.png",
+        "status": {
+            "x": 360,
+            "y": 34,
+            "wires": [
+                {
+                    "id": "5eb0bd6b.74b794",
+                    "port": 0
+                }
+            ]
+        }
+    },
+    {
         "id": "50a9dd15acb28546",
         "type": "ui_tab",
-        "name": "POTA Notifier",
+        "name": "POTA Dashboard",
         "icon": "dashboard",
         "order": 1,
         "disabled": false,
@@ -341,42 +564,24 @@
     {
         "id": "d0ac2fe7.d9f9c",
         "type": "ui_group",
-        "name": "Wanted States",
-        "tab": "d08296a1.bb1fe8",
-        "order": 3,
+        "name": "State Prov Output",
+        "tab": "a002cc51.3d92e",
+        "order": 5,
         "disp": true,
         "width": 4,
-        "collapse": false
+        "collapse": false,
+        "className": ""
     },
     {
         "id": "64ea1b22.59ae54",
         "type": "ui_group",
-        "name": "N1MM QSO Counts",
-        "tab": "d08296a1.bb1fe8",
+        "name": "Park Output",
+        "tab": "a002cc51.3d92e",
         "order": 4,
         "disp": true,
         "width": 4,
-        "collapse": false
-    },
-    {
-        "id": "1541b6e8.7af069",
-        "type": "ui_group",
-        "name": "Rovers",
-        "tab": "d08296a1.bb1fe8",
-        "order": 1,
-        "disp": true,
-        "width": 4,
-        "collapse": false
-    },
-    {
-        "id": "79199164.02dcb",
-        "type": "ui_group",
-        "name": "In State",
-        "tab": "d08296a1.bb1fe8",
-        "order": 2,
-        "disp": true,
-        "width": 4,
-        "collapse": false
+        "collapse": false,
+        "className": ""
     },
     {
         "id": "1d9dce79.e995e2",
@@ -391,18 +596,9 @@
     {
         "id": "a002cc51.3d92e",
         "type": "ui_tab",
-        "name": "Database",
+        "name": "Configuration",
         "icon": "dashboard",
         "order": 2,
-        "disabled": false,
-        "hidden": false
-    },
-    {
-        "id": "d08296a1.bb1fe8",
-        "type": "ui_tab",
-        "name": "Database Maintenance",
-        "icon": "dashboard",
-        "order": 9,
         "disabled": false,
         "hidden": false
     },
@@ -413,7 +609,7 @@
         "tab": "a002cc51.3d92e",
         "order": 3,
         "disp": true,
-        "width": "6",
+        "width": 4,
         "collapse": false,
         "className": ""
     },
@@ -422,9 +618,9 @@
         "type": "ui_group",
         "name": "Country Output",
         "tab": "a002cc51.3d92e",
-        "order": 4,
+        "order": 6,
         "disp": true,
-        "width": "6",
+        "width": 4,
         "collapse": false,
         "className": ""
     },
@@ -436,6 +632,39 @@
         "order": 3,
         "disp": true,
         "width": "4",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "2b43e4ca38d9b76c",
+        "type": "ui_group",
+        "name": "Home Lat & Lon",
+        "tab": "a002cc51.3d92e",
+        "order": 7,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "0c742b00f4db5487",
+        "type": "ui_group",
+        "name": "Database Nuke Option",
+        "tab": "a002cc51.3d92e",
+        "order": 8,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "8afbd37356b63495",
+        "type": "ui_group",
+        "name": "Outgoing Spots",
+        "tab": "50a9dd15acb28546",
+        "order": 7,
+        "disp": true,
+        "width": 10,
         "collapse": false,
         "className": ""
     },
@@ -459,7 +688,17 @@
             },
             {
                 "t": "eq",
+                "v": "60M",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
                 "v": "40M",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "30M",
                 "vt": "str"
             },
             {
@@ -469,7 +708,17 @@
             },
             {
                 "t": "eq",
+                "v": "17M",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
                 "v": "15M",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "12M",
                 "vt": "str"
             },
             {
@@ -498,7 +747,7 @@
         ],
         "checkall": "true",
         "repair": false,
-        "outputs": 10,
+        "outputs": 14,
         "x": 1280,
         "y": 340,
         "wires": [
@@ -509,13 +758,25 @@
                 "d7eecaed14d89601"
             ],
             [
+                "ccef6d35b655a407"
+            ],
+            [
                 "5cf206da68509424"
+            ],
+            [
+                "258a2ed64a4e6b56"
             ],
             [
                 "d7dc7fa1d3799ada"
             ],
             [
+                "e072594b8cf8774e"
+            ],
+            [
                 "e2d981c2c24c6e4f"
+            ],
+            [
+                "f53163b98da1e27a"
             ],
             [
                 "53c0cd92b15d3320"
@@ -526,7 +787,9 @@
             [
                 "e25ae21f9ac978c6"
             ],
-            [],
+            [
+                "ede60919683b5e49"
+            ],
             [
                 "20e9ecd94f6a68d5"
             ]
@@ -536,13 +799,13 @@
         "id": "e140bd1326a604e7",
         "type": "change",
         "z": "c9611467dc313430",
-        "name": "160M Color Purple",
+        "name": "160M Color Magenta",
         "rules": [
             {
                 "t": "set",
                 "p": "payload.iconColor",
                 "pt": "msg",
-                "to": "#800080",
+                "to": "#f032e6",
                 "tot": "str"
             },
             {
@@ -565,8 +828,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1610,
-        "y": 200,
+        "x": 1620,
+        "y": 80,
         "wires": [
             []
         ]
@@ -581,7 +844,7 @@
                 "t": "set",
                 "p": "payload.iconColor",
                 "pt": "msg",
-                "to": "#008000",
+                "to": "#3cb44b",
                 "tot": "str"
             },
             {
@@ -605,7 +868,7 @@
         "to": "",
         "reg": false,
         "x": 1610,
-        "y": 240,
+        "y": 120,
         "wires": [
             []
         ]
@@ -620,7 +883,7 @@
                 "t": "set",
                 "p": "payload.iconColor",
                 "pt": "msg",
-                "to": "#0000FF",
+                "to": "#4363d8",
                 "tot": "str"
             },
             {
@@ -643,8 +906,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1610,
-        "y": 280,
+        "x": 1620,
+        "y": 200,
         "wires": [
             []
         ]
@@ -659,7 +922,7 @@
                 "t": "set",
                 "p": "payload.iconColor",
                 "pt": "msg",
-                "to": "#FF0000",
+                "to": "#e6194B",
                 "tot": "str"
             },
             {
@@ -682,8 +945,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1610,
-        "y": 320,
+        "x": 1620,
+        "y": 280,
         "wires": [
             []
         ]
@@ -698,7 +961,7 @@
                 "t": "set",
                 "p": "payload.iconColor",
                 "pt": "msg",
-                "to": "#FFFF00",
+                "to": "#ffe119",
                 "tot": "str"
             },
             {
@@ -737,7 +1000,7 @@
                 "t": "set",
                 "p": "payload.iconColor",
                 "pt": "msg",
-                "to": "#FF8C00",
+                "to": "#f58231",
                 "tot": "str"
             },
             {
@@ -761,7 +1024,7 @@
         "to": "",
         "reg": false,
         "x": 1610,
-        "y": 400,
+        "y": 440,
         "wires": [
             []
         ]
@@ -799,8 +1062,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1610,
-        "y": 440,
+        "x": 1620,
+        "y": 480,
         "wires": [
             []
         ]
@@ -809,13 +1072,13 @@
         "id": "e25ae21f9ac978c6",
         "type": "change",
         "z": "c9611467dc313430",
-        "name": "2M Color Lime",
+        "name": "2M Color Mint",
         "rules": [
             {
                 "t": "set",
                 "p": "payload.iconColor",
                 "pt": "msg",
-                "to": "#00FF00",
+                "to": "#aaffc3",
                 "tot": "str"
             },
             {
@@ -838,8 +1101,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1610,
-        "y": 480,
+        "x": 1620,
+        "y": 520,
         "wires": [
             []
         ]
@@ -870,8 +1133,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1610,
-        "y": 520,
+        "x": 1600,
+        "y": 600,
         "wires": [
             []
         ]
@@ -881,7 +1144,7 @@
         "type": "switch",
         "z": "c9611467dc313430",
         "name": "Band Parser",
-        "property": "payload.frequency",
+        "property": "payload.freq",
         "propertyType": "msg",
         "rules": [
             {
@@ -900,9 +1163,23 @@
             },
             {
                 "t": "btwn",
+                "v": "5300",
+                "vt": "num",
+                "v2": "5500",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
                 "v": "7000.0",
                 "vt": "num",
                 "v2": "7300.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "10100.0",
+                "vt": "num",
+                "v2": "10150.0",
                 "v2t": "num"
             },
             {
@@ -914,9 +1191,23 @@
             },
             {
                 "t": "btwn",
+                "v": "18068.0",
+                "vt": "num",
+                "v2": "18168.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
                 "v": "21000.0",
                 "vt": "num",
                 "v2": "21450.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "24089.0",
+                "vt": "num",
+                "v2": "24099.0",
                 "v2t": "num"
             },
             {
@@ -950,7 +1241,7 @@
         ],
         "checkall": "true",
         "repair": false,
-        "outputs": 9,
+        "outputs": 13,
         "x": 730,
         "y": 360,
         "wires": [
@@ -961,13 +1252,25 @@
                 "ea50a7f15651220e"
             ],
             [
+                "c6c21c9f20e7a51b"
+            ],
+            [
                 "23a7f9d79dab3468"
+            ],
+            [
+                "ab34ada2c3f27841"
             ],
             [
                 "91fedb8d3623772a"
             ],
             [
+                "741ace94c97526d4"
+            ],
+            [
                 "74508556ea148805"
+            ],
+            [
+                "2d0b0c5cd90f6e11"
             ],
             [
                 "4f9433ab5b7037ac"
@@ -1013,7 +1316,7 @@
         "to": "",
         "reg": false,
         "x": 1000,
-        "y": 200,
+        "y": 100,
         "wires": [
             [
                 "63e24272d68f8982"
@@ -1040,7 +1343,7 @@
         "to": "",
         "reg": false,
         "x": 1000,
-        "y": 240,
+        "y": 140,
         "wires": [
             [
                 "63e24272d68f8982"
@@ -1067,7 +1370,7 @@
         "to": "",
         "reg": false,
         "x": 1000,
-        "y": 280,
+        "y": 220,
         "wires": [
             [
                 "63e24272d68f8982"
@@ -1094,7 +1397,7 @@
         "to": "",
         "reg": false,
         "x": 1000,
-        "y": 320,
+        "y": 300,
         "wires": [
             [
                 "63e24272d68f8982"
@@ -1121,7 +1424,7 @@
         "to": "",
         "reg": false,
         "x": 1000,
-        "y": 360,
+        "y": 380,
         "wires": [
             [
                 "63e24272d68f8982"
@@ -1148,7 +1451,7 @@
         "to": "",
         "reg": false,
         "x": 1000,
-        "y": 400,
+        "y": 460,
         "wires": [
             [
                 "63e24272d68f8982"
@@ -1175,7 +1478,7 @@
         "to": "",
         "reg": false,
         "x": 1010,
-        "y": 440,
+        "y": 500,
         "wires": [
             [
                 "63e24272d68f8982"
@@ -1202,7 +1505,7 @@
         "to": "",
         "reg": false,
         "x": 1010,
-        "y": 480,
+        "y": 540,
         "wires": [
             [
                 "63e24272d68f8982"
@@ -1229,7 +1532,7 @@
         "to": "",
         "reg": false,
         "x": 1000,
-        "y": 520,
+        "y": 580,
         "wires": [
             [
                 "63e24272d68f8982"
@@ -1245,6 +1548,307 @@
         "x": 1280,
         "y": 100,
         "wires": []
+    },
+    {
+        "id": "ab34ada2c3f27841",
+        "type": "change",
+        "z": "c9611467dc313430",
+        "name": "Set Band 30M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "30M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1000,
+        "y": 260,
+        "wires": [
+            [
+                "63e24272d68f8982"
+            ]
+        ]
+    },
+    {
+        "id": "741ace94c97526d4",
+        "type": "change",
+        "z": "c9611467dc313430",
+        "name": "Set Band 17M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "17M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1000,
+        "y": 340,
+        "wires": [
+            [
+                "63e24272d68f8982"
+            ]
+        ]
+    },
+    {
+        "id": "2d0b0c5cd90f6e11",
+        "type": "change",
+        "z": "c9611467dc313430",
+        "name": "Set Band 12M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "12M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1000,
+        "y": 420,
+        "wires": [
+            [
+                "63e24272d68f8982"
+            ]
+        ]
+    },
+    {
+        "id": "258a2ed64a4e6b56",
+        "type": "change",
+        "z": "c9611467dc313430",
+        "name": "30M Color Cyan",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "#42d4f4",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "30M",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.layer",
+                "pt": "msg",
+                "to": "30M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1620,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e072594b8cf8774e",
+        "type": "change",
+        "z": "c9611467dc313430",
+        "name": "17M Color Gray",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "#a9a9a9",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "17M",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.layer",
+                "pt": "msg",
+                "to": "17M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1620,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f53163b98da1e27a",
+        "type": "change",
+        "z": "c9611467dc313430",
+        "name": "12M Color Brown",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "#9A6324",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "12M",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.layer",
+                "pt": "msg",
+                "to": "12M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1610,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ede60919683b5e49",
+        "type": "change",
+        "z": "c9611467dc313430",
+        "name": "70CM Color Lavender",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "#dcbeff",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "70CM",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.layer",
+                "pt": "msg",
+                "to": "70CM",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1600,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c6c21c9f20e7a51b",
+        "type": "change",
+        "z": "c9611467dc313430",
+        "name": "Set Band 60M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "60M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1000,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ccef6d35b655a407",
+        "type": "change",
+        "z": "c9611467dc313430",
+        "name": "60MM Color Olive",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.iconColor",
+                "pt": "msg",
+                "to": "#808000",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "60M",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload.layer",
+                "pt": "msg",
+                "to": "60M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1610,
+        "y": 160,
+        "wires": [
+            []
+        ]
     },
     {
         "id": "e0179a67.9640b8",
@@ -1395,7 +1999,7 @@
                 "t": "btwn",
                 "v": "1800.0",
                 "vt": "num",
-                "v2": "1837.9",
+                "v2": "1836.9",
                 "v2t": "num"
             },
             {
@@ -1406,28 +2010,39 @@
                 "v2t": "num"
             },
             {
-                "t": "eq",
-                "v": "1840.0",
-                "vt": "num"
-            },
-            {
-                "t": "eq",
-                "v": "1845.0",
-                "vt": "num"
+                "t": "btwn",
+                "v": "1840",
+                "vt": "num",
+                "v2": "1841.9",
+                "v2t": "num"
             },
             {
                 "t": "btwn",
-                "v": "1860.0",
+                "v": "1837.0",
+                "vt": "num",
+                "v2": "1839.9",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "1845.0",
                 "vt": "num",
                 "v2": "2000.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "1842.0",
+                "vt": "num",
+                "v2": "1844.9",
                 "v2t": "num"
             }
         ],
         "checkall": "true",
         "repair": false,
-        "outputs": 5,
+        "outputs": 6,
         "x": 1670,
-        "y": 740,
+        "y": 780,
         "wires": [
             [
                 "336c664dfb6d90d0"
@@ -1443,6 +2058,9 @@
             ],
             [
                 "b3ee8487b8373fb4"
+            ],
+            [
+                "e8279fe0447232c9"
             ]
         ]
     },
@@ -1479,8 +2097,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 3,
-        "x": 1670,
-        "y": 860,
+        "x": 1710,
+        "y": 60,
         "wires": [
             [
                 "336c664dfb6d90d0"
@@ -2088,7 +2706,9 @@
         "x": 1680,
         "y": 1440,
         "wires": [
-            []
+            [
+                "e8279fe0447232c9"
+            ]
         ]
     },
     {
@@ -2121,7 +2741,7 @@
             },
             {
                 "t": "cont",
-                "v": "PSK31",
+                "v": "PSK",
                 "vt": "str"
             },
             {
@@ -2208,7 +2828,7 @@
             },
             {
                 "t": "cont",
-                "v": "PSK31",
+                "v": "PSK",
                 "vt": "str"
             },
             {
@@ -2295,7 +2915,7 @@
             },
             {
                 "t": "cont",
-                "v": "PSK31",
+                "v": "PSK",
                 "vt": "str"
             },
             {
@@ -2382,7 +3002,7 @@
             },
             {
                 "t": "cont",
-                "v": "PSK31",
+                "v": "PSK",
                 "vt": "str"
             },
             {
@@ -2469,7 +3089,7 @@
             },
             {
                 "t": "cont",
-                "v": "PSK31",
+                "v": "PSK",
                 "vt": "str"
             },
             {
@@ -2556,7 +3176,7 @@
             },
             {
                 "t": "cont",
-                "v": "PSK31",
+                "v": "PSK",
                 "vt": "str"
             },
             {
@@ -2643,7 +3263,7 @@
             },
             {
                 "t": "cont",
-                "v": "PSK31",
+                "v": "PSK",
                 "vt": "str"
             },
             {
@@ -2832,7 +3452,7 @@
             },
             {
                 "t": "cont",
-                "v": "PSK31",
+                "v": "PSK",
                 "vt": "str"
             },
             {
@@ -2946,7 +3566,7 @@
             },
             {
                 "t": "cont",
-                "v": "PSK31",
+                "v": "PSK",
                 "vt": "str"
             },
             {
@@ -3060,7 +3680,7 @@
             },
             {
                 "t": "cont",
-                "v": "PSK31",
+                "v": "PSK",
                 "vt": "str"
             },
             {
@@ -3241,6 +3861,50 @@
         ]
     },
     {
+        "id": "e8279fe0447232c9",
+        "type": "change",
+        "z": "8d355125d2e4edb6",
+        "name": "Set Mode Other",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.mode",
+                "pt": "msg",
+                "to": "Other",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2020,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5eb0bd6b.74b794",
+        "type": "function",
+        "z": "2924702c.b33a7",
+        "name": "handle tableData",
+        "func": "var status = {fill:\"red\",shape:\"dot\",text: \"payload \"};\nvar tableIndex = env.get(\"tableIndex\") || \"$topic\";\nvar tableDataProp = env.get(\"tableDataProp\") || \"row\";\nvar tableContext = env.get(\"tableContext\");\nvar dashboard = env.get(\"dashboard\");\nvar maxRows = env.get(\"maxRows\") || 0;\nvar maxStore = env.get(\"maxStore\") || 0;\n\nif (!tableContext.hasOwnProperty(\"tableData\") || !tableContext.hasOwnProperty(\"tableConfig\")) {\n    status.text=\"tableContext not defined\";\n    node.error(status.text);\n    return [{payload:status},null];\n}\n\n// context store to cache table data (memoryOnly prefered)\nvar tableData = flow.get(\"$parent.\"+tableContext.tableData.name,tableContext.tableData.storage);\nif (tableData===undefined) {\n    node.warn(\"[ui-table handler] tableData initialized!\");\n    tableData={};\n    flow.set(\"$parent.\"+tableContext.tableData.name,tableData,tableContext.tableData.storage);\n}\n\n// context Store to save table configuration (file)\nvar tableConfig = flow.get(\"$parent.\"+tableContext.tableConfig.name,tableContext.tableConfig.storage);\nif (tableConfig===undefined) {\n    node.warn(\"[ui-table handler] tableConfig initialized!\");\n    tableConfig={ResponsiveLayout:true};\n    flow.set(\"$parent.\"+tableContext.tableConfig.name,tableConfig,tableContext.tableConfig.storage);\n}\n\nif (tableConfig.hasOwnProperty(\"maxStore\")) maxStore=tableConfig.maxStore;\nif (tableConfig.hasOwnProperty(\"maxRows\")) maxRows=tableConfig.maxRows;\n\n// context Store to save table configuration (file)\nvar tableEdit;\nif (tableContext.hasOwnProperty(\"tableEdit\")) {\n    tableEdit = flow.get(\"$parent.\"+tableContext.tableEdit.name,tableContext.tableEdit.storage);\n    if (tableEdit===undefined) {\n        node.warn(\"[ui-table handler] tableEdit initialized!\");\n        tableEdit={};\n        flow.set(\"$parent.\"+tableContext.tableEdit.name,tableEdit,tableContext.tableEdit.storage);\n    }\n}\n\n// function to merge partial data into existing table row\nvar mergeObject = function (destination, source, filter) {\n    for (let currentSource in source) {\n        if (source.hasOwnProperty(currentSource)) {\n            if (filter!==undefined && tableEdit && tableEdit.hasOwnProperty(filter) && tableEdit[filter].hasOwnProperty(currentSource)) {\n                destination[currentSource]= tableEdit[filter][currentSource];\n                source[currentSource]=tableEdit[filter][currentSource];\n            } else {\n                destination[currentSource]= source[currentSource];\n            }\n        }    \n    }\n    return source;\n};\n\n// merge edits into a destination object respecting _children\nvar mergeEdits = function(destination) {\n    \n    var mergeChildEdits = function(children) {\n        children.forEach(child => {\n            if (child.hasOwnProperty(tableIndex) && tableEdit.hasOwnProperty(child[tableIndex])) {\n//                node.warn([\"mergeChild\",child])\n                Object.keys(tableEdit[child[tableIndex]]).forEach(edit => {\n                    if (child.hasOwnProperty(edit)) {\n                        child[edit]=tableEdit[child[tableIndex]][edit];\n//                        node.warn([\"mergeChild edit \",edit,child[edit]])\n                    }\n                });\n            }\n            if (child.hasOwnProperty(\"_children\")) {\n                mergeChildEdits(child._children);\n            }\n        })\n    }\n    \n\n    Object.keys(destination).forEach(row => {\n        if (destination[row].hasOwnProperty(tableIndex)) {\n            if (tableEdit.hasOwnProperty(row)) {\n                Object.keys(tableEdit[row]).forEach(edit => {\n                    destination[row][edit]=tableEdit[row][edit];\n                });\n            }\n            if (destination[row].hasOwnProperty(\"_children\")) {\n                mergeChildEdits(destination[row]._children);\n            }\n       }\n    });\n}\n\n// deep search for a column including nested columns\nvar searchTabulatorColumn = function (columns,key,match) {\n    var result;\n    for (let column of columns) {\n        if (column.hasOwnProperty(\"columns\")) {\n            result = searchTabulatorColumn(column.columns,key,match);\n            if (result!==undefined) return result;\n        } else if (column.hasOwnProperty(key) && column[key]===match) {\n            return column;\n        }\n    }\n};\n\n// command message to update add or update data on ui-table\nvar msgToTable={};\nmsgToTable.payload={\n    \"command\":msg.tabulatorCommand || \"updateOrAddData\",\n    \"arguments\": [],\n    \"returnPromise\": false\n};\n\n// store data in tableData\nif (msg.hasOwnProperty(tableDataProp)) {\n    // store data for later recover\n    if (!msg.hasOwnProperty(\"topic\")) { // check if index existst\n        status.text=\"msg.topic not defined!\";\n        return [{payload:status},null];\n    }\n    if (!tableData.hasOwnProperty(msg.topic)){ // first seen\n        if (maxRows>0 && Object.keys(tableData).lenght===0) {\n            tableConfig.currentFirstRow=msg.topic;\n        }\n        tableData[msg.topic]={};\n        if (tableEdit && tableEdit.hasOwnProperty(msg.topic)) { // table edits available!\n            Object.keys(tableEdit[msg.topic]).forEach((key) => {\n                msg[tableDataProp][key]=tableEdit[msg.topic][key];\n                tableData[msg.topic][key]=tableEdit[msg.topic][key];\n            })\n        }\n        if (maxStore>0 && typeof msg.topic === \"number\") { // limit rows in tableData\n            let rowKeys = Object.keys(tableData);\n            if (rowKeys.length>maxStore) {\n                for (let i=0; i<(rowKeys.length-maxStore); i++) {\n                    delete tableData[rowKeys[i]];\n                }\n            }\n        }\n    }\n    if (!tableData[msg.topic].hasOwnProperty(tableIndex)) tableData[msg.topic][tableIndex]=msg.topic;\n    msg[tableDataProp]=mergeObject(tableData[msg.topic],msg[tableDataProp],msg.topic);\n    msg[tableDataProp][tableIndex]=msg.topic;\n    msgToTable.payload.arguments=[[msg[tableDataProp]]];\n    // add aditional parameters\n    if (msg.hasOwnProperty(\"tabulatorParameter\") && Array.isArray(msg.tabulatorParameter)) {\n        for (let arg in msg.tabulatorParameter) msgToTable.payload.arguments.push(arg);\n    }\n    // delete rows if rows exceed maxRows\n    /*\n    if (maxRows>0 && tableConfig.hasOwnProperty(\"currentFirstRow\") && typeof tableData[msg.topic][tableIndex]===\"number\") {\n        //node.warn([maxRows,tableConfig.hasOwnProperty(\"currentFirstRow\"),typeof tableData[msg.topic][tableIndex],tableConfig.currentFirstRow,tableData[msg.topic][tableIndex]-maxRows])\n        if (tableConfig.currentFirstRow<tableData[msg.topic][tableIndex]-maxRows) {\n            node.warn([\"maxRowExeeded\",tableConfig.currentFirstRow]);\n            node.send([null,{payload:{\"command\":\"deleteRow\",\"arguments\": [tableConfig.currentFirstRow],\"returnPromise\": false}},null]);\n            tableConfig.currentFirstRow++;\n        }\n    }*/\n    if (maxRows>0 && typeof tableData[msg.topic][tableIndex]===\"number\" && msg.topic-maxRows>0) {\n        node.send([null,{payload:{\"command\":\"deleteRow\",\"arguments\": [msg.topic-maxRows],\"returnPromise\": false}},null]);\n    }\n    status.fill=\"green\";\n    status.text=msg.topic+\" updated\";\n    return [{payload:status},msgToTable,null];\n} if (msg.payload===\"connect\" || (msg.payload===\"change\" && msg.name===dashboard) || (msg.hasOwnProperty(\"payload\") && msg.payload.hasOwnProperty(\"command\"))) { \n    if (!msg.hasOwnProperty(\"ui_control\")) {\n        msg.ui_control = env.get('tabulator');\n        status.text+=\" ui_control added\";\n    }\n    //process commands\n    //node.warn({\"command\":msg.payload.command,\"msg\":msg,\"object\":msg.payload.object})\n    if (msg.payload.hasOwnProperty(\"command\") && msg.payload.command!=='getTable') {\n        status.fill=\"blue\";\n        switch(msg.payload.command) {\n            case 'deleteTable':\n                flow.set(\"$parent.\"+tableContext.tableData.name,undefined,tableContext.tableData.storage);\n                tableData={};\n                status.text=\"tabledata deleted\";\n                node.warn(\"[ui-table handler] \"+\"tabledata deleted\");\n                break;\n            case 'deleteRow':\n            case 'deleteDevice':\n                var deleteRow = function(id) {\n                    // check if row is in root\n                    if (tableData.hasOwnProperty(id)) {\n                        delete tableData[id]\n                        return true;\n                    }\n                    // check if row is a child\n                    let deleteChildRow = function(children, id) {\n                        for(let i = 0; i < children.length; i++){\n                            if (children[i].hasOwnProperty(tableIndex) && children[i][tableIndex]===id) {\n                                children.splice(i, 1); \n                                return true; \n                            }\n                            if (children[i].hasOwnProperty(\"_children\")) {\n                                if (deleteChildRow(children[i]._children,id)) {\n                                    if (children[i]._children.length === 0) {\n                                        delete children[i]._children;\n                                    }\n                                    return true;\n                                }\n                            }\n                        }\n                        return false;\n                    };\n                    \n                    for (let row in tableData) {\n                        if (tableData[row].hasOwnProperty(\"_children\")) {\n                            if (deleteChildRow(tableData[row]._children,id)) return true;\n                        }\n                    }\n                    return false;\n                }\n                \n                if (deleteRow(msg.payload.object)) {\n                    status.text=msg.payload.object+\" deleted\";\n                } else {\n                    status.fill=\"yellow\";\n                    status.text=msg.payload.object+\" undefined\";\n                }\n                break;\n            case 'ignoreRow':\n            case 'ignoreDevice':\n                if (tableData.hasOwnProperty(msg.payload.object)) {\n                    delete tableData[msg.payload.object];\n                    status.text=msg.payload.object+\" will be ignored\";\n                    if (!tableConfig.hasOwnProperty('ignoreDevice')) tableConfig.ignoreDevice={};\n                    tableConfig.ignoreDevice[msg.payload.object]=true;\n                }\n                break;\n            case 'unIgnoreRow':\n            case 'unIgnoreDevice':\n                if (tableConfig.hasOwnProperty('ignoreDevice')) {\n                    delete tableConfig.ignoreDevice[msg.payload.object];\n                }\n                break;\n            case 'unIgnoreRows':\n            case 'unIgnoreDevices':\n                delete tableConfig.ignoreDevice;\n                break;\n            case 'updateData':\n                status.text=\"column \"+msg.payload.column+\" updated\";\n                delete msg.ui_control;\n                return [{payload:status},msg];\n            case 'updateTable':\n                status.text=msg.payload.command+\": \";\n                break;\n            case 'columnHide':\n                if (!tableConfig.hasOwnProperty('columnVisible')) tableConfig.columnVisible={};\n                tableConfig.columnVisible[msg.payload.object]=false;\n                break;\n            case 'columnUnHide':\n                if (!tableConfig.hasOwnProperty('columnVisible')) tableConfig.columnVisible={};\n                tableConfig.columnVisible[msg.payload.object]=true;\n                break;\n            case 'columnsUnHide':\n                for (let column in tableConfig.columnVisible) {\n                    if (tableConfig.columnVisible.hasOwnProperty(column)) tableConfig.columnVisible[column]=true;\n                }\n                break;\n            case 'refreshTable':\n                break;\n            case 'deleteColumnOrder':\n            case 'restoreColumnOrder':\n                delete tableConfig.columns;\n                break;\n            case 'deleteColumnWidth':\n            case 'resetColumnWidth':\n                delete tableConfig.columnWidths;\n                break;\n            case 'setResponsiveLayout':\n                tableConfig.ResponsiveLayout=!tableConfig.ResponsiveLayout;\n                break;\n            case 'deleteRowOrder':\n                delete tableConfig.rowOrder;\n                break;\n            case 'setMaxStore':\n                tableConfig.maxStore=msg.payload.object;\n                maxStore=msg.payload.object;\n                break;\n            case 'setMaxRows':\n                tableConfig.maxRows=msg.payload.object;\n                maxRows=msg.payload.object;\n                break;\n            default:\n                status.fill=\"red\";\n                status.text=\"unknown command \"+msg.payload.command;\n                node.warn(\"[ui-table handler] \"+status.text);\n                break;\n        }\n        flow.set(\"$parent.\"+tableContext.tableConfig.name,tableConfig,tableContext.tableConfig.storage);\n        node.send([{payload:status},null,null]);\n    }\n\n    // crawl through tabulator arrays and updated user defined values\n    var crawlTabulator = function (columns,match,config,property) {\n        for (let column of columns) {\n            if (column.hasOwnProperty(\"columns\")) {\n                crawlTabulator(column.columns,match,config,property);\n            } else if (config.hasOwnProperty(column[match])) column[property]=config[column.field];\n        }\n    };\n    \n    // restore custom column width\n    if (tableConfig.hasOwnProperty(\"columnWidths\") && msg.hasOwnProperty(\"ui_control\")) {\n        crawlTabulator(msg.ui_control.tabulator.columns,\"field\",tableConfig.columnWidths,\"width\");\n    }\n    \n    // restore custom column hide/show\n    if (tableConfig.hasOwnProperty(\"columnVisible\") && msg.hasOwnProperty(\"ui_control\")) {\n        crawlTabulator(msg.ui_control.tabulator.columns,\"field\",tableConfig.columnVisible,\"visible\");\n    }\n    \n    // restore custom responsive / standard view\n    if (tableConfig.hasOwnProperty(\"ResponsiveLayout\")) {\n        if (!tableConfig.ResponsiveLayout) {\n            msg.ui_control.tabulator.responsiveLayout=false;\n        }\n        msg.ui_control.tabulator.columns.forEach((column,index) => {\n            if (column.formatter===\"responsiveCollapse\") { // hide expand column on any position\n                column.visible=tableConfig.ResponsiveLayout;\n                return;\n            }\n        });\n    }\n\n    // sort columns\n    if (tableConfig.hasOwnProperty(\"columns\") && msg.hasOwnProperty(\"ui_control\") && msg.ui_control.hasOwnProperty(\"tabulator\")) {\n        var addedColumns = 0;\n        var sortColumnsByLayout = function (sortColumns, columnsLayout, targetColumns) {\n            for (var layoutColumn=0;  layoutColumn<columnsLayout.length; layoutColumn++) {\n                for (var sortColumn in sortColumns) {\n                    if (sortColumns[sortColumn].hasOwnProperty(\"columns\")) {\n                        targetColumns.push({\"title\":sortColumns[sortColumn].title, \"columns\":[]});\n                        sortColumnsByLayout(sortColumns[sortColumn].columns,columnsLayout,targetColumns[targetColumns.length-1].columns);\n                        layoutColumn=addedColumns; // jump forward after childes added\n                    } else {\n                        if (columnsLayout[layoutColumn].field===sortColumns[sortColumn].field){\n                            targetColumns.push(sortColumns[sortColumn]);\n                            addedColumns++;\n                            break;\n                        }\n                    }\n                }\n            }\n        };                 \n        var newColumns=[];\n        sortColumnsByLayout(msg.ui_control.tabulator.columns,tableConfig.columns,newColumns);\n        msg.ui_control.tabulator.columns=newColumns;\n    }\n\n    // restore stored lines after connect\n\n    let command = msg.payload.command;\n    var tableArray;\n    if (command===\"getTable\") {\n        msg.payload.tableArray=[];\n        tableArray=msg.payload.tableArray\n    } else {\n        msg.payload=[];\n        tableArray=msg.payload;\n    }\n    \n    var pushRowData = function(rowData) {\n        // ignore rows in ignoreRows array\n        if (tableConfig && tableConfig.hasOwnProperty(\"ignoreDevice\") && tableConfig.ignoreDevice[rowData]) {\n            // do nothing\n        } else {\n            // merge edits into table\n            if (tableEdit && tableEdit.hasOwnProperty(rowData)) {\n                let tableRow = RED.util.cloneMessage(tableData[rowData]);\n                Object.keys(tableEdit[rowData]).forEach((field) => {\n                    tableRow[field]=tableEdit[rowData][field];\n                });\n                tableArray.push(tableRow);\n            } else {\n                tableArray.push(tableData[rowData]);\n            }\n        }\n    }\n    \n    if (tableConfig.hasOwnProperty(\"rowOrder\")) {\n        // first check if new rows exits which are not in rowOrder\n        Object.keys(tableData).forEach((key) => {\n            if (tableConfig.rowOrder.indexOf(tableData[key][tableIndex])<0) {\n                tableConfig.rowOrder.push(tableData[key][tableIndex]); // add row to the end of rowOrder\n            }\n        });\n        tableConfig.rowOrder.forEach((value,index) => {\n            node.warn([\"pushRowOrder\",value,tableData.hasOwnProperty(value),tableData[value]]);\n            if (tableData.hasOwnProperty(value)) { // push rows in rowOrder sequence\n                pushRowData(value);\n            } else { // delete not existing rows from rowOrder\n                tableConfig.rowOrder.splice(index,1)\n            }\n       });\n    } else {\n        for (let rowData in tableData) {\n            pushRowData(rowData);\n        }\n    }\n    // store the first index if maxRows limits amount of displayed lines\n    if (maxRows>0 && tableData) {\n        let tableKeys=Object.keys(tableData);\n        if (tableKeys.length>0 && typeof tableData[tableKeys[0]][tableIndex] === \"number\") {\n            tableConfig.currentFirstRow=tableData[tableKeys[0]][tableIndex];\n        }\n    }\n    \n    if (command=='getTable'){\n        status.fill=\"blue\";\n        status.text+=\" \"+tableArray.length+\" rows emitted\";\n        return [{payload:status},null,msg];\n    } else {\n        status.fill=\"blue\";\n        status.text+=\" \"+tableArray.length+\" rows restored\";\n        return [{payload:status},msg,[{topic:\"maxRows\",payload:maxRows},{topic:\"maxStore\",payload:maxStore}]];\n    }\n} if (msg.hasOwnProperty(\"ui_control\")) {\n    // callback from tabulator\n    status.fill=\"blue\";\n    status.text=\"callback \"+msg.ui_control.callback;\n    switch(msg.ui_control.callback) {\n        case \"columnResized\": // save new column width\n            if (tableConfig.columnWidths===undefined) tableConfig.columnWidths={};\n            tableConfig.columnWidths[msg.ui_control.columnWidths.field]=msg.ui_control.columnWidths.width;\n            flow.set(\"$parent.\"+tableContext.tableConfig.name,tableConfig,tableContext.tableConfig.storage);\n            status.text=msg.ui_control.columnWidths.field+\"=\"+msg.ui_control.columnWidths.width+\"px\";\n            break;\n        case \"columnMoved\": // save new column order\n            if (tableConfig.columns===undefined) tableConfig.columns=[];\n            tableConfig.columns=msg.ui_control.columns;\n            flow.set(\"$parent.\"+tableContext.tableConfig.name,tableConfig,tableContext.tableConfig.storage);\n            status.text=\"new column order\";\n            break;\n        case \"cellEdited\":\n            if (tableEdit) {\n                if (!tableEdit.hasOwnProperty(msg[tableIndex])) tableEdit[msg[tableIndex]]={};\n                tableEdit[msg[tableIndex]][msg.field] = msg.payload; // save data and mark as edited field\n                flow.set(\"$parent.\"+tableContext.tableEdit.name,tableEdit,tableContext.tableEdit.storage);\n                mergeEdits(tableData);\n                flow.set(\"$parent.\"+tableContext.tableData.name,tableData,tableContext.tableData.storage);\n                status.text=msg[tableIndex]+\" \"+msg.field+\" edited to \"+msg.payload;\n                msg[tableDataProp]={};\n                msg[tableDataProp][tableIndex]=msg[tableIndex];\n                msg[tableDataProp][msg.field]=msg.payload;\n                msgToTable.payload.arguments=[[msg[tableDataProp]]];\n                node.send([{payload:status},null,msg]); // was node.send([{payload:status},msgToTable,msg]);\n            } else {\n                node.error(\"[ui-table handler] no tableEdit store defined!\")\n            }\n            break;\n        case \"rowContext\":\n            msg.ignoredDevices=[];\n            for (let rowData in tableConfig.ignoreDevice) {\n                if (tableConfig.ignoreDevice.hasOwnProperty(rowData)) {\n                    msg.ignoredDevices.push({\"text\":rowData,\"icon\":\"fa fa-plug\",\"topic\":\"unIgnoreDevice\",\"payload\":rowData})  \n                }\n            }\n            break;\n        case \"headerContext\":\n            msg.hiddenColumns=[];\n            let tabulatorConfig = env.get('tabulator');\n            for (let column in tableConfig.columnVisible) {\n                if (tableConfig.columnVisible.hasOwnProperty(column) &&\n                    !tableConfig.columnVisible[column]) {\n                    let configColumn=searchTabulatorColumn(tabulatorConfig.tabulator.columns,\"field\",column);\n                    let icon;\n                    if (configColumn.hasOwnProperty('title') && configColumn.title.toLowerCase().includes('</i>')) {\n                        // <i class='fa fa-star-half-o'></i> State\n                        let start=configColumn.title.indexOf(\"'fa \");\n                        let end=configColumn.title.indexOf(\"'\",start+1);\n                        icon=configColumn.title.substring(start+4,end);\n                    }\n                    msg.hiddenColumns.push({\"text\":column,\"icon\":icon,\"topic\":\"columnUnHide\",\"payload\":configColumn.field})  \n                }\n            }\n            break;\n        case \"rowMoved\":\n            if (tableConfig.rowOrder===undefined) tableConfig.rowOrder={};\n            tableConfig.rowOrder=msg.ui_control.rowOrder;\n            flow.set(\"$parent.\"+tableContext.tableConfig.name,tableConfig,tableContext.tableConfig.storage);\n            status.text=\"new row order\";\n            break;\n        default:\n            // if rowIndex exists pass complete object\n            if (msg.hasOwnProperty(tableIndex)) {\n                msg.rowData=tableData[msg[tableIndex]];\n            }\n            status.text=\"pass message\";\n    }\n    return [{payload:status},null,msg];\n} \nif (Array.isArray(msg.payload)) {\n    tableData={};\n    \n    msg.payload.forEach((row) => {\n        if (row.hasOwnProperty(tableIndex)) {\n            tableData[row[tableIndex]]=row;\n        }\n    });\n    if (msg.keepEdits) {\n        mergeEdits(tableData);\n    }\n\n    \n    flow.set(\"$parent.\"+tableContext.tableData.name,tableData,tableContext.tableData.storage);\n    if (tableContext.hasOwnProperty(\"tableEdit\") && !msg.keepEdits) {\n        tableEdit={};\n        flow.set(\"$parent.\"+tableContext.tableEdit.name,tableEdit,tableContext.tableEdit.storage);\n    }\n    status.fill=\"blue\"\n    status.text=\"table replaced \"+msg.payload.length+\" rows\";\n    return [{payload:status},msg,null];\n}    \n    \n// nothing to do bejond this point\nstatus.text+=\" [\"+msg.payload+\"]\";\nreturn [{payload:status},null];\n",
+        "outputs": 3,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 192,
+        "y": 85,
+        "wires": [
+            [],
+            [],
+            []
+        ],
+        "icon": "font-awesome/fa-table"
+    },
+    {
         "id": "7dfbf25f8f9e3e9d",
         "type": "ui_worldmap",
         "z": "6fd9c5c3c10bf6a2",
@@ -3264,15 +3928,15 @@
         "coords": "none",
         "showgrid": "false",
         "allowFileDrop": "false",
-        "path": "/potamapage",
+        "path": "/potamapband",
         "overlist": "DR,CO,RA,DN,HM",
         "maplist": "OSMG,OSMC,EsriC,EsriS,EsriT,EsriDG,UKOS,SW",
         "mapname": "",
         "mapurl": "",
         "mapopt": "",
         "mapwms": false,
-        "x": 1750,
-        "y": 200,
+        "x": 2740,
+        "y": 180,
         "wires": []
     },
     {
@@ -3339,14 +4003,14 @@
         "id": "b6dbdd91.34748",
         "type": "function",
         "z": "6fd9c5c3c10bf6a2",
-        "name": "Format Spot",
-        "func": "\nlet type = \"spot\";\nlet spotID = msg.payload.spotId;\nlet freq1 = msg.payload.frequency;\nlet freq = parseFloat(freq1).toFixed(1)\nlet mode = msg.payload.mode;\nlet call = msg.payload.activator;\nlet commentpad = msg.payload.comments;\nlet comment = commentpad.padEnd(25);\nlet timeraw = msg.payload.spotTime;\nlet x = msg.payload.spotTime.replace(\":\",\"\");\nlet time = x.substr(11,4)+\"Z\";\nlet state = msg.payload.state;\nlet calllength = call.length;\nlet parkref = msg.payload.reference;\nlet parkname = msg.payload.name;\nlet grid = msg.payload.grid6;\nlet lat = msg.payload.latitude;\nlet lon = msg.payload.longitude;\n\nreturn {payload : {type:type,spotID:spotID,freq:freq, mode:mode,call:call,comment:comment,time:time,\nstate:state,calllength:calllength,parkref:parkref,parkname:parkname,grid:grid,lat:lat,lon:lon}};\n",
+        "name": "Format Spot & Distance",
+        "func": "\nfunction deg2rad(deg) {\n  return deg * (Math.PI/180)\n}\n\nlet lat1 = global.get('homelat');\nlet lat2 = msg.payload.latitude;\nlet lon1 = global.get('homelon');\nlet lon2 = msg.payload.longitude;\n\nvar R = 6371; // Radius of the earth in km\nvar dLat = deg2rad(lat2-lat1);  // deg2rad below\nvar dLon = deg2rad(lon2-lon1); \n//var deglat1 = lat1 * (Math.PI/180);\n//var deglat2 = lat2 * (Math.PI/180);\nvar a = \n    Math.sin(dLat/2) * Math.sin(dLat/2) +\n    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * \n    Math.sin(dLon/2) * Math.sin(dLon/2)\n    ; \nvar c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); \nvar d = R * c; // Distance in km\nvar miles = d * 0.62137 //convert to miles\n\nlet distance = parseInt(miles) + \"M\";\n\n\nlet type = \"spot\";\nlet id = msg.payload.spotId;\nlet freq1 = msg.payload.frequency;\nlet freq = parseFloat(freq1).toFixed(1)\nlet mode = msg.payload.mode;\nlet call = msg.payload.activator;\nlet commentpad = msg.payload.comments;\nlet comment = commentpad.padEnd(25);\nlet timeraw = msg.payload.spotTime;\nlet x = msg.payload.spotTime.replace(\":\",\"\");\nlet time = x.substr(11,4)+\"Z\";\nlet state = msg.payload.state;\nlet calllength = call.length;\nlet parkref = msg.payload.reference;\nlet parkname = msg.payload.name;\nlet grid = msg.payload.grid6;\nlet lat = msg.payload.latitude;\nlet lon = msg.payload.longitude;\n\nreturn {payload : {type:type,id:id,freq:freq, mode:mode,call:call,comment:comment,time:time,\nstate:state,calllength:calllength,parkref:parkref,parkname:parkname,grid:grid,lat:lat,lon:lon,distance:distance}};\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1530,
+        "x": 1470,
         "y": 500,
         "wires": [
             [
@@ -3388,7 +4052,7 @@
             {
                 "field": "freq",
                 "title": "Freq",
-                "width": "10%",
+                "width": "",
                 "align": "left",
                 "formatter": "plaintext",
                 "formatterParams": {
@@ -3398,7 +4062,7 @@
             {
                 "field": "mode",
                 "title": "Mode",
-                "width": "10%",
+                "width": "",
                 "align": "left",
                 "formatter": "plaintext",
                 "formatterParams": {
@@ -3408,7 +4072,7 @@
             {
                 "field": "call",
                 "title": "Callsign",
-                "width": "10%",
+                "width": "",
                 "align": "left",
                 "formatter": "plaintext",
                 "formatterParams": {
@@ -3418,7 +4082,7 @@
             {
                 "field": "state",
                 "title": "State/Prov or Country",
-                "width": "10%",
+                "width": "",
                 "align": "left",
                 "formatter": "plaintext",
                 "formatterParams": {
@@ -3428,7 +4092,7 @@
             {
                 "field": "parkref",
                 "title": "Park Ref#",
-                "width": "10%",
+                "width": "",
                 "align": "left",
                 "formatter": "plaintext",
                 "formatterParams": {
@@ -3458,7 +4122,37 @@
             {
                 "field": "time",
                 "title": "Initial Spot Time",
-                "width": "10%",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "distance",
+                "title": "Distance",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "lat",
+                "title": "lat",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "lon",
+                "title": "lon",
+                "width": "",
                 "align": "left",
                 "formatter": "plaintext",
                 "formatterParams": {
@@ -3472,7 +4166,7 @@
         "y": 500,
         "wires": [
             [
-                "3c88bb62.a328a4"
+                "e78014d36971228b"
             ]
         ]
     },
@@ -3525,27 +4219,11 @@
         "wires": []
     },
     {
-        "id": "3c88bb62.a328a4",
-        "type": "debug",
-        "z": "6fd9c5c3c10bf6a2",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 2350,
-        "y": 500,
-        "wires": []
-    },
-    {
         "id": "10f3f9f4195aff4b",
         "type": "function",
         "z": "6fd9c5c3c10bf6a2",
         "name": "Table Format",
-        "func": "let spot = msg.payload\n\nlet freq = spot.freq;\nlet mode = spot.mode;\nlet call = spot.call;\nlet comment = spot.comment;\nlet time = spot.time\nlet state = spot.state;\nlet parkref = spot.parkref;\nlet parkname = spot.parkname;\n\n\nreturn {payload:{\n    command:\"addData\",\n    arguments:[\n        {\n            freq:freq,call:call,mode:mode,comment:comment,time:time,state:state,parkref:parkref,parkname:parkname\n        },\n        true\n    ],\n    returnPromise:true\n    }\n};",
+        "func": "\n//let id = msg.payload.id;\nlet freq = msg.payload.freq;\nlet mode = msg.payload.mode;\nlet call = msg.payload.call;\nlet comment = msg.payload.comment;\nlet time = msg.payload.time\nlet state = msg.payload.state;\nlet parkref = msg.payload.parkref;\nlet parkname = msg.payload.parkname;\nlet distance = msg.payload.distance;\nlet lon = msg.payload.lon;\nlet lat = msg.payload.lat;\n\n\nreturn {payload:{\n    command:\"addData\",\n    arguments:[\n        {\n            freq:freq,call:call,mode:mode,comment:comment,time:time,state:state,parkref:parkref,parkname:parkname,distance:distance,lon:lon,lat:lat\n        },\n        true\n    ],\n    returnPromise:true\n    }\n};",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -3575,14 +4253,14 @@
         "type": "function",
         "z": "6fd9c5c3c10bf6a2",
         "name": "Format Spot",
-        "func": "\nlet freq = msg.payload.frequency\nlet mode = msg.payload.mode;\nlet call = msg.payload.activator;\nlet comment = msg.payload.comments;\nlet timeraw = msg.payload.spotTime;\nlet state = msg.payload.state;\nlet parkref = msg.payload.reference;\nlet parkname = msg.payload.parkName;\nlet grid = msg.payload.grid6;\nlet lat = msg.payload.latitude;\nlet lon = msg.payload.longitude;\n\nreturn {payload : {name:parkref,lat:lat,lon:lon, frequency:freq, operator:call, mode:mode, ttl:55}};\n",
+        "func": "function deg2rad(deg) {\n  return deg * (Math.PI/180)\n}\n\nlet lat1 = global.get('homelat');\nlet lat2 = msg.payload.latitude;\nlet lon1 = global.get('homelon');\nlet lon2 = msg.payload.longitude;\n\nvar R = 6371; // Radius of the earth in km\nvar dLat = deg2rad(lat2-lat1);  // deg2rad below\nvar dLon = deg2rad(lon2-lon1); \n//var deglat1 = lat1 * (Math.PI/180);\n//var deglat2 = lat2 * (Math.PI/180);\nvar a = \n    Math.sin(dLat/2) * Math.sin(dLat/2) +\n    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * \n    Math.sin(dLon/2) * Math.sin(dLon/2)\n    ; \nvar c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); \nvar d = R * c; // Distance in km\nvar miles = d * 0.62137 //convert to miles\n\nlet distance = parseInt(miles) + \"M\";\n\n\n\n\nlet freq = msg.payload.frequency\nlet mode = msg.payload.mode;\nlet call = msg.payload.activator;\nlet comment = msg.payload.comments;\nlet timeraw = msg.payload.spotTime;\nlet state = msg.payload.state;\nlet parkref = msg.payload.reference;\nlet parkname = msg.payload.parkName;\nlet grid = msg.payload.grid6;\nlet lat = msg.payload.latitude;\nlet lon = msg.payload.longitude;\n\nreturn {payload : {name:parkref,lat:lat,lon:lon,distance:distance,freq:freq,operator:call,mode:mode,ttl:55}};\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1290,
-        "y": 340,
+        "x": 1330,
+        "y": 300,
         "wires": [
             [
                 "d829bd3a106b2c23",
@@ -3621,8 +4299,8 @@
         "mapurl": "",
         "mapopt": "",
         "mapwms": false,
-        "x": 2180,
-        "y": 340,
+        "x": 2740,
+        "y": 400,
         "wires": []
     },
     {
@@ -3638,7 +4316,8 @@
         "y": 620,
         "wires": [
             [
-                "9ffa6f1018ac3159"
+                "9ffa6f1018ac3159",
+                "f94405352227a452"
             ],
             []
         ]
@@ -3694,7 +4373,7 @@
         "seg2": "",
         "className": "",
         "x": 2010,
-        "y": 680,
+        "y": 660,
         "wires": []
     },
     {
@@ -3840,8 +4519,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 5,
-        "x": 1420,
-        "y": 760,
+        "x": 1320,
+        "y": 800,
         "wires": [
             [
                 "ce831311c1287bbc"
@@ -3877,24 +4556,20 @@
         "id": "df2fbb83c76d6dab",
         "type": "inject",
         "z": "6fd9c5c3c10bf6a2",
-        "name": "",
+        "name": "Inject Legend",
         "props": [
             {
                 "p": "payload.command",
-                "v": "{ \"legend\": \"<b>Band Pin Color</b></br> <i style=\\\"background: #00FF00\\\"></i> 2M<br> <i style=\\\"background: #FFFFFF\\\"></i> 6M<br> <i style=\\\"background: #FF8C00\\\"></i> 10M<br> <i style=\\\"background: #FFFF00\\\"></i> 15M<br> <i style=\\\"background: #FF0000\\\"></i> 20M<br> <i style=\\\"background: #0000FF\\\"></i> 40M<br> <i style=\\\"background: #008000\\\"></i> 80M<br> <i style=\\\"background: #800080\\\"></i> 160M<br> <i style=\\\"background: #000000\\\"></i> Else<br> \" }",
+                "v": "{ \"legend\": \"<b>Band Pin Color</b></br>  <i style=\\\"background: #dcbeff\\\"></i> 70CM<br> <i style=\\\"background: #aaffc3\\\"></i> 2M<br>  <i style=\\\"background: #FFFFFF\\\"></i> 6M<br>  <i style=\\\"background: #f58231\\\"></i> 10M<br>  <i style=\\\"background: #9A6324\\\"></i> 12M<br> <i style=\\\"background: #ffe119\\\"></i> 15M<br> <i style=\\\"background: #a9a9a9\\\"></i> 17M<br>  <i style=\\\"background: #e6194B\\\"></i> 20M<br> <i style=\\\"background: #42d4f4\\\"></i> 30M<br>  <i style=\\\"background: #4363d8\\\"></i> 40M<br>  <i style=\\\"background: #3cb44b\\\"></i> 80M<br> <i style=\\\"background: #808000\\\"></i> 60M<br>  <i style=\\\"background: #f032e6\\\"></i> 160M<br>  <i style=\\\"background: #000000\\\"></i> Else<br> \" }",
                 "vt": "json"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
             }
         ],
-        "repeat": "10",
+        "repeat": "5",
         "crontab": "",
         "once": true,
-        "onceDelay": "1",
+        "onceDelay": "5",
         "topic": "",
-        "x": 1670,
+        "x": 2980,
         "y": 140,
         "wires": [
             [
@@ -3944,7 +4619,7 @@
         "seg2": "",
         "className": "",
         "x": 2010,
-        "y": 860,
+        "y": 840,
         "wires": []
     },
     {
@@ -3962,11 +4637,6 @@
             },
             {
                 "t": "eq",
-                "v": "SSB",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
                 "v": "FT8",
                 "vt": "str"
             },
@@ -3976,29 +4646,34 @@
                 "vt": "str"
             },
             {
+                "t": "eq",
+                "v": "SSB",
+                "vt": "str"
+            },
+            {
                 "t": "else"
             }
         ],
         "checkall": "true",
         "repair": false,
         "outputs": 5,
-        "x": 1520,
-        "y": 340,
+        "x": 1500,
+        "y": 300,
         "wires": [
             [
                 "136debc9556aeec7"
             ],
             [
+                "0b4dfb56efbf89f3"
+            ],
+            [
+                "0b4dfb56efbf89f3"
+            ],
+            [
                 "5076c91160c8973e"
             ],
             [
-                "0b4dfb56efbf89f3"
-            ],
-            [
-                "0b4dfb56efbf89f3"
-            ],
-            [
-                "a30253dac2641936"
+                "e3d3a3b2c120c549"
             ]
         ]
     },
@@ -4028,8 +4703,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1840,
-        "y": 280,
+        "x": 2000,
+        "y": 240,
         "wires": [
             [
                 "d39aecc1645caf74"
@@ -4062,7 +4737,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1840,
+        "x": 2000,
         "y": 320,
         "wires": [
             [
@@ -4096,8 +4771,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1850,
-        "y": 360,
+        "x": 2010,
+        "y": 280,
         "wires": [
             [
                 "d39aecc1645caf74"
@@ -4130,19 +4805,17 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1850,
-        "y": 400,
+        "x": 2010,
+        "y": 360,
         "wires": [
-            [
-                "d39aecc1645caf74"
-            ]
+            []
         ]
     },
     {
         "id": "572955c601ec2541",
         "type": "inject",
         "z": "6fd9c5c3c10bf6a2",
-        "name": "",
+        "name": "Inject Legand",
         "props": [
             {
                 "p": "payload.command",
@@ -4154,13 +4827,13 @@
                 "vt": "str"
             }
         ],
-        "repeat": "10",
+        "repeat": "5",
         "crontab": "",
         "once": true,
-        "onceDelay": "1",
+        "onceDelay": "5",
         "topic": "",
-        "x": 2110,
-        "y": 280,
+        "x": 2980,
+        "y": 340,
         "wires": [
             [
                 "d39aecc1645caf74"
@@ -4176,7 +4849,7 @@
         "op2": "",
         "op1type": "nul",
         "op2type": "date",
-        "duration": "2",
+        "duration": "4",
         "extend": false,
         "overrideDelay": false,
         "units": "s",
@@ -4184,8 +4857,8 @@
         "bytopic": "all",
         "topic": "topic",
         "outputs": 1,
-        "x": 1220,
-        "y": 920,
+        "x": 1300,
+        "y": 660,
         "wires": [
             [
                 "caa8d0c9bdad9e44"
@@ -4203,8 +4876,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1390,
-        "y": 920,
+        "x": 1470,
+        "y": 660,
         "wires": [
             [
                 "ce831311c1287bbc",
@@ -4219,338 +4892,6 @@
         ]
     },
     {
-        "id": "92f7e19c0efada2e",
-        "type": "change",
-        "z": "6fd9c5c3c10bf6a2",
-        "name": "Set Band 160M",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload.band",
-                "pt": "msg",
-                "to": "160M",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 2340,
-        "y": 1420,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "f07f0bd8a03a420c",
-        "type": "change",
-        "z": "6fd9c5c3c10bf6a2",
-        "name": "Set Band 80M",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload.band",
-                "pt": "msg",
-                "to": "80M",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 2340,
-        "y": 1460,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "09845a5739fc55b7",
-        "type": "change",
-        "z": "6fd9c5c3c10bf6a2",
-        "name": "Set Band 40M",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload.band",
-                "pt": "msg",
-                "to": "40M",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 2340,
-        "y": 1500,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "463203f501cfdff7",
-        "type": "change",
-        "z": "6fd9c5c3c10bf6a2",
-        "name": "Set Band 20M",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload.band",
-                "pt": "msg",
-                "to": "20M",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 2340,
-        "y": 1540,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "f4243c4861582a44",
-        "type": "change",
-        "z": "6fd9c5c3c10bf6a2",
-        "name": "Set Band 15M",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload.band",
-                "pt": "msg",
-                "to": "15M",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 2340,
-        "y": 1580,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "0a02597e4871d7f1",
-        "type": "change",
-        "z": "6fd9c5c3c10bf6a2",
-        "name": "Set Band 10M",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload.band",
-                "pt": "msg",
-                "to": "10M",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 2340,
-        "y": 1620,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "e4f874a5f221cc05",
-        "type": "change",
-        "z": "6fd9c5c3c10bf6a2",
-        "name": "Set Band 6M",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload.band",
-                "pt": "msg",
-                "to": "6M",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 2350,
-        "y": 1660,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "7fec6ead3b30c9bc",
-        "type": "change",
-        "z": "6fd9c5c3c10bf6a2",
-        "name": "Set Band 2M",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload.band",
-                "pt": "msg",
-                "to": "2M",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 2350,
-        "y": 1700,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "598aa5437b217875",
-        "type": "change",
-        "z": "6fd9c5c3c10bf6a2",
-        "name": "Set Band 70CM",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload.band",
-                "pt": "msg",
-                "to": "70CM",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 2340,
-        "y": 1740,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "373c0acdcdfb5d58",
-        "type": "switch",
-        "z": "6fd9c5c3c10bf6a2",
-        "name": "Band Parser",
-        "property": "payload.frequency",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "btwn",
-                "v": "1800.0",
-                "vt": "num",
-                "v2": "2000.0",
-                "v2t": "num"
-            },
-            {
-                "t": "btwn",
-                "v": "3500.0",
-                "vt": "num",
-                "v2": "4000.0",
-                "v2t": "num"
-            },
-            {
-                "t": "btwn",
-                "v": "7000.0",
-                "vt": "num",
-                "v2": "7300.0",
-                "v2t": "num"
-            },
-            {
-                "t": "btwn",
-                "v": "14000.0",
-                "vt": "num",
-                "v2": "14350.0",
-                "v2t": "num"
-            },
-            {
-                "t": "btwn",
-                "v": "21000.0",
-                "vt": "num",
-                "v2": "21450.0",
-                "v2t": "num"
-            },
-            {
-                "t": "btwn",
-                "v": "28000.0",
-                "vt": "num",
-                "v2": "29700.0",
-                "v2t": "num"
-            },
-            {
-                "t": "btwn",
-                "v": "50000.0",
-                "vt": "num",
-                "v2": "54000.0",
-                "v2t": "num"
-            },
-            {
-                "t": "btwn",
-                "v": "144000.0",
-                "vt": "num",
-                "v2": "148000.0",
-                "v2t": "num"
-            },
-            {
-                "t": "btwn",
-                "v": "440000.0",
-                "vt": "num",
-                "v2": "448000.0",
-                "v2t": "num"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 9,
-        "x": 2070,
-        "y": 1560,
-        "wires": [
-            [
-                "92f7e19c0efada2e"
-            ],
-            [
-                "f07f0bd8a03a420c"
-            ],
-            [
-                "09845a5739fc55b7"
-            ],
-            [
-                "463203f501cfdff7"
-            ],
-            [
-                "f4243c4861582a44"
-            ],
-            [
-                "0a02597e4871d7f1"
-            ],
-            [
-                "e4f874a5f221cc05"
-            ],
-            [
-                "7fec6ead3b30c9bc"
-            ],
-            [
-                "598aa5437b217875"
-            ]
-        ]
-    },
-    {
         "id": "1947caf9250c063c",
         "type": "Message Counter",
         "z": "6fd9c5c3c10bf6a2",
@@ -4560,11 +4901,10 @@
         "alignToClock": true,
         "generator": "internal",
         "x": 1770,
-        "y": 1060,
+        "y": 940,
         "wires": [
             [
-                "47e265f69792faba",
-                "9cc9d875ee6a196b"
+                "47e265f69792faba"
             ],
             []
         ]
@@ -4579,7 +4919,7 @@
         "alignToClock": true,
         "generator": "internal",
         "x": 1770,
-        "y": 1120,
+        "y": 1000,
         "wires": [
             [
                 "e8b86bbd5fbe4952"
@@ -4597,7 +4937,7 @@
         "alignToClock": true,
         "generator": "internal",
         "x": 1770,
-        "y": 1180,
+        "y": 1060,
         "wires": [
             [
                 "7988789a4e8e7ba0"
@@ -4629,7 +4969,7 @@
         "seg2": "",
         "className": "",
         "x": 2010,
-        "y": 1040,
+        "y": 940,
         "wires": []
     },
     {
@@ -4656,7 +4996,7 @@
         "seg2": "",
         "className": "",
         "x": 2010,
-        "y": 1120,
+        "y": 1000,
         "wires": []
     },
     {
@@ -4683,23 +5023,7 @@
         "seg2": "",
         "className": "",
         "x": 2010,
-        "y": 1180,
-        "wires": []
-    },
-    {
-        "id": "9cc9d875ee6a196b",
-        "type": "debug",
-        "z": "6fd9c5c3c10bf6a2",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 2010,
-        "y": 1000,
+        "y": 1060,
         "wires": []
     },
     {
@@ -4759,10 +5083,11 @@
                 "206b9b013e38e777",
                 "9e12995503002ffb",
                 "ae9572035930f1ba",
-                "557b188d05668207",
                 "97d14070.d7033",
                 "ce4210fc1abb2be3",
-                "99686b3a60ee656b"
+                "99686b3a60ee656b",
+                "4280e431bfad93cf",
+                "9c8d4909faf3726d"
             ]
         ]
     },
@@ -4770,15 +5095,15 @@
         "id": "391c457ae5059438",
         "type": "function",
         "z": "6fd9c5c3c10bf6a2",
-        "name": "",
+        "name": "Spot < 30 mins",
         "func": "const epochtime = Math.round(Date.now() / 1000);\n\nlet epochspottime = msg.payload.epochspottime;\n\nlet goaltime = epochtime - 1800;\n\nif (epochspottime => goaltime)\n{\n    let x = (epochspottime - goaltime) / 60;\n    msg.payload.spotage = parseInt(x)\n    return msg;\n}\n\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1120,
-        "y": 340,
+        "x": 1140,
+        "y": 300,
         "wires": [
             [
                 "0a5c1edbe6988c73"
@@ -4803,7 +5128,7 @@
         "outputType": "msg",
         "outTz": "ETC/UTC",
         "x": 940,
-        "y": 340,
+        "y": 300,
         "wires": [
             [
                 "391c457ae5059438"
@@ -4943,8 +5268,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1150,
-        "y": 640,
+        "x": 590,
+        "y": 760,
         "wires": []
     },
     {
@@ -4953,7 +5278,9 @@
         "z": "6fd9c5c3c10bf6a2",
         "name": "POTA Spots OUT",
         "mode": "link",
-        "links": [],
+        "links": [
+            "2af9677931a76168"
+        ],
         "x": 935,
         "y": 380,
         "wires": []
@@ -4987,10 +5314,11 @@
         "propout": "payload.state",
         "object": "msg",
         "objectout": "msg",
-        "x": 1180,
+        "x": 1160,
         "y": 540,
         "wires": [
             [
+                "600b1c96d61c9f77",
                 "b6dbdd91.34748"
             ]
         ]
@@ -5088,7 +5416,7 @@
         "seg2": "",
         "className": "",
         "x": 2010,
-        "y": 1240,
+        "y": 1120,
         "wires": []
     },
     {
@@ -5166,6 +5494,842 @@
         "wires": []
     },
     {
+        "id": "e78014d36971228b",
+        "type": "function",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Draw GC Lines on Click",
+        "func": "if (msg.payload == undefined)\n{\n    return;\n}\n\nlet homelat = global.get('homelat');\nlet homelon = global.get('homelon');\nlet lat = msg.payload.lat\nlet lon = msg.payload.lon\n\n//delete msg.payload.freq\n//delete msg.payload.call\n//delete msg.payload.mode\n//delete msg.payload.comment\n//delete msg.payload.time\n//delete msg.payload.state\n//delete msg.payload.parkref\n//delete msg.payload.parkname\n//delete msg.payload.distance\n//delete msg.payload.lon\n//delete msg.payload.lat\n\n//msg.payload.greatcircle = [[homelat,homelon], [lat,lon]]\n\nmsg.payload = {name:\"GC1\", layer:\"GC Lines\", color:\"#ff00ff\", greatcircle:[ [homelat,homelon], [lat,lon] ] }\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2410,
+        "y": 500,
+        "wires": [
+            [
+                "d39aecc1645caf74",
+                "7dfbf25f8f9e3e9d"
+            ]
+        ]
+    },
+    {
+        "id": "4280e431bfad93cf",
+        "type": "delay",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 760,
+        "y": 300,
+        "wires": [
+            [
+                "557b188d05668207"
+            ]
+        ]
+    },
+    {
+        "id": "04333343ab4a3226",
+        "type": "inject",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Inject Button",
+        "props": [
+            {
+                "p": "payload.command",
+                "v": "{ \"button\": { \"name\":\"Remove GC Lines\", \"icon\": \"fa-trash\", \"position\":\"bottomright\"} }",
+                "vt": "json"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "5",
+        "topic": "",
+        "x": 2980,
+        "y": 100,
+        "wires": [
+            [
+                "7dfbf25f8f9e3e9d"
+            ]
+        ]
+    },
+    {
+        "id": "6ed48c56d4f19fbb",
+        "type": "worldmap in",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "path": "/potamapband",
+        "events": "connect,disconnect,point,layer,bounds,files,draw,other",
+        "x": 2050,
+        "y": 100,
+        "wires": [
+            [
+                "18ee860b6b18dee5"
+            ]
+        ]
+    },
+    {
+        "id": "18ee860b6b18dee5",
+        "type": "function",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Remove GC Lines",
+        "func": "let homelat = global.get('homelat');\nlet homelon = global.get('homelon');\n\n\n\nif (msg.payload.name == \"Remove GC Lines\")\n{\n    msg.payload = msg.payload = {name:\"GC1\", layer:\"GC Lines\", color:\"#ff00ff\", greatcircle:[ [homelat,homelon], [homelat,homelon] ] }\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2340,
+        "y": 80,
+        "wires": [
+            [
+                "7dfbf25f8f9e3e9d",
+                "d39aecc1645caf74"
+            ]
+        ]
+    },
+    {
+        "id": "1d821f32fa856bb6",
+        "type": "inject",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Inject Button",
+        "props": [
+            {
+                "p": "payload.command",
+                "v": "{ \"button\": { \"name\":\"Remove GC Lines\", \"icon\": \"fa-trash\", \"position\":\"bottomright\"} }",
+                "vt": "json"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "5",
+        "topic": "",
+        "x": 2980,
+        "y": 300,
+        "wires": [
+            [
+                "d39aecc1645caf74"
+            ]
+        ]
+    },
+    {
+        "id": "57eab8816ba6aa5b",
+        "type": "worldmap in",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "path": "/potamapmode",
+        "events": "connect,disconnect,point,layer,bounds,files,draw,other",
+        "x": 2050,
+        "y": 40,
+        "wires": [
+            [
+                "18ee860b6b18dee5"
+            ]
+        ]
+    },
+    {
+        "id": "55f2463de7371ede",
+        "type": "function",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Remove GC Lines",
+        "func": "let homelat = global.get('homelat');\nlet homelon = global.get('homelon');\n\n\n\nif (msg.payload.name == \"Remove GC Lines\")\n{\n    msg.payload = msg.payload = {name:\"GC1\", layer:\"GC Lines\", color:\"#ff00ff\", greatcircle:[ [homelat,homelon], [homelat,homelon] ] }\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2770,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2ea7e8b8cabd2537",
+        "type": "Message Counter",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "units": "minutes",
+        "interval": "1",
+        "alignToClock": true,
+        "generator": "internal",
+        "x": 1770,
+        "y": 1120,
+        "wires": [
+            [
+                "e48a4bd35ee01ec6"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "e3d3a3b2c120c549",
+        "type": "subflow:8d355125d2e4edb6",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "x": 1700,
+        "y": 380,
+        "wires": [
+            [
+                "136debc9556aeec7"
+            ],
+            [
+                "a30253dac2641936"
+            ],
+            [
+                "0b4dfb56efbf89f3"
+            ],
+            [
+                "a30253dac2641936"
+            ],
+            [
+                "5076c91160c8973e"
+            ],
+            [
+                "a30253dac2641936"
+            ]
+        ]
+    },
+    {
+        "id": "9c8d4909faf3726d",
+        "type": "switch",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Band Parser",
+        "property": "payload.frequency",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "btwn",
+                "v": "1800.0",
+                "vt": "num",
+                "v2": "2000.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "3500.0",
+                "vt": "num",
+                "v2": "4000.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "7000.0",
+                "vt": "num",
+                "v2": "7300.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "10100.0",
+                "vt": "num",
+                "v2": "10150.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "14000.0",
+                "vt": "num",
+                "v2": "14350.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "18068.0",
+                "vt": "num",
+                "v2": "18168.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "21000.0",
+                "vt": "num",
+                "v2": "21450.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "24089.0",
+                "vt": "num",
+                "v2": "24099.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "28000.0",
+                "vt": "num",
+                "v2": "29700.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "50000.0",
+                "vt": "num",
+                "v2": "54000.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "144000.0",
+                "vt": "num",
+                "v2": "148000.0",
+                "v2t": "num"
+            },
+            {
+                "t": "btwn",
+                "v": "440000.0",
+                "vt": "num",
+                "v2": "448000.0",
+                "v2t": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 12,
+        "x": 1150,
+        "y": 1140,
+        "wires": [
+            [
+                "60a3dde0f4f1c8a9"
+            ],
+            [
+                "e7c6f0c0d1ea8f67"
+            ],
+            [
+                "b002b2d8a52120fc"
+            ],
+            [
+                "bf5d006f2a2bdc7a"
+            ],
+            [
+                "c099306c841b2d5e"
+            ],
+            [
+                "59185520fab524da"
+            ],
+            [
+                "12e9083b5544b3d0"
+            ],
+            [
+                "b495a48f5d868966"
+            ],
+            [
+                "2a4af1a9833a52e4"
+            ],
+            [
+                "4f1a4f8e9b50add8"
+            ],
+            [
+                "45bc79fb544f026d"
+            ],
+            [
+                "a356ac1a03ebd73d"
+            ]
+        ]
+    },
+    {
+        "id": "c2656c8f9b77872c",
+        "type": "comment",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Input Frequency",
+        "info": "",
+        "x": 1170,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "60a3dde0f4f1c8a9",
+        "type": "change",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Set Band 160M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "160M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1420,
+        "y": 920,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e7c6f0c0d1ea8f67",
+        "type": "change",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Set Band 80M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "80M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1420,
+        "y": 960,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b002b2d8a52120fc",
+        "type": "change",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Set Band 40M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "40M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1420,
+        "y": 1000,
+        "wires": [
+            [
+                "1947caf9250c063c"
+            ]
+        ]
+    },
+    {
+        "id": "c099306c841b2d5e",
+        "type": "change",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Set Band 20M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "20M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1420,
+        "y": 1080,
+        "wires": [
+            [
+                "8fd6acd9afc55565"
+            ]
+        ]
+    },
+    {
+        "id": "12e9083b5544b3d0",
+        "type": "change",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Set Band 15M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "15M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1420,
+        "y": 1160,
+        "wires": [
+            [
+                "d62200d61be9e0c3"
+            ]
+        ]
+    },
+    {
+        "id": "2a4af1a9833a52e4",
+        "type": "change",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Set Band 10M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "10M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1420,
+        "y": 1240,
+        "wires": [
+            [
+                "2ea7e8b8cabd2537"
+            ]
+        ]
+    },
+    {
+        "id": "4f1a4f8e9b50add8",
+        "type": "change",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Set Band 6M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "6M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1430,
+        "y": 1280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "45bc79fb544f026d",
+        "type": "change",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Set Band 2M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "2M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1430,
+        "y": 1320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a356ac1a03ebd73d",
+        "type": "change",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Set Band 70CM",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "70CM",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1420,
+        "y": 1360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bf5d006f2a2bdc7a",
+        "type": "change",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Set Band 30M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "30M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1420,
+        "y": 1040,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "59185520fab524da",
+        "type": "change",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Set Band 17M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "17M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1420,
+        "y": 1120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b495a48f5d868966",
+        "type": "change",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Set Band 12M",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.band",
+                "pt": "msg",
+                "to": "12M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1420,
+        "y": 1200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f94405352227a452",
+        "type": "debug",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2210,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "600b1c96d61c9f77",
+        "type": "debug",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1450,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "42e63c2b06821aae",
+        "type": "function",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 780,
+        "y": 1120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3b3d4b062fd6b92a",
+        "type": "inject",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 2810,
+        "y": 760,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b560bd86dc5c87f6",
+        "type": "inject",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Inject Home",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 2890,
+        "y": 60,
+        "wires": [
+            [
+                "1fef8af3224d3ace"
+            ]
+        ]
+    },
+    {
+        "id": "819f2955a5f122e7",
+        "type": "inject",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "Inject Home",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 2910,
+        "y": 260,
+        "wires": [
+            [
+                "c8937baac7291f53"
+            ]
+        ]
+    },
+    {
+        "id": "1fef8af3224d3ace",
+        "type": "function",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "func": "let lat = global.get('homelat');\nlet lon = global.get('homelon');\n\nreturn {payload : {name:\"home\", lat:lat, lon:lon, icon:\"fa-home\", layer:\"Home\"}};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 3060,
+        "y": 60,
+        "wires": [
+            [
+                "7dfbf25f8f9e3e9d"
+            ]
+        ]
+    },
+    {
+        "id": "c8937baac7291f53",
+        "type": "function",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "func": "let lat = global.get('homelat');\nlet lon = global.get('homelon');\n\nreturn {payload : {name:\"home\", lat:lat, lon:lon, icon:\"fa-home\",layer:\"Home\"}};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 3100,
+        "y": 260,
+        "wires": [
+            [
+                "d39aecc1645caf74"
+            ]
+        ]
+    },
+    {
         "id": "4dd753c0.4c51fc",
         "type": "template",
         "z": "1950552b.d4018b",
@@ -5174,9 +6338,9 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "insert into parkalert (park) values ('{{payload.park}}');",
+        "template": "insert into parkalert (park) values ('{{payload}}');",
         "output": "str",
-        "x": 560,
+        "x": 760,
         "y": 600,
         "wires": [
             [
@@ -5193,9 +6357,9 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "insert into designatoralert (designator) values ('{{payload.designator}}');",
+        "template": "insert into designatoralert (designator) values ('{{payload}}');",
         "output": "str",
-        "x": 600,
+        "x": 760,
         "y": 280,
         "wires": [
             [
@@ -5212,9 +6376,9 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "insert into callsignalert (callsign) values ('{{payload.call}}');",
+        "template": "insert into callsignalert (callsign) values ('{{payload}}');",
         "output": "str",
-        "x": 580,
+        "x": 760,
         "y": 120,
         "wires": [
             [
@@ -5229,7 +6393,7 @@
         "name": "Call Sign Input",
         "label": "Callsign Add",
         "group": "266fc73.4322c38",
-        "order": 4,
+        "order": 1,
         "width": 0,
         "height": 0,
         "options": [
@@ -5255,7 +6419,7 @@
         "y": 120,
         "wires": [
             [
-                "c1ccc881.7ed818"
+                "bb8c8f7410987c63"
             ]
         ]
     },
@@ -5266,12 +6430,12 @@
         "name": "Park Designator Add",
         "label": "Park Designator Add",
         "group": "266fc73.4322c38",
-        "order": 1,
+        "order": 2,
         "width": 0,
         "height": 0,
         "options": [
             {
-                "label": "Full Park Designator",
+                "label": "Full Park Designator (with dash)",
                 "value": "park",
                 "type": "text",
                 "required": true,
@@ -5292,7 +6456,7 @@
         "y": 600,
         "wires": [
             [
-                "4dd753c0.4c51fc"
+                "c7d3dbb4c905df4c"
             ]
         ]
     },
@@ -5304,7 +6468,7 @@
         "sqlquery": "msg.topic",
         "sql": "select * from wanted_states;",
         "name": "",
-        "x": 730,
+        "x": 950,
         "y": 620,
         "wires": [
             [
@@ -5320,7 +6484,7 @@
         "sqlquery": "msg.topic",
         "sql": "",
         "name": "",
-        "x": 770,
+        "x": 930,
         "y": 300,
         "wires": [
             [
@@ -5336,7 +6500,7 @@
         "sqlquery": "msg.topic",
         "sql": "",
         "name": "",
-        "x": 750,
+        "x": 950,
         "y": 140,
         "wires": [
             [
@@ -5358,12 +6522,12 @@
         "id": "3c1b494e.5f3dc6",
         "type": "template",
         "z": "1950552b.d4018b",
-        "name": "Select All Wanted States",
+        "name": "Select All States or Provs",
         "field": "topic",
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "select * from wanted_states order by wanted_state desc",
+        "template": "select * from stateprovalert order by stateprov desc;",
         "output": "str",
         "x": 430,
         "y": 1260,
@@ -5426,14 +6590,14 @@
         "type": "ui_table",
         "z": "1950552b.d4018b",
         "group": "d0ac2fe7.d9f9c",
-        "name": "Wanted States",
+        "name": "Wanted State or Prov",
         "order": 2,
         "width": 4,
         "height": 19,
         "columns": [
             {
-                "field": "state",
-                "title": "State",
+                "field": "stateprov",
+                "title": "State or Prov",
                 "width": "",
                 "align": "left",
                 "formatter": "plaintext",
@@ -5444,7 +6608,7 @@
         ],
         "outputs": 0,
         "cts": false,
-        "x": 1140,
+        "x": 1160,
         "y": 1260,
         "wires": []
     },
@@ -5453,7 +6617,7 @@
         "type": "function",
         "z": "1950552b.d4018b",
         "name": "Format Spot",
-        "func": "let state = msg.payload.wanted_state;\n\nreturn {\"payload\":{\n    \"command\":\"addData\",\n    \"arguments\":[\n        {\n            state:state\n        },\n        true\n    ],\n    \"returnPromise\":true\n    }\n};",
+        "func": "let stateprov = msg.payload.stateprov;\n\nreturn {\"payload\":{\n    \"command\":\"addData\",\n    \"arguments\":[\n        {\n            stateprov:stateprov\n        },\n        true\n    ],\n    \"returnPromise\":true\n    }\n};",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -5472,24 +6636,14 @@
         "type": "ui_table",
         "z": "1950552b.d4018b",
         "group": "64ea1b22.59ae54",
-        "name": "N1MM QSOs",
+        "name": "Park",
         "order": 2,
         "width": 4,
         "height": 19,
         "columns": [
             {
-                "field": "exchange",
-                "title": "Exchange",
-                "width": "",
-                "align": "left",
-                "formatter": "plaintext",
-                "formatterParams": {
-                    "target": "_blank"
-                }
-            },
-            {
-                "field": "count",
-                "title": "Count",
+                "field": "park",
+                "title": "Park",
                 "width": "",
                 "align": "left",
                 "formatter": "plaintext",
@@ -5500,7 +6654,7 @@
         ],
         "outputs": 0,
         "cts": false,
-        "x": 1130,
+        "x": 1110,
         "y": 1460,
         "wires": []
     },
@@ -5524,14 +6678,14 @@
         "id": "5493484b.89b838",
         "type": "template",
         "z": "1950552b.d4018b",
-        "name": "Select Logged QSO's",
+        "name": "Select All Parks",
         "field": "topic",
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "select count(exchange1) as count, exchange1 as exchange\nfrom qsos where RoverLocation='ADR' \ngroup by exchange1\norder by length(exchange1) desc",
+        "template": "select * from parkalert order by park desc;",
         "output": "str",
-        "x": 410,
+        "x": 390,
         "y": 1460,
         "wires": [
             [
@@ -5638,7 +6792,7 @@
         "type": "function",
         "z": "1950552b.d4018b",
         "name": "Format Spot",
-        "func": "let exchange = msg.payload.exchange\nlet count = msg.payload.count\n\nreturn {\"payload\":{\n    \"command\":\"addData\",\n    \"arguments\":[\n        {\n            exchange:exchange,count:count\n        },\n        true\n    ],\n    \"returnPromise\":true\n    }\n};",
+        "func": "let park = msg.payload.park\n\nreturn {\"payload\":{\n    \"command\":\"addData\",\n    \"arguments\":[\n        {\n            park:park\n        },\n        true\n    ],\n    \"returnPromise\":true\n    }\n};",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -5681,7 +6835,7 @@
         "type": "function",
         "z": "1950552b.d4018b",
         "name": "Format Spot",
-        "func": "let exchange = '*********'\nlet count = '*******'\n\nreturn {\"payload\":{\n    \"command\":\"addData\",\n    \"arguments\":[\n        {\n            exchange:exchange,count:count\n        },\n        true\n    ],\n    \"returnPromise\":true\n    }\n};",
+        "func": "let park = '*********'\n\nreturn {\"payload\":{\n    \"command\":\"addData\",\n    \"arguments\":[\n        {\n            park:park\n        },\n        true\n    ],\n    \"returnPromise\":true\n    }\n};",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -5707,7 +6861,8 @@
         "y": 1260,
         "wires": [
             [
-                "857d578d.0ef418"
+                "857d578d.0ef418",
+                "6827f9239957838b"
             ]
         ]
     },
@@ -5769,7 +6924,7 @@
         "type": "function",
         "z": "1950552b.d4018b",
         "name": "Format Spot",
-        "func": "let state = '********'\n\nreturn {\"payload\":{\n    \"command\":\"addData\",\n    \"arguments\":[\n        {\n            state:state\n        },\n        true\n    ],\n    \"returnPromise\":true\n    }\n};",
+        "func": "let stateprov = '********'\n\nreturn {\"payload\":{\n    \"command\":\"addData\",\n    \"arguments\":[\n        {\n            stateprov:stateprov\n        },\n        true\n    ],\n    \"returnPromise\":true\n    }\n};",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -5829,7 +6984,7 @@
         "group": "5543b98b5680f25b",
         "name": "Callsign Table",
         "order": 2,
-        "width": 6,
+        "width": 4,
         "height": 19,
         "columns": [
             {
@@ -5891,7 +7046,7 @@
         "name": "List Callsign Button",
         "group": "5543b98b5680f25b",
         "order": 1,
-        "width": 6,
+        "width": 4,
         "height": 1,
         "passthru": false,
         "label": "List Callsigns",
@@ -5983,7 +7138,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 910,
+        "x": 1110,
         "y": 140,
         "wires": [
             []
@@ -6000,7 +7155,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 930,
+        "x": 1090,
         "y": 300,
         "wires": [
             []
@@ -6017,7 +7172,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 950,
+        "x": 1150,
         "y": 620,
         "wires": [
             []
@@ -6128,7 +7283,7 @@
         "group": "55d6abfe8c5c758e",
         "name": "Country Designator Table",
         "order": 2,
-        "width": 6,
+        "width": 4,
         "height": 19,
         "columns": [
             {
@@ -6191,7 +7346,7 @@
         "name": "List Countries Button",
         "group": "55d6abfe8c5c758e",
         "order": 1,
-        "width": 6,
+        "width": 4,
         "height": 1,
         "passthru": false,
         "label": "List Countries",
@@ -6237,7 +7392,7 @@
         "type": "debug",
         "z": "1950552b.d4018b",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -6283,7 +7438,7 @@
         "syntax": "mustache",
         "template": "delete from callsignalert where callsign=('{{payload.call}}');",
         "output": "str",
-        "x": 580,
+        "x": 760,
         "y": 160,
         "wires": [
             [
@@ -6298,7 +7453,7 @@
         "name": "Call Sign Delete",
         "label": "Callsign Delete",
         "group": "1d9dce79.e995e2",
-        "order": 4,
+        "order": 1,
         "width": 0,
         "height": 0,
         "options": [
@@ -6339,7 +7494,7 @@
         "syntax": "mustache",
         "template": "delete from designatoralert where designator=('{{payload.designator}}');",
         "output": "str",
-        "x": 600,
+        "x": 760,
         "y": 320,
         "wires": [
             [
@@ -6354,7 +7509,7 @@
         "name": "Country Designator Delete",
         "label": "Counry Designator Delete",
         "group": "1d9dce79.e995e2",
-        "order": 3,
+        "order": 4,
         "width": 0,
         "height": 0,
         "options": [
@@ -6393,9 +7548,9 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "delete from wanted_states where wanted_state=('{{payload.state}}');",
+        "template": "delete from parkalert where park=('{{payload.park}}');",
         "output": "str",
-        "x": 560,
+        "x": 760,
         "y": 640,
         "wires": [
             [
@@ -6410,20 +7565,20 @@
         "name": "Park Designator Delete",
         "label": "Park Designator Delete",
         "group": "1d9dce79.e995e2",
-        "order": 1,
+        "order": 2,
         "width": 0,
         "height": 0,
         "options": [
             {
-                "label": "Full Park Designator",
-                "value": "state",
+                "label": "Full Park Designator (with dash)",
+                "value": "park",
                 "type": "text",
                 "required": true,
                 "rows": null
             }
         ],
         "formValue": {
-            "state": ""
+            "park": ""
         },
         "payload": "",
         "submit": "submit",
@@ -6447,7 +7602,7 @@
         "name": "Country Designator Add",
         "label": "Country Designator Add",
         "group": "266fc73.4322c38",
-        "order": 3,
+        "order": 4,
         "width": 0,
         "height": 0,
         "options": [
@@ -6473,7 +7628,7 @@
         "y": 280,
         "wires": [
             [
-                "e376670c.2b9528"
+                "101a17e148e469f7"
             ]
         ]
     },
@@ -6536,9 +7691,9 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "insert into stateprovalert (stateprov) values ('{{payload.stateprov}}');",
+        "template": "insert into stateprovalert (stateprov) values ('{{payload}}');",
         "output": "str",
-        "x": 600,
+        "x": 760,
         "y": 420,
         "wires": [
             [
@@ -6554,7 +7709,7 @@
         "sqlquery": "msg.topic",
         "sql": "",
         "name": "",
-        "x": 770,
+        "x": 930,
         "y": 440,
         "wires": [
             [
@@ -6573,7 +7728,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 930,
+        "x": 1090,
         "y": 440,
         "wires": [
             []
@@ -6598,9 +7753,9 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "delete from stateprovalert where callsign=('{{payload.stateprov}}');",
+        "template": "delete from stateprovalert where stateprov=('{{payload.stateprov}}');",
         "output": "str",
-        "x": 600,
+        "x": 760,
         "y": 460,
         "wires": [
             [
@@ -6615,7 +7770,7 @@
         "name": "State or Prov Designator Delete",
         "label": "State or Prov Designator Delete",
         "group": "1d9dce79.e995e2",
-        "order": 2,
+        "order": 3,
         "width": 0,
         "height": 0,
         "options": [
@@ -6652,7 +7807,7 @@
         "name": "State or Prov Designator Add",
         "label": "State or Prov Designator Add",
         "group": "266fc73.4322c38",
-        "order": 2,
+        "order": 3,
         "width": 0,
         "height": 0,
         "options": [
@@ -6678,7 +7833,7 @@
         "y": 420,
         "wires": [
             [
-                "68d9cc0e0cac36f8"
+                "8073f5c8d15b5b4f"
             ]
         ]
     },
@@ -6697,7 +7852,7 @@
         "type": "debug",
         "z": "1950552b.d4018b",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -6709,82 +7864,86 @@
         "wires": []
     },
     {
-        "id": "4413f7c1d1654e87",
-        "type": "switch",
-        "z": "af115e9cb7244fd2",
-        "name": "Get Mode",
-        "property": "payload.mode",
-        "propertyType": "msg",
-        "rules": [
+        "id": "7a4b515df88258ed",
+        "type": "ui_form",
+        "z": "1950552b.d4018b",
+        "name": "Lat & Lon Input",
+        "label": "",
+        "group": "2b43e4ca38d9b76c",
+        "order": 1,
+        "width": 6,
+        "height": 1,
+        "options": [
             {
-                "t": "eq",
-                "v": "CW",
-                "vt": "str"
+                "label": "lat",
+                "value": "lat",
+                "type": "number",
+                "required": true,
+                "rows": null
             },
             {
-                "t": "eq",
-                "v": "SSB",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "USB",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "LSB",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "RTTY",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "FM",
-                "vt": "str"
+                "label": "lon",
+                "value": "lon",
+                "type": "number",
+                "required": false,
+                "rows": null
             }
         ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 6,
-        "x": 1000,
-        "y": 380,
+        "formValue": {
+            "lat": "",
+            "lon": ""
+        },
+        "payload": "",
+        "submit": "submit",
+        "cancel": "cancel",
+        "topic": "topic",
+        "topicType": "msg",
+        "splitLayout": "",
+        "className": "",
+        "x": 1360,
+        "y": 220,
         "wires": [
             [
-                "3a151d03d470a943"
-            ],
-            [
-                "5f4356e9056fb42b"
-            ],
-            [
-                "5f4356e9056fb42b"
-            ],
-            [
-                "5f4356e9056fb42b"
-            ],
-            [
-                "46854db151806588"
-            ],
-            [
-                "d358cf34ce14d76a"
+                "f9dceb53cc0b5821",
+                "dc6bf02cba92c9fc"
             ]
         ]
     },
     {
-        "id": "3a151d03d470a943",
+        "id": "f9dceb53cc0b5821",
+        "type": "debug",
+        "z": "1950552b.d4018b",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1610,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "dc6bf02cba92c9fc",
         "type": "change",
-        "z": "af115e9cb7244fd2",
-        "name": "Label CW",
+        "z": "1950552b.d4018b",
+        "name": "",
         "rules": [
             {
                 "t": "set",
-                "p": "payload.mode",
-                "pt": "msg",
-                "to": "CW",
-                "tot": "str"
+                "p": "homelat",
+                "pt": "global",
+                "to": "payload.lat",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "homelon",
+                "pt": "global",
+                "to": "payload.lon",
+                "tot": "msg"
             }
         ],
         "action": "",
@@ -6792,516 +7951,700 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1200,
-        "y": 340,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "5f4356e9056fb42b",
-        "type": "change",
-        "z": "af115e9cb7244fd2",
-        "name": "Label SSB",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload.mode",
-                "pt": "msg",
-                "to": "SSB",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1210,
-        "y": 380,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "46854db151806588",
-        "type": "change",
-        "z": "af115e9cb7244fd2",
-        "name": "Label RTTY",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload.mode",
-                "pt": "msg",
-                "to": "RTTY",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1210,
-        "y": 420,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "d358cf34ce14d76a",
-        "type": "change",
-        "z": "af115e9cb7244fd2",
-        "name": "Label FM",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload.mode",
-                "pt": "msg",
-                "to": "FM",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1200,
-        "y": 460,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "49fab24f25182628",
-        "type": "switch",
-        "z": "af115e9cb7244fd2",
-        "name": "Get Band",
-        "property": "payload.band",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "1.8",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "3.5",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "7",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "14",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "21",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "28",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "50",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "144",
-                "vt": "str"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 9,
-        "x": 340,
-        "y": 320,
+        "x": 1580,
+        "y": 220,
         "wires": [
             [
-                "5887ccdbdc839cca"
-            ],
-            [
-                "39b11d6b28004eaa"
-            ],
-            [
-                "7cb20fe1b39682fc"
-            ],
-            [
-                "f226533ba87727ce"
-            ],
-            [
-                "fde4a327648183d4"
-            ],
-            [
-                "b56772e518708cef"
-            ],
-            [
-                "b4c7987faa1d499a"
-            ],
-            [
-                "48ec636ae7e52cd5"
-            ],
-            [
-                "beec60bf65109e99"
+                "c77ffb1f28a8bc8e"
             ]
         ]
     },
     {
-        "id": "5887ccdbdc839cca",
-        "type": "change",
-        "z": "af115e9cb7244fd2",
-        "name": "160M Color Purple",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload.iconColor",
-                "pt": "msg",
-                "to": "#800080",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "payload.band",
-                "pt": "msg",
-                "to": "160M",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "payload.layer",
-                "pt": "msg",
-                "to": "160M",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 650,
-        "y": 180,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "39b11d6b28004eaa",
-        "type": "change",
-        "z": "af115e9cb7244fd2",
-        "name": "80M Color Green",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload.iconColor",
-                "pt": "msg",
-                "to": "#008000",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "payload.band",
-                "pt": "msg",
-                "to": "80M",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "payload.layer",
-                "pt": "msg",
-                "to": "80M",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 650,
+        "id": "fb6c340e0efe1add",
+        "type": "ui_toast",
+        "z": "1950552b.d4018b",
+        "position": "dialog",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": false,
+        "outputs": 1,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "",
+        "x": 2070,
         "y": 220,
         "wires": [
             []
         ]
     },
     {
-        "id": "7cb20fe1b39682fc",
-        "type": "change",
-        "z": "af115e9cb7244fd2",
-        "name": "40M Color Blue",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload.iconColor",
-                "pt": "msg",
-                "to": "#0000FF",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "payload.band",
-                "pt": "msg",
-                "to": "40M",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "payload.layer",
-                "pt": "msg",
-                "to": "40M",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 660,
-        "y": 260,
+        "id": "c77ffb1f28a8bc8e",
+        "type": "function",
+        "z": "1950552b.d4018b",
+        "name": "Set payload to printout",
+        "func": "\nmsg.payload = \"Entered;   lat:   \" + msg.payload.lat + \"   lon:   \" + msg.payload.lon;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1820,
+        "y": 220,
         "wires": [
-            []
+            [
+                "fb6c340e0efe1add"
+            ]
         ]
     },
     {
-        "id": "f226533ba87727ce",
-        "type": "change",
-        "z": "af115e9cb7244fd2",
-        "name": "20M Color Red",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload.iconColor",
-                "pt": "msg",
-                "to": "#FF0000",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "payload.band",
-                "pt": "msg",
-                "to": "20M",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "payload.layer",
-                "pt": "msg",
-                "to": "20M",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 660,
-        "y": 300,
+        "id": "3ae850cc68585fca",
+        "type": "ui_text",
+        "z": "1950552b.d4018b",
+        "group": "2b43e4ca38d9b76c",
+        "order": 2,
+        "width": 6,
+        "height": 2,
+        "name": "Current Lat & Lon",
+        "label": "Current Home Lat & Lon",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "x": 2030,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "6e48cbe3f5469ec6",
+        "type": "function",
+        "z": "1950552b.d4018b",
+        "name": "Get Lat & Lon",
+        "func": "let homelat = global.get('homelat')\nlet homelon = global.get('homelon')\n\nif (homelat == '' || homelon == '')\n{\n    msg.payload = \"Home Lat & Lon Not Set\"\n}\nelse\n{\n    msg.payload = homelat + ',' + homelon\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1830,
+        "y": 180,
         "wires": [
-            []
+            [
+                "3ae850cc68585fca"
+            ]
         ]
     },
     {
-        "id": "fde4a327648183d4",
-        "type": "change",
-        "z": "af115e9cb7244fd2",
-        "name": "15M Color Yellow",
-        "rules": [
+        "id": "a41b305808137c29",
+        "type": "inject",
+        "z": "1950552b.d4018b",
+        "name": "",
+        "props": [
             {
-                "t": "set",
-                "p": "payload.iconColor",
-                "pt": "msg",
-                "to": "#FFFF00",
-                "tot": "str"
+                "p": "payload"
             },
             {
-                "t": "set",
-                "p": "payload.band",
-                "pt": "msg",
-                "to": "15M",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "payload.layer",
-                "pt": "msg",
-                "to": "15M",
-                "tot": "str"
+                "p": "topic",
+                "vt": "str"
             }
         ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 650,
-        "y": 340,
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 1630,
+        "y": 180,
         "wires": [
-            []
+            [
+                "6e48cbe3f5469ec6"
+            ]
         ]
     },
     {
-        "id": "b56772e518708cef",
-        "type": "change",
-        "z": "af115e9cb7244fd2",
-        "name": "10M Color Orange",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload.iconColor",
-                "pt": "msg",
-                "to": "#FF8C00",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "payload.band",
-                "pt": "msg",
-                "to": "10M",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "payload.layer",
-                "pt": "msg",
-                "to": "10M",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 650,
-        "y": 380,
+        "id": "3b83c4e82671e53a",
+        "type": "comment",
+        "z": "1950552b.d4018b",
+        "name": "Lat & Lon Input",
+        "info": "This flow gets the lat and lon input and allows great circle lines to be drawn from the QTH to each pin in the map.\n\nIf no lat and lon are input, the greatcircle lines are not drawn.",
+        "x": 1420,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "6827f9239957838b",
+        "type": "debug",
+        "z": "1950552b.d4018b",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 840,
+        "y": 1200,
+        "wires": []
+    },
+    {
+        "id": "bb8c8f7410987c63",
+        "type": "function",
+        "z": "1950552b.d4018b",
+        "name": "To Upper Case",
+        "func": "msg.payload = msg.payload.call.toUpperCase();\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 120,
         "wires": [
-            []
+            [
+                "c1ccc881.7ed818"
+            ]
         ]
     },
     {
-        "id": "b4c7987faa1d499a",
-        "type": "change",
-        "z": "af115e9cb7244fd2",
-        "name": "6M Color White",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload.iconColor",
-                "pt": "msg",
-                "to": "#FFFFFF",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "payload.band",
-                "pt": "msg",
-                "to": "6M",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "payload.layer",
-                "pt": "msg",
-                "to": "6M",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 660,
+        "id": "101a17e148e469f7",
+        "type": "function",
+        "z": "1950552b.d4018b",
+        "name": "To Upper Case",
+        "func": "msg.payload = msg.payload.designator.toUpperCase();\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 280,
+        "wires": [
+            [
+                "e376670c.2b9528"
+            ]
+        ]
+    },
+    {
+        "id": "8073f5c8d15b5b4f",
+        "type": "function",
+        "z": "1950552b.d4018b",
+        "name": "To Upper Case",
+        "func": "msg.payload = msg.payload.stateprov.toUpperCase();\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
         "y": 420,
         "wires": [
-            []
+            [
+                "68d9cc0e0cac36f8"
+            ]
         ]
     },
     {
-        "id": "48ec636ae7e52cd5",
-        "type": "change",
-        "z": "af115e9cb7244fd2",
-        "name": "2M Color Lime",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload.iconColor",
-                "pt": "msg",
-                "to": "#00FF00",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "payload.band",
-                "pt": "msg",
-                "to": "2M",
-                "tot": "str"
-            },
-            {
-                "t": "set",
-                "p": "payload.layer",
-                "pt": "msg",
-                "to": "2M",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 660,
+        "id": "c7d3dbb4c905df4c",
+        "type": "function",
+        "z": "1950552b.d4018b",
+        "name": "To Upper Case",
+        "func": "msg.payload = msg.payload.park.toUpperCase();\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 600,
+        "wires": [
+            [
+                "4dd753c0.4c51fc"
+            ]
+        ]
+    },
+    {
+        "id": "113a49ae199301d4",
+        "type": "debug",
+        "z": "1950552b.d4018b",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 760,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "0bda46604f620f66",
+        "type": "ui_button",
+        "z": "1950552b.d4018b",
+        "name": "Nuke Database Button",
+        "group": "0c742b00f4db5487",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "NUKE",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "#FF0000",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "date",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 1660,
         "y": 460,
         "wires": [
             []
         ]
     },
     {
-        "id": "beec60bf65109e99",
-        "type": "change",
-        "z": "af115e9cb7244fd2",
-        "name": "Else Color Black",
-        "rules": [
+        "id": "2a741d9afeb242e7",
+        "type": "ui_dropdown",
+        "z": "1950552b.d4018b",
+        "name": "Nuke Database Dropdown",
+        "label": "",
+        "tooltip": "",
+        "place": "Pick a Database",
+        "group": "0c742b00f4db5487",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "multiple": false,
+        "options": [
             {
-                "t": "set",
-                "p": "payload.iconColor",
-                "pt": "msg",
-                "to": "#000000",
-                "tot": "str"
+                "label": "Callsign Database",
+                "value": "callsign",
+                "type": "str"
             },
             {
-                "t": "set",
-                "p": "payload.layer",
-                "pt": "msg",
-                "to": "Other",
-                "tot": "str"
+                "label": "Park Database",
+                "value": "park",
+                "type": "str"
+            },
+            {
+                "label": "State or Prov Database",
+                "value": "stateprov",
+                "type": "str"
+            },
+            {
+                "label": "Country Database",
+                "value": "country",
+                "type": "str"
             }
         ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 660,
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "x": 1640,
+        "y": 500,
+        "wires": [
+            [
+                "6bc3f95ecd9927c7"
+            ]
+        ]
+    },
+    {
+        "id": "9188321d76e1d59c",
+        "type": "switch",
+        "z": "1950552b.d4018b",
+        "name": "Database?",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "callsign",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "park",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "stateprov",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "country",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 4,
+        "x": 2210,
+        "y": 400,
+        "wires": [
+            [
+                "e63dff2bc35c982a"
+            ],
+            [
+                "e8afdf9c60f17828"
+            ],
+            [
+                "24807187781d4148"
+            ],
+            [
+                "66837682c6a1dde7"
+            ]
+        ]
+    },
+    {
+        "id": "e63dff2bc35c982a",
+        "type": "template",
+        "z": "1950552b.d4018b",
+        "name": "Delete * from callsignalert",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "delete from callsignalert;",
+        "output": "str",
+        "x": 2550,
+        "y": 340,
+        "wires": [
+            [
+                "a2b5d418351c3cca"
+            ]
+        ]
+    },
+    {
+        "id": "e8afdf9c60f17828",
+        "type": "template",
+        "z": "1950552b.d4018b",
+        "name": "Delete * from parkalert",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "delete from parkalert;",
+        "output": "str",
+        "x": 2560,
+        "y": 380,
+        "wires": [
+            [
+                "a2b5d418351c3cca"
+            ]
+        ]
+    },
+    {
+        "id": "24807187781d4148",
+        "type": "template",
+        "z": "1950552b.d4018b",
+        "name": "Delete from stateprovalert",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "delete from stateprovalert;",
+        "output": "str",
+        "x": 2550,
+        "y": 420,
+        "wires": [
+            [
+                "a2b5d418351c3cca"
+            ]
+        ]
+    },
+    {
+        "id": "66837682c6a1dde7",
+        "type": "template",
+        "z": "1950552b.d4018b",
+        "name": "Delete from designatoralert",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "delete from designatoralert;",
+        "output": "str",
+        "x": 2540,
+        "y": 460,
+        "wires": [
+            [
+                "a2b5d418351c3cca"
+            ]
+        ]
+    },
+    {
+        "id": "a2b5d418351c3cca",
+        "type": "sqlite",
+        "z": "1950552b.d4018b",
+        "mydb": "8ad1b77eebb71f03",
+        "sqlquery": "msg.topic",
+        "sql": "select * from wanted_states;",
+        "name": "",
+        "x": 2810,
+        "y": 400,
+        "wires": [
+            [
+                "beb96cdb29c3ac34"
+            ]
+        ]
+    },
+    {
+        "id": "c50790905cba8d5d",
+        "type": "ui_toast",
+        "z": "1950552b.d4018b",
+        "position": "top right",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "",
+        "x": 2930,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "beb96cdb29c3ac34",
+        "type": "debug",
+        "z": "1950552b.d4018b",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 3020,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "6bc3f95ecd9927c7",
+        "type": "function",
+        "z": "1950552b.d4018b",
+        "name": "",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1900,
         "y": 500,
         "wires": [
             []
+        ]
+    },
+    {
+        "id": "2af9677931a76168",
+        "type": "link in",
+        "z": "af115e9cb7244fd2",
+        "name": "",
+        "links": [
+            "99686b3a60ee656b"
+        ],
+        "x": 195,
+        "y": 340,
+        "wires": [
+            [
+                "b8fbe794d24d612a",
+                "e331ef1501119b6a"
+            ]
+        ]
+    },
+    {
+        "id": "b8fbe794d24d612a",
+        "type": "template",
+        "z": "af115e9cb7244fd2",
+        "name": "Select Callsign ",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "select count(*) as call from callsignalert where callsign='{{payload.activator}}'",
+        "output": "str",
+        "x": 420,
+        "y": 300,
+        "wires": [
+            [
+                "2f9ecaee1333f5a3"
+            ]
+        ]
+    },
+    {
+        "id": "e23fa3011b592c32",
+        "type": "debug",
+        "z": "af115e9cb7244fd2",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1030,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "2f9ecaee1333f5a3",
+        "type": "sqlite",
+        "z": "af115e9cb7244fd2",
+        "mydb": "8ad1b77eebb71f03",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "",
+        "x": 730,
+        "y": 300,
+        "wires": [
+            [
+                "e23fa3011b592c32"
+            ]
+        ]
+    },
+    {
+        "id": "e331ef1501119b6a",
+        "type": "debug",
+        "z": "af115e9cb7244fd2",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "7f03888db9832979",
+        "type": "ui_table",
+        "z": "af115e9cb7244fd2",
+        "group": "8afbd37356b63495",
+        "name": "Outgoing Spots",
+        "order": 1,
+        "width": 10,
+        "height": 12,
+        "columns": [
+            {
+                "field": "spot",
+                "title": "Spot",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "park",
+                "title": "Park",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "freq",
+                "title": "Freq",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "mode",
+                "title": "Mode",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "time",
+                "title": "Time",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            }
+        ],
+        "outputs": 0,
+        "cts": false,
+        "x": 1540,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "a51d49758a336c3f",
+        "type": "function",
+        "z": "af115e9cb7244fd2",
+        "name": "Table Format",
+        "func": "\nreturn {payload:{\n    command:\"addData\",\n    arguments:[\n        {\n            spot:\"AA0Z\",park:\"K-1234\",freq:\"14200\",mode:\"SSB\",time:\"01/24/2022 22:00:00T\"\n        },\n        true\n    ],\n    returnPromise:true\n    }\n};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1310,
+        "y": 960,
+        "wires": [
+            [
+                "7f03888db9832979"
+            ]
+        ]
+    },
+    {
+        "id": "1a59e4021a7f3c63",
+        "type": "inject",
+        "z": "af115e9cb7244fd2",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "10",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1010,
+        "y": 960,
+        "wires": [
+            [
+                "a51d49758a336c3f"
+            ]
         ]
     }
 ]
