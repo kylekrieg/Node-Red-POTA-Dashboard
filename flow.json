@@ -3924,9 +3924,9 @@
         "width": 20,
         "height": 11,
         "name": "",
-        "lat": "",
-        "lon": "",
-        "zoom": "",
+        "lat": "39.828175",
+        "lon": "-95.735567",
+        "zoom": "4",
         "layer": "OSMG",
         "cluster": "",
         "maxage": "",
@@ -4299,9 +4299,9 @@
         "width": 20,
         "height": 11,
         "name": "",
-        "lat": "",
-        "lon": "",
-        "zoom": "",
+        "lat": "39.422580",
+        "lon": "-95.735567",
+        "zoom": "4",
         "layer": "OSMG",
         "cluster": "",
         "maxage": "",
@@ -8511,7 +8511,7 @@
         "type": "debug",
         "z": "1950552b.d4018b",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -8864,18 +8864,19 @@
         "type": "function",
         "z": "af115e9cb7244fd2",
         "name": "",
-        "func": "msg.topic = \"Activator Alert!\"\n//msg.payload = \"Activator \" + msg.original.activator + \" Freq: \" + msg.original.frequency + \" Mode: \" + msg.original.mode + \" Time: \" + msg.original.spotTime\n\nmsg.payload = \"Activator \"+ msg.original.activator + \" Time: \" + msg.original.spotTime;\nreturn msg;",
+        "func": "msg.topic = \"Activator Alert!\"\n//msg.payload = \"Activator \" + msg.original.activator + \" Freq: \" + msg.original.frequency + \" Mode: \" + msg.original.mode + \" Time: \" + msg.original.spotTime\n\nmsg.payload = \"Activator \"+ msg.original.activator + \" Time: \" + msg.original.spotTime;\nmsg.topic = \"POTA Activator \" + msg.original.activator\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1880,
-        "y": 740,
+        "x": 1660,
+        "y": 300,
         "wires": [
             [
                 "9973264d256e59f9",
-                "7eb4982f6d1f60d6"
+                "7eb4982f6d1f60d6",
+                "bd66ee1b3b73c81f"
             ]
         ]
     },
@@ -8936,7 +8937,7 @@
         "type": "debug",
         "z": "af115e9cb7244fd2",
         "name": "",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -8944,8 +8945,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 2130,
-        "y": 620,
+        "x": 2030,
+        "y": 200,
         "wires": []
     },
     {
@@ -8956,8 +8957,8 @@
         "group": "8afbd37356b63495",
         "voice": "Google US English",
         "always": false,
-        "x": 2140,
-        "y": 800,
+        "x": 2060,
+        "y": 300,
         "wires": []
     },
     {
@@ -9078,6 +9079,47 @@
                 "8398a372224660fb",
                 "077432210d48980c"
             ]
+        ]
+    },
+    {
+        "id": "bd66ee1b3b73c81f",
+        "type": "e-mail",
+        "z": "af115e9cb7244fd2",
+        "server": "smtp.gmail.com",
+        "port": "465",
+        "secure": true,
+        "tls": true,
+        "name": "kylekrieg@gmail.com",
+        "dname": "",
+        "x": 2020,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "59e418bc456da017",
+        "type": "inject",
+        "z": "af115e9cb7244fd2",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "Test Subject",
+        "payload": "Test Body",
+        "payloadType": "str",
+        "x": 770,
+        "y": 1020,
+        "wires": [
+            []
         ]
     }
 ]
