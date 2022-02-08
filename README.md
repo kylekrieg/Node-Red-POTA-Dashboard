@@ -67,3 +67,9 @@ Type .exit to exit out of the database and return to the Pi command prompt.
 .exit 
 ```
 Your Node Red local pota database is now created and ready to go.  Now configure the properties of the SQLite node (you installed via pallet manager) to create (or confirm) the node is pointing to the pota database.  The database name is case sensitive inside the node properties.  
+
+#Caveats
+- The flow polls the POTA website once every 60 seconds.
+- The flow only sends out notifications for activators.  Parks and location notifications are coming soon.
+- The flow only sends notifications per activator once per hour
+- Email notifications are the default notification type.
