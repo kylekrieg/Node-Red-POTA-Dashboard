@@ -8863,19 +8863,18 @@
         "id": "11f1b90c7a399051",
         "type": "function",
         "z": "af115e9cb7244fd2",
-        "name": "",
+        "name": "Email Format",
         "func": "msg.topic = \"Activator Alert!\"\n//msg.payload = \"Activator \" + msg.original.activator + \" Freq: \" + msg.original.frequency + \" Mode: \" + msg.original.mode + \" Time: \" + msg.original.spotTime\n\nmsg.payload = \"Activator \"+ msg.original.activator + '\\r\\n' + \"Time: \" + msg.original.spotTime + '\\r\\n' + \"Freq: \" + msg.original.frequency + '\\r\\n' + \"Mode: \" + msg.original.mode + '\\r\\n' + \"Ref:\" + msg.original.reference + '\\r\\n' + \"Park Name: \" + msg.original.name + '\\r\\n' + \"Comments: \" + msg.original.comments;\nmsg.topic = \" POTA Activator \" + msg.original.activator;\nreturn msg; ",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1660,
-        "y": 300,
+        "x": 1690,
+        "y": 320,
         "wires": [
             [
                 "9973264d256e59f9",
-                "7eb4982f6d1f60d6",
                 "bd66ee1b3b73c81f"
             ]
         ]
@@ -8945,8 +8944,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 2030,
-        "y": 200,
+        "x": 1990,
+        "y": 320,
         "wires": []
     },
     {
@@ -8957,8 +8956,8 @@
         "group": "8afbd37356b63495",
         "voice": "Google US English",
         "always": false,
-        "x": 2060,
-        "y": 300,
+        "x": 2000,
+        "y": 280,
         "wires": []
     },
     {
@@ -8980,7 +8979,8 @@
                 "93770aeb36d8dcda",
                 "11f1b90c7a399051",
                 "17991464ccd66a37",
-                "a51d49758a336c3f"
+                "a51d49758a336c3f",
+                "4e4f7c4f30df19e8"
             ]
         ]
     },
@@ -9089,37 +9089,29 @@
         "port": "465",
         "secure": true,
         "tls": true,
-        "name": "kylekrieg@gmail.com",
+        "name": "",
         "dname": "",
-        "x": 2020,
-        "y": 440,
+        "x": 1990,
+        "y": 360,
         "wires": []
     },
     {
-        "id": "59e418bc456da017",
-        "type": "inject",
+        "id": "4e4f7c4f30df19e8",
+        "type": "function",
         "z": "af115e9cb7244fd2",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "Test Subject",
-        "payload": "Test Body",
-        "payloadType": "str",
-        "x": 770,
-        "y": 1020,
+        "name": "Announcement Format",
+        "func": "msg.topic = \"Activator Alert!\"\nmsg.payload = \"Activator \" + msg.original.activator + \" Frequency: \" + msg.original.frequency + \" Mode: \" + msg.original.mode + \" Time: \" + msg.original.spotTime\n\nreturn msg; ",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1700,
+        "y": 280,
         "wires": [
-            []
+            [
+                "7eb4982f6d1f60d6"
+            ]
         ]
     }
 ]
