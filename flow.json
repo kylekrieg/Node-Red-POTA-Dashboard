@@ -7464,7 +7464,7 @@
         "y": 160,
         "wires": [
             [
-                "50a9413d.75747"
+                "dedb99a9fe50cdc4"
             ]
         ]
     },
@@ -7520,7 +7520,7 @@
         "y": 320,
         "wires": [
             [
-                "32e7cef0.706e42"
+                "59b33a762b74115f"
             ]
         ]
     },
@@ -7576,7 +7576,7 @@
         "y": 640,
         "wires": [
             [
-                "3daed50d.0c5d9a"
+                "340ed3b342aefa4a"
             ]
         ]
     },
@@ -7781,7 +7781,7 @@
         "y": 460,
         "wires": [
             [
-                "555dda47951559c1"
+                "6523a6d35adae19e"
             ]
         ]
     },
@@ -8643,6 +8643,82 @@
         ]
     },
     {
+        "id": "dedb99a9fe50cdc4",
+        "type": "function",
+        "z": "1950552b.d4018b",
+        "name": "To Upper Case",
+        "func": "msg.payload = msg.payload.call.toUpperCase();\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 160,
+        "wires": [
+            [
+                "50a9413d.75747"
+            ]
+        ]
+    },
+    {
+        "id": "59b33a762b74115f",
+        "type": "function",
+        "z": "1950552b.d4018b",
+        "name": "To Upper Case",
+        "func": "msg.payload = msg.payload.designator.toUpperCase();\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 320,
+        "wires": [
+            [
+                "32e7cef0.706e42"
+            ]
+        ]
+    },
+    {
+        "id": "6523a6d35adae19e",
+        "type": "function",
+        "z": "1950552b.d4018b",
+        "name": "To Upper Case",
+        "func": "msg.payload = msg.payload.locdesc.toUpperCase();\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 460,
+        "wires": [
+            [
+                "555dda47951559c1"
+            ]
+        ]
+    },
+    {
+        "id": "340ed3b342aefa4a",
+        "type": "function",
+        "z": "1950552b.d4018b",
+        "name": "To Upper Case",
+        "func": "msg.payload = msg.payload.park.toUpperCase();\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 640,
+        "wires": [
+            [
+                "3daed50d.0c5d9a"
+            ]
+        ]
+    },
+    {
         "id": "2af9677931a76168",
         "type": "link in",
         "z": "af115e9cb7244fd2",
@@ -8980,7 +9056,8 @@
                 "11f1b90c7a399051",
                 "17991464ccd66a37",
                 "a51d49758a336c3f",
-                "4e4f7c4f30df19e8"
+                "4e4f7c4f30df19e8",
+                "3523629234faa7b5"
             ]
         ]
     },
@@ -9089,9 +9166,9 @@
         "port": "465",
         "secure": true,
         "tls": true,
-        "name": "",
-        "dname": "",
-        "x": 1990,
+        "name": "kylekrieg@gmail.com",
+        "dname": "Email Alert",
+        "x": 2010,
         "y": 360,
         "wires": []
     },
@@ -9113,5 +9190,47 @@
                 "7eb4982f6d1f60d6"
             ]
         ]
+    },
+    {
+        "id": "3523629234faa7b5",
+        "type": "switch",
+        "z": "af115e9cb7244fd2",
+        "name": "<= 1740",
+        "property": "original.expire",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gte",
+                "v": "1740",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1670,
+        "y": 480,
+        "wires": [
+            [
+                "64ae85d192365a52"
+            ]
+        ]
+    },
+    {
+        "id": "64ae85d192365a52",
+        "type": "debug",
+        "z": "af115e9cb7244fd2",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1880,
+        "y": 480,
+        "wires": []
     }
 ]
