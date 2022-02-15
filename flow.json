@@ -488,8 +488,9 @@
         "tab": "50a9dd15acb28546",
         "order": 6,
         "disp": true,
-        "width": 30,
-        "collapse": false
+        "width": "26",
+        "collapse": false,
+        "className": ""
     },
     {
         "id": "5255f96a02d65e0a",
@@ -4058,8 +4059,8 @@
         "group": "b1cd10a7.e2eab",
         "name": "POTA Spots",
         "order": 1,
-        "width": 30,
-        "height": 11,
+        "width": 26,
+        "height": "12",
         "columns": [
             {
                 "field": "freq",
@@ -6487,7 +6488,6 @@
         "y": 140,
         "wires": [
             [
-                "a6a0b27e.7124b",
                 "def98977e5b1a618",
                 "607ea76b126de1e6"
             ]
@@ -7265,6 +7265,7 @@
         "id": "d61681dd.77483",
         "type": "ui_table",
         "z": "1950552b.d4018b",
+        "d": true,
         "group": "55d6abfe8c5c758e",
         "name": "Country Designator Table",
         "order": 2,
@@ -7421,7 +7422,7 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "delete from callsignalert where callsign=('{{payload.call}}');",
+        "template": "delete from callsignalert where callsign=('{{payload}}');",
         "output": "str",
         "x": 760,
         "y": 160,
@@ -7477,7 +7478,7 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "delete from designatoralert where designator=('{{payload.designator}}');",
+        "template": "delete from designatoralert where designator=('{{payload}}');",
         "output": "str",
         "x": 760,
         "y": 320,
@@ -7533,7 +7534,7 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "delete from parkalert where park=('{{payload.park}}');",
+        "template": "delete from parkalert where park=('{{payload}}');",
         "output": "str",
         "x": 760,
         "y": 640,
@@ -7738,7 +7739,7 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "delete from locdescalert where locdesc=('{{payload.locdesc}}');",
+        "template": "delete from locdescalert where locdesc=('{{payload}}');",
         "output": "str",
         "x": 760,
         "y": 460,
@@ -8563,27 +8564,6 @@
         ]
     },
     {
-        "id": "176202cb9746d7dd",
-        "type": "ui_toast",
-        "z": "1950552b.d4018b",
-        "position": "dialog",
-        "displayTime": "3",
-        "highlight": "",
-        "sendall": false,
-        "outputs": 1,
-        "ok": "OK",
-        "cancel": "",
-        "raw": false,
-        "className": "",
-        "topic": "",
-        "name": "Database Dup Error",
-        "x": 1920,
-        "y": 440,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "a9950e7e45d24250",
         "type": "ui_form",
         "z": "1950552b.d4018b",
@@ -8716,6 +8696,27 @@
             [
                 "3daed50d.0c5d9a"
             ]
+        ]
+    },
+    {
+        "id": "176202cb9746d7dd",
+        "type": "ui_toast",
+        "z": "1950552b.d4018b",
+        "position": "dialog",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": false,
+        "outputs": 1,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "Database Dup Error",
+        "x": 1920,
+        "y": 440,
+        "wires": [
+            []
         ]
     },
     {
@@ -8859,8 +8860,8 @@
         ],
         "outputs": 0,
         "cts": false,
-        "x": 1840,
-        "y": 900,
+        "x": 1780,
+        "y": 740,
         "wires": []
     },
     {
@@ -8874,11 +8875,12 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1650,
-        "y": 900,
+        "x": 1590,
+        "y": 740,
         "wires": [
             [
-                "7f03888db9832979"
+                "7f03888db9832979",
+                "81882729aacadb41"
             ]
         ]
     },
@@ -8905,7 +8907,10 @@
         "y": 660,
         "wires": [
             [
-                "b8fbe794d24d612a"
+                "b8fbe794d24d612a",
+                "6c35362b54246e05",
+                "93301f048c89512f",
+                "be14b43b4ccae1a0"
             ]
         ]
     },
@@ -8940,17 +8945,16 @@
         "type": "function",
         "z": "af115e9cb7244fd2",
         "name": "Email Format",
-        "func": "msg.topic = \"Activator Alert!\"\n//msg.payload = \"Activator \" + msg.original.activator + \" Freq: \" + msg.original.frequency + \" Mode: \" + msg.original.mode + \" Time: \" + msg.original.spotTime\n\nmsg.payload = \"Activator \"+ msg.original.activator + '\\r\\n' + \"Time: \" + msg.original.spotTime + '\\r\\n' + \"Freq: \" + msg.original.frequency + '\\r\\n' + \"Mode: \" + msg.original.mode + '\\r\\n' + \"Ref:\" + msg.original.reference + '\\r\\n' + \"Park Name: \" + msg.original.name + '\\r\\n' + \"Comments: \" + msg.original.comments;\nmsg.topic = \" POTA Activator \" + msg.original.activator;\nreturn msg; ",
+        "func": "msg.topic = \"Activator Alert!\"\n//msg.payload = \"Activator \" + msg.original.activator + \" Freq: \" + msg.original.frequency + \" Mode: \" + msg.original.mode + \" Time: \" + msg.original.spotTime\n\nmsg.payload = \"Activator \"+ msg.original.activator + '\\r\\n' + \n\"Time: \" + msg.original.spotTime + '\\r\\n' + \n\"Freq: \" + msg.original.frequency + '\\r\\n' + \n\"Mode: \" + msg.original.mode + '\\r\\n' + \n\"Ref:\" + msg.original.reference + '\\r\\n' + \n\"Park Name: \" + msg.original.name + '\\r\\n' + \n\"Comments: \" + msg.original.comments + '\\r\\n' +\n\"Spot Expires In \" + msg.original.expire + \" Seconds \" + '\\r\\n';\n\n\nmsg.topic = \"POTA Activator Alert \" + msg.original.activator;\nreturn msg; ",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1690,
-        "y": 320,
+        "x": 2150,
+        "y": 300,
         "wires": [
             [
-                "9973264d256e59f9",
                 "bd66ee1b3b73c81f"
             ]
         ]
@@ -9008,23 +9012,6 @@
         "wires": []
     },
     {
-        "id": "9973264d256e59f9",
-        "type": "debug",
-        "z": "af115e9cb7244fd2",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1990,
-        "y": 320,
-        "wires": []
-    },
-    {
         "id": "7eb4982f6d1f60d6",
         "type": "ui_audio",
         "z": "af115e9cb7244fd2",
@@ -9032,8 +9019,8 @@
         "group": "8afbd37356b63495",
         "voice": "Google US English",
         "always": false,
-        "x": 2000,
-        "y": 280,
+        "x": 2860,
+        "y": 740,
         "wires": []
     },
     {
@@ -9053,10 +9040,8 @@
         "wires": [
             [
                 "93770aeb36d8dcda",
-                "11f1b90c7a399051",
                 "17991464ccd66a37",
                 "a51d49758a336c3f",
-                "4e4f7c4f30df19e8",
                 "3523629234faa7b5"
             ]
         ]
@@ -9095,48 +9080,13 @@
         "bytopic": "topic",
         "topic": "topic",
         "outputs": 1,
-        "x": 750,
+        "x": 870,
         "y": 400,
         "wires": [
             [
-                "c93af653c1c214d2",
                 "ce094812a856ce14"
             ]
         ]
-    },
-    {
-        "id": "c93af653c1c214d2",
-        "type": "debug",
-        "z": "af115e9cb7244fd2",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 990,
-        "y": 460,
-        "wires": []
-    },
-    {
-        "id": "077432210d48980c",
-        "type": "debug",
-        "z": "af115e9cb7244fd2",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1190,
-        "y": 420,
-        "wires": []
     },
     {
         "id": "ce094812a856ce14",
@@ -9153,8 +9103,7 @@
         "y": 400,
         "wires": [
             [
-                "8398a372224660fb",
-                "077432210d48980c"
+                "8398a372224660fb"
             ]
         ]
     },
@@ -9166,10 +9115,10 @@
         "port": "465",
         "secure": true,
         "tls": true,
-        "name": "kylekrieg@gmail.com",
+        "name": "",
         "dname": "Email Alert",
-        "x": 2010,
-        "y": 360,
+        "x": 2850,
+        "y": 780,
         "wires": []
     },
     {
@@ -9183,8 +9132,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1700,
-        "y": 280,
+        "x": 2180,
+        "y": 260,
         "wires": [
             [
                 "7eb4982f6d1f60d6"
@@ -9208,10 +9157,12 @@
         "checkall": "true",
         "repair": false,
         "outputs": 1,
-        "x": 1670,
-        "y": 480,
+        "x": 1860,
+        "y": 300,
         "wires": [
             [
+                "4e4f7c4f30df19e8",
+                "11f1b90c7a399051",
                 "64ae85d192365a52"
             ]
         ]
@@ -9229,8 +9180,876 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1880,
-        "y": 480,
+        "x": 2130,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "81882729aacadb41",
+        "type": "debug",
+        "z": "af115e9cb7244fd2",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1750,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "93301f048c89512f",
+        "type": "template",
+        "z": "af115e9cb7244fd2",
+        "name": "Select Park",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "select count(*) as reference from parkalert where park='{{payload.reference}}'",
+        "output": "str",
+        "x": 510,
+        "y": 580,
+        "wires": [
+            [
+                "770da07a08f89868"
+            ]
+        ]
+    },
+    {
+        "id": "d9741d5435a252c6",
+        "type": "debug",
+        "z": "af115e9cb7244fd2",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1050,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "770da07a08f89868",
+        "type": "sqlite",
+        "z": "af115e9cb7244fd2",
+        "mydb": "8ad1b77eebb71f03",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "",
+        "x": 730,
+        "y": 580,
+        "wires": [
+            [
+                "06a94fc55cdb32cf"
+            ]
+        ]
+    },
+    {
+        "id": "06a94fc55cdb32cf",
+        "type": "switch",
+        "z": "af115e9cb7244fd2",
+        "name": "",
+        "property": "payload[0].reference",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 890,
+        "y": 580,
+        "wires": [
+            [
+                "d9741d5435a252c6",
+                "b79df0c79ff229d9"
+            ]
+        ]
+    },
+    {
+        "id": "b79df0c79ff229d9",
+        "type": "change",
+        "z": "af115e9cb7244fd2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "original.reference",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "original.reference",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1080,
+        "y": 580,
+        "wires": [
+            [
+                "90d59cc5ad9a4a9b",
+                "c4e5877ebd8e5d18"
+            ]
+        ]
+    },
+    {
+        "id": "90d59cc5ad9a4a9b",
+        "type": "debug",
+        "z": "af115e9cb7244fd2",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1290,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "c4e5877ebd8e5d18",
+        "type": "rbe",
+        "z": "af115e9cb7244fd2",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "topi": "topic",
+        "x": 1330,
+        "y": 580,
+        "wires": [
+            [
+                "45b71206099619e6",
+                "a51d49758a336c3f",
+                "a44cedc5ee5ebb55"
+            ]
+        ]
+    },
+    {
+        "id": "45b71206099619e6",
+        "type": "trigger",
+        "z": "af115e9cb7244fd2",
+        "name": "Delay Trigger",
+        "op1": "",
+        "op2": "",
+        "op1type": "nul",
+        "op2type": "pay",
+        "duration": "60",
+        "extend": false,
+        "overrideDelay": true,
+        "units": "min",
+        "reset": "reset",
+        "bytopic": "topic",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 870,
+        "y": 680,
+        "wires": [
+            [
+                "28d5efe5ca53de7a"
+            ]
+        ]
+    },
+    {
+        "id": "28d5efe5ca53de7a",
+        "type": "function",
+        "z": "af115e9cb7244fd2",
+        "name": "",
+        "func": "msg.reset = msg.topic\ndelete msg.payload\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1020,
+        "y": 680,
+        "wires": [
+            [
+                "c4e5877ebd8e5d18"
+            ]
+        ]
+    },
+    {
+        "id": "be14b43b4ccae1a0",
+        "type": "template",
+        "z": "af115e9cb7244fd2",
+        "name": "Select Designator",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "select count(*) as locationDesc from designatoralert where designator='{{payload.locationDesc}}';",
+        "output": "str",
+        "x": 550,
+        "y": 880,
+        "wires": [
+            [
+                "098c0de727ee58e2"
+            ]
+        ]
+    },
+    {
+        "id": "8278ddff72e8604e",
+        "type": "debug",
+        "z": "af115e9cb7244fd2",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1070,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "098c0de727ee58e2",
+        "type": "sqlite",
+        "z": "af115e9cb7244fd2",
+        "mydb": "8ad1b77eebb71f03",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "",
+        "x": 750,
+        "y": 880,
+        "wires": [
+            [
+                "c45ee1128aafd22a"
+            ]
+        ]
+    },
+    {
+        "id": "c45ee1128aafd22a",
+        "type": "switch",
+        "z": "af115e9cb7244fd2",
+        "name": "",
+        "property": "payload[0].locationDesc",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 910,
+        "y": 880,
+        "wires": [
+            [
+                "8278ddff72e8604e",
+                "bc57a0c15de94dce"
+            ]
+        ]
+    },
+    {
+        "id": "bc57a0c15de94dce",
+        "type": "change",
+        "z": "af115e9cb7244fd2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "original.locationDesc",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "original.locationDesc",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1100,
+        "y": 880,
+        "wires": [
+            [
+                "fc9cba8cb3513de3",
+                "8bc0ae7a9d6516ae"
+            ]
+        ]
+    },
+    {
+        "id": "fc9cba8cb3513de3",
+        "type": "debug",
+        "z": "af115e9cb7244fd2",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1310,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "8bc0ae7a9d6516ae",
+        "type": "rbe",
+        "z": "af115e9cb7244fd2",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "topi": "topic",
+        "x": 1350,
+        "y": 880,
+        "wires": [
+            [
+                "b60381883c03fc2d",
+                "a51d49758a336c3f",
+                "36a78b78b3fc2903"
+            ]
+        ]
+    },
+    {
+        "id": "b60381883c03fc2d",
+        "type": "trigger",
+        "z": "af115e9cb7244fd2",
+        "name": "Delay Trigger",
+        "op1": "",
+        "op2": "",
+        "op1type": "nul",
+        "op2type": "pay",
+        "duration": "60",
+        "extend": false,
+        "overrideDelay": true,
+        "units": "min",
+        "reset": "reset",
+        "bytopic": "topic",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 890,
+        "y": 980,
+        "wires": [
+            [
+                "cb84d5e4724ef0ac"
+            ]
+        ]
+    },
+    {
+        "id": "cb84d5e4724ef0ac",
+        "type": "function",
+        "z": "af115e9cb7244fd2",
+        "name": "",
+        "func": "msg.reset = msg.topic\ndelete msg.payload\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1040,
+        "y": 980,
+        "wires": [
+            [
+                "8bc0ae7a9d6516ae"
+            ]
+        ]
+    },
+    {
+        "id": "882d1fc6a1d51961",
+        "type": "template",
+        "z": "af115e9cb7244fd2",
+        "name": "Select Country",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "select count(*) as call from callsignalert where callsign='{{payload.activator}}'",
+        "output": "str",
+        "x": 540,
+        "y": 1160,
+        "wires": [
+            [
+                "ea08671389d7f03e"
+            ]
+        ]
+    },
+    {
+        "id": "0697caf00d8f9593",
+        "type": "debug",
+        "z": "af115e9cb7244fd2",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1070,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "ea08671389d7f03e",
+        "type": "sqlite",
+        "z": "af115e9cb7244fd2",
+        "mydb": "8ad1b77eebb71f03",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "",
+        "x": 750,
+        "y": 1160,
+        "wires": [
+            [
+                "8629b9b40fa66fdf"
+            ]
+        ]
+    },
+    {
+        "id": "8629b9b40fa66fdf",
+        "type": "switch",
+        "z": "af115e9cb7244fd2",
+        "name": "",
+        "property": "payload[0].call",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 910,
+        "y": 1160,
+        "wires": [
+            [
+                "0697caf00d8f9593",
+                "3471b3fdf4e5ec28"
+            ]
+        ]
+    },
+    {
+        "id": "3471b3fdf4e5ec28",
+        "type": "change",
+        "z": "af115e9cb7244fd2",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "original.activator",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "original.activator",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1100,
+        "y": 1160,
+        "wires": [
+            [
+                "fe24c930b3cf3e92",
+                "17f7b44c3665c12b"
+            ]
+        ]
+    },
+    {
+        "id": "fe24c930b3cf3e92",
+        "type": "debug",
+        "z": "af115e9cb7244fd2",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1310,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "17f7b44c3665c12b",
+        "type": "rbe",
+        "z": "af115e9cb7244fd2",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "topi": "topic",
+        "x": 1350,
+        "y": 1160,
+        "wires": [
+            [
+                "8f02a4182333e264",
+                "a51d49758a336c3f",
+                "bbcea11bb49d6a2f"
+            ]
+        ]
+    },
+    {
+        "id": "8f02a4182333e264",
+        "type": "trigger",
+        "z": "af115e9cb7244fd2",
+        "name": "Delay Trigger",
+        "op1": "",
+        "op2": "",
+        "op1type": "nul",
+        "op2type": "pay",
+        "duration": "60",
+        "extend": false,
+        "overrideDelay": true,
+        "units": "min",
+        "reset": "reset",
+        "bytopic": "topic",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 890,
+        "y": 1260,
+        "wires": [
+            [
+                "c23d626303767666"
+            ]
+        ]
+    },
+    {
+        "id": "c23d626303767666",
+        "type": "function",
+        "z": "af115e9cb7244fd2",
+        "name": "",
+        "func": "msg.reset = msg.topic\ndelete msg.payload\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1040,
+        "y": 1260,
+        "wires": [
+            [
+                "17f7b44c3665c12b"
+            ]
+        ]
+    },
+    {
+        "id": "6c35362b54246e05",
+        "type": "debug",
+        "z": "af115e9cb7244fd2",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "e1b4aa329d4aa449",
+        "type": "function",
+        "z": "af115e9cb7244fd2",
+        "name": "Email Format",
+        "func": "//msg.topic = \"Park Alert!\"\n//msg.payload = \"Activator \" + msg.original.activator + \" Freq: \" + msg.original.frequency + \" Mode: \" + msg.original.mode + \" Time: \" + msg.original.spotTime\n\nmsg.payload = \"Activator \"+ msg.original.activator + '\\r\\n' + \n\"Time: \" + msg.original.spotTime + '\\r\\n' + \n\"Freq: \" + msg.original.frequency + '\\r\\n' + \n\"Mode: \" + msg.original.mode + '\\r\\n' + \n\"Ref:\" + msg.original.reference + '\\r\\n' + \n\"Park Name: \" + msg.original.name + '\\r\\n' + \n\"Comments: \" + msg.original.comments + '\\r\\n' +\n\"Spot Expires In \" + msg.original.expire + \" Seconds \" + '\\r\\n';\n\n\nmsg.topic = \"POTA Park Alert \" + msg.original.reference;\nreturn msg; ",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2150,
+        "y": 580,
+        "wires": [
+            [
+                "bd66ee1b3b73c81f"
+            ]
+        ]
+    },
+    {
+        "id": "24e754cec259ad03",
+        "type": "function",
+        "z": "af115e9cb7244fd2",
+        "name": "Announcement Format",
+        "func": "msg.topic = \"Park Alert!\"\nmsg.payload = \"Activator \" + msg.original.activator + \" Frequency: \" + msg.original.frequency + \" Mode: \" + msg.original.mode + \" Time: \" + msg.original.spotTime\n\nreturn msg; ",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2180,
+        "y": 540,
+        "wires": [
+            [
+                "7eb4982f6d1f60d6"
+            ]
+        ]
+    },
+    {
+        "id": "a44cedc5ee5ebb55",
+        "type": "switch",
+        "z": "af115e9cb7244fd2",
+        "name": "<= 1740",
+        "property": "original.expire",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gte",
+                "v": "1740",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1860,
+        "y": 580,
+        "wires": [
+            [
+                "24e754cec259ad03",
+                "e1b4aa329d4aa449",
+                "3d6cf61841922ed4"
+            ]
+        ]
+    },
+    {
+        "id": "3d6cf61841922ed4",
+        "type": "debug",
+        "z": "af115e9cb7244fd2",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2130,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "3be912e59145ee8e",
+        "type": "function",
+        "z": "af115e9cb7244fd2",
+        "name": "Email Format",
+        "func": "//msg.topic = \"Park Alert!\"\n//msg.payload = \"Activator \" + msg.original.activator + \" Freq: \" + msg.original.frequency + \" Mode: \" + msg.original.mode + \" Time: \" + msg.original.spotTime\n\nmsg.payload = \"Activator \"+ msg.original.activator + '\\r\\n' + \n\"Time: \" + msg.original.spotTime + '\\r\\n' + \n\"Freq: \" + msg.original.frequency + '\\r\\n' + \n\"Mode: \" + msg.original.mode + '\\r\\n' + \n\"Ref:\" + msg.original.reference + '\\r\\n' + \n\"Park Name: \" + msg.original.name + '\\r\\n' + \n\"Comments: \" + msg.original.comments + '\\r\\n' +\n\"Spot Expires In \" + msg.original.expire + \" Seconds \" + '\\r\\n';\n\n\nmsg.topic = \"POTA Designator Alert \" + msg.original.locationDesc;\nreturn msg; ",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2150,
+        "y": 880,
+        "wires": [
+            [
+                "bd66ee1b3b73c81f"
+            ]
+        ]
+    },
+    {
+        "id": "8831ca47d8f8a579",
+        "type": "function",
+        "z": "af115e9cb7244fd2",
+        "name": "Announcement Format",
+        "func": "msg.topic = \"Park Designator\"\nmsg.payload = \"Activator \" + msg.original.activator + \" Frequency: \" + msg.original.frequency + \" Mode: \" + msg.original.mode + \" Time: \" + msg.original.spotTime\n\nreturn msg; ",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2180,
+        "y": 840,
+        "wires": [
+            [
+                "7eb4982f6d1f60d6"
+            ]
+        ]
+    },
+    {
+        "id": "36a78b78b3fc2903",
+        "type": "switch",
+        "z": "af115e9cb7244fd2",
+        "name": "<= 1740",
+        "property": "original.expire",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gte",
+                "v": "1740",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1860,
+        "y": 880,
+        "wires": [
+            [
+                "8831ca47d8f8a579",
+                "3be912e59145ee8e",
+                "3b415cfe82a126bd"
+            ]
+        ]
+    },
+    {
+        "id": "3b415cfe82a126bd",
+        "type": "debug",
+        "z": "af115e9cb7244fd2",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2130,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "b873168e0cfaf149",
+        "type": "function",
+        "z": "af115e9cb7244fd2",
+        "name": "Email Format",
+        "func": "//msg.topic = \"Park Alert!\"\n//msg.payload = \"Activator \" + msg.original.activator + \" Freq: \" + msg.original.frequency + \" Mode: \" + msg.original.mode + \" Time: \" + msg.original.spotTime\n\nmsg.payload = \"Activator \"+ msg.original.activator + '\\r\\n' + \n\"Time: \" + msg.original.spotTime + '\\r\\n' + \n\"Freq: \" + msg.original.frequency + '\\r\\n' + \n\"Mode: \" + msg.original.mode + '\\r\\n' + \n\"Ref:\" + msg.original.reference + '\\r\\n' + \n\"Park Name: \" + msg.original.name + '\\r\\n' + \n\"Comments: \" + msg.original.comments + '\\r\\n' +\n\"Spot Expires In \" + msg.original.expire + \" Seconds \" + '\\r\\n';\n\n\nmsg.topic = \"POTA Designator Alert \" + msg.original.locationDesc;\nreturn msg; ",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2150,
+        "y": 1160,
+        "wires": [
+            [
+                "bd66ee1b3b73c81f"
+            ]
+        ]
+    },
+    {
+        "id": "baa43a47c64e497e",
+        "type": "function",
+        "z": "af115e9cb7244fd2",
+        "name": "Announcement Format",
+        "func": "msg.topic = \"Park Designator\"\nmsg.payload = \"Activator \" + msg.original.activator + \" Frequency: \" + msg.original.frequency + \" Mode: \" + msg.original.mode + \" Time: \" + msg.original.spotTime\n\nreturn msg; ",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2180,
+        "y": 1120,
+        "wires": [
+            [
+                "7eb4982f6d1f60d6"
+            ]
+        ]
+    },
+    {
+        "id": "bbcea11bb49d6a2f",
+        "type": "switch",
+        "z": "af115e9cb7244fd2",
+        "name": "<= 1740",
+        "property": "original.expire",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gte",
+                "v": "1740",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1860,
+        "y": 1160,
+        "wires": [
+            [
+                "baa43a47c64e497e",
+                "b873168e0cfaf149",
+                "6cd48265f18d730d"
+            ]
+        ]
+    },
+    {
+        "id": "6cd48265f18d730d",
+        "type": "debug",
+        "z": "af115e9cb7244fd2",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2130,
+        "y": 1200,
         "wires": []
     }
 ]
