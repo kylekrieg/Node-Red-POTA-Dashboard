@@ -7329,6 +7329,7 @@
         "id": "1beace53.506ce2",
         "type": "ui_button",
         "z": "1950552b.d4018b",
+        "d": true,
         "name": "List Countries Button",
         "group": "55d6abfe8c5c758e",
         "order": 1,
@@ -7492,6 +7493,7 @@
         "id": "d923921b.49016",
         "type": "ui_form",
         "z": "1950552b.d4018b",
+        "d": true,
         "name": "Country Designator Delete",
         "label": "Counry Designator Delete",
         "group": "1d9dce79.e995e2",
@@ -7585,6 +7587,7 @@
         "id": "125a449f.5d5a7b",
         "type": "ui_form",
         "z": "1950552b.d4018b",
+        "d": true,
         "name": "Country Designator Add",
         "label": "Country Designator Add",
         "group": "266fc73.4322c38",
@@ -8567,6 +8570,7 @@
         "id": "a9950e7e45d24250",
         "type": "ui_form",
         "z": "1950552b.d4018b",
+        "d": true,
         "name": "Notifications Input Text Box",
         "label": "Notifications (default 60 mins)",
         "group": "474ee316d470b386",
@@ -8616,8 +8620,8 @@
         "topicType": "msg",
         "splitLayout": "",
         "className": "",
-        "x": 410,
-        "y": 2360,
+        "x": 320,
+        "y": 2280,
         "wires": [
             []
         ]
