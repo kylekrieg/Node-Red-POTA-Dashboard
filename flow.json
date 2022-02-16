@@ -665,7 +665,7 @@
         "tab": "50a9dd15acb28546",
         "order": 7,
         "disp": true,
-        "width": 10,
+        "width": 14,
         "collapse": false,
         "className": ""
     },
@@ -4017,7 +4017,7 @@
         "type": "function",
         "z": "6fd9c5c3c10bf6a2",
         "name": "Format Spot & Distance",
-        "func": "let type = \"spot\";\nlet id = msg.payload.spotId;\nlet freq1 = msg.payload.frequency;\nlet freq = parseFloat(freq1).toFixed(1)\nlet mode = msg.payload.mode;\nlet call = msg.payload.activator;\nlet commentpad = msg.payload.comments;\nlet comment = commentpad.padEnd(25);\nlet timeraw = msg.payload.spotTime;\nlet x = msg.payload.spotTime.replace(\":\",\"\");\nlet time = x.substr(11,4)+\"Z\";\n//let state = msg.payload.state;\nlet calllength = call.length;\nlet parkref = msg.payload.reference;\nlet parkname = msg.payload.name;\nlet grid = msg.payload.grid6;\nlet lat = msg.payload.latitude;\nlet lon = msg.payload.longitude;\nlet locationdesc = msg.payload.locationDesc\nlet count = msg.payload.count\n\n\nfunction deg2rad(deg) {\n  return deg * (Math.PI/180)\n}\n\nlet lat1 = global.get('homelat');\nlet lat2 = msg.payload.latitude;\nlet lon1 = global.get('homelon');\nlet lon2 = msg.payload.longitude;\n\nvar R = 6371; // Radius of the earth in km\nvar dLat = deg2rad(lat2-lat1);  // deg2rad below\nvar dLon = deg2rad(lon2-lon1); \n//var deglat1 = lat1 * (Math.PI/180);\n//var deglat2 = lat2 * (Math.PI/180);\nvar a = \n    Math.sin(dLat/2) * Math.sin(dLat/2) +\n    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * \n    Math.sin(dLon/2) * Math.sin(dLon/2)\n    ; \nvar c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); \nvar d = R * c; // Distance in km\nvar miles = d * 0.62137 //convert to miles\n\nlet distance = parseInt(miles) + \"M\";\n\nreturn {payload : {type:type,id:id,freq:freq, mode:mode,call:call,comment:comment,time:time,\nlocationdesc:locationdesc,calllength:calllength,parkref:parkref,parkname:parkname,grid:grid,lat:lat,lon:lon,distance:distance,count:count}};\n",
+        "func": "let type = \"spot\";\nlet id = msg.payload.spotId;\nlet freq1 = msg.payload.frequency;\nlet freq = parseFloat(freq1).toFixed(1)\nlet mode = msg.payload.mode;\nlet call = msg.payload.activator;\nlet commentpad = msg.payload.comments;\nlet comment = commentpad.padEnd(25);\nlet timeraw = msg.payload.spotTime;\nlet x = msg.payload.spotTime.replace(\":\",\"\");\nlet time = x.substr(11,4)+\"Z\";\n//let state = msg.payload.state;\nlet calllength = call.length;\nlet parkref = msg.payload.reference;\nlet parkname = msg.payload.name;\nlet grid = msg.payload.grid6;\nlet lat = msg.payload.latitude;\nlet lon = msg.payload.longitude;\nlet locationdesc = msg.payload.locationDesc;\nlet count = msg.payload.count;\nlet expire = msg.payload.expire;\n\n\nfunction deg2rad(deg) {\n  return deg * (Math.PI/180)\n}\n\nlet lat1 = global.get('homelat');\nlet lat2 = msg.payload.latitude;\nlet lon1 = global.get('homelon');\nlet lon2 = msg.payload.longitude;\n\nvar R = 6371; // Radius of the earth in km\nvar dLat = deg2rad(lat2-lat1);  // deg2rad below\nvar dLon = deg2rad(lon2-lon1); \n//var deglat1 = lat1 * (Math.PI/180);\n//var deglat2 = lat2 * (Math.PI/180);\nvar a = \n    Math.sin(dLat/2) * Math.sin(dLat/2) +\n    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * \n    Math.sin(dLon/2) * Math.sin(dLon/2)\n    ; \nvar c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); \nvar d = R * c; // Distance in km\nvar miles = d * 0.62137 //convert to miles\n\nlet distance = parseInt(miles) + \"M\";\n\nreturn {payload : {type:type,id:id,freq:freq, mode:mode,call:call,comment:comment,time:time,\nlocationdesc:locationdesc,calllength:calllength,parkref:parkref,parkname:parkname,grid:grid,lat:lat,lon:lon,distance:distance,count:count,expire:expire}};\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -4060,7 +4060,7 @@
         "name": "POTA Spots",
         "order": 1,
         "width": 26,
-        "height": "12",
+        "height": 12,
         "columns": [
             {
                 "field": "freq",
@@ -4181,6 +4181,16 @@
                 "formatterParams": {
                     "target": "_blank"
                 }
+            },
+            {
+                "field": "expire",
+                "title": "Expire",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
             }
         ],
         "outputs": 1,
@@ -4246,7 +4256,7 @@
         "type": "function",
         "z": "6fd9c5c3c10bf6a2",
         "name": "Table Format",
-        "func": "\n//let id = msg.payload.id;\nlet freq = msg.payload.freq;\nlet mode = msg.payload.mode;\nlet call = msg.payload.call;\nlet comment = msg.payload.comment;\nlet time = msg.payload.time\nlet state = msg.payload.state;\nlet parkref = msg.payload.parkref;\nlet parkname = msg.payload.parkname;\nlet distance = msg.payload.distance;\nlet lon = msg.payload.lon;\nlet lat = msg.payload.lat;\nlet locationdesc = msg.payload.locationdesc;\nlet count = msg.payload.count;\n\n\nreturn {payload:{\n    command:\"addData\",\n    arguments:[\n        {\n            freq:freq,call:call,mode:mode,comment:comment,time:time,state:state,parkref:parkref,parkname:parkname,distance:distance,lon:lon,lat:lat,locationdesc:locationdesc,count:count\n        },\n        true\n    ],\n    returnPromise:true\n    }\n};",
+        "func": "\n//let id = msg.payload.id;\nlet freq = msg.payload.freq;\nlet mode = msg.payload.mode;\nlet call = msg.payload.call;\nlet comment = msg.payload.comment;\nlet time = msg.payload.time\nlet state = msg.payload.state;\nlet parkref = msg.payload.parkref;\nlet parkname = msg.payload.parkname;\nlet distance = msg.payload.distance;\nlet lon = msg.payload.lon;\nlet lat = msg.payload.lat;\nlet locationdesc = msg.payload.locationdesc;\nlet count = msg.payload.count;\nlet expire = msg.payload.expire;\n\n\nreturn {payload:{\n    command:\"addData\",\n    arguments:[\n        {\n            freq:freq,call:call,mode:mode,comment:comment,time:time,state:state,parkref:parkref,parkname:parkname,distance:distance,lon:lon,lat:lat,locationdesc:locationdesc,count:count,expire:expire\n        },\n        true\n    ],\n    returnPromise:true\n    }\n};",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -7757,7 +7767,7 @@
         "type": "ui_form",
         "z": "1950552b.d4018b",
         "name": "Location Desc Designator Delete",
-        "label": "Loc Desc Designator Delete",
+        "label": "Location Desc Designator Delete",
         "group": "1d9dce79.e995e2",
         "order": 3,
         "width": 0,
@@ -8798,8 +8808,8 @@
         "group": "8afbd37356b63495",
         "name": "Outgoing Spots",
         "order": 1,
-        "width": 10,
-        "height": 12,
+        "width": "14",
+        "height": "10",
         "columns": [
             {
                 "field": "call",
@@ -9229,7 +9239,7 @@
         "type": "debug",
         "z": "af115e9cb7244fd2",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -9323,7 +9333,7 @@
         "type": "debug",
         "z": "af115e9cb7244fd2",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
