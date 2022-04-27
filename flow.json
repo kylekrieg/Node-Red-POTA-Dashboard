@@ -4223,8 +4223,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1230,
-        "y": 180,
+        "x": 1410,
+        "y": 160,
         "wires": []
     },
     {
@@ -4294,7 +4294,7 @@
         "type": "function",
         "z": "6fd9c5c3c10bf6a2",
         "name": "Format Spot",
-        "func": "function deg2rad(deg) {\n  return deg * (Math.PI/180)\n}\n\nlet lat1 = global.get('homelat');\nlet lat2 = msg.payload.latitude;\nlet lon1 = global.get('homelon');\nlet lon2 = msg.payload.longitude;\n\nvar R = 6371; // Radius of the earth in km\nvar dLat = deg2rad(lat2-lat1);  // deg2rad below\nvar dLon = deg2rad(lon2-lon1); \n//var deglat1 = lat1 * (Math.PI/180);\n//var deglat2 = lat2 * (Math.PI/180);\nvar a = \n    Math.sin(dLat/2) * Math.sin(dLat/2) +\n    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * \n    Math.sin(dLon/2) * Math.sin(dLon/2)\n    ; \nvar c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); \nvar d = R * c; // Distance in km\nvar miles = d * 0.62137 //convert to miles\n\nlet distance = parseInt(miles) + \"M\";\n\n\n\n\nlet freq = msg.payload.frequency\nlet mode = msg.payload.mode;\nlet call = msg.payload.activator;\nlet comment = msg.payload.comments;\nlet timeraw = msg.payload.spotTime;\nlet state = msg.payload.state;\nlet parkref = msg.payload.reference;\nlet parkname = msg.payload.parkName;\nlet grid = msg.payload.grid6;\nlet lat = msg.payload.latitude;\nlet lon = msg.payload.longitude;\nlet ttl = flow.get('spotttl');\n\nreturn {payload : {name:parkref,lat:lat,lon:lon,distance:distance,freq:freq,operator:call,mode:mode,ttl:55}};\n",
+        "func": "function deg2rad(deg) {\n  return deg * (Math.PI/180)\n}\n\nlet lat1 = global.get('homelat');\nlet lat2 = msg.payload.latitude;\nlet lon1 = global.get('homelon');\nlet lon2 = msg.payload.longitude;\n\nvar R = 6371; // Radius of the earth in km\nvar dLat = deg2rad(lat2-lat1);  // deg2rad below\nvar dLon = deg2rad(lon2-lon1); \n//var deglat1 = lat1 * (Math.PI/180);\n//var deglat2 = lat2 * (Math.PI/180);\nvar a = \n    Math.sin(dLat/2) * Math.sin(dLat/2) +\n    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * \n    Math.sin(dLon/2) * Math.sin(dLon/2)\n    ; \nvar c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); \nvar d = R * c; // Distance in km\nvar miles = d * 0.62137 //convert to miles\n\nlet distance = parseInt(miles) + \"M\";\n\n\n\n\nlet freq = msg.payload.frequency\nlet mode = msg.payload.mode;\nlet call = msg.payload.activator;\nlet comment = msg.payload.comments;\nlet timeraw = msg.payload.spotTime;\nlet state = msg.payload.state;\nlet parkref = msg.payload.reference;\nlet parkname = msg.payload.name;\nlet grid = msg.payload.grid6;\nlet lat = msg.payload.latitude;\nlet lon = msg.payload.longitude;\nlet ttl = flow.get('spotttl');\n\nreturn {payload : {name:parkref,parkname:parkname,lat:lat,lon:lon,distance:distance,freq:freq,operator:call,mode:mode,ttl:55}};\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -4305,7 +4305,8 @@
         "wires": [
             [
                 "d829bd3a106b2c23",
-                "7cf8bc60c0fb51ea"
+                "7cf8bc60c0fb51ea",
+                "ace100908b707c82"
             ]
         ]
     },
@@ -6297,6 +6298,23 @@
         "statusType": "auto",
         "x": 2670,
         "y": 640,
+        "wires": []
+    },
+    {
+        "id": "ace100908b707c82",
+        "type": "debug",
+        "z": "6fd9c5c3c10bf6a2",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2060,
+        "y": 80,
         "wires": []
     },
     {
