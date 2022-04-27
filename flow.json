@@ -23,6 +23,14 @@
         "env": []
     },
     {
+        "id": "7fba952c219a3ff4",
+        "type": "tab",
+        "label": "Telnet Cluster",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "c9611467dc313430",
         "type": "subflow",
         "name": "Band Pin Color Parser",
@@ -4017,7 +4025,7 @@
         "type": "function",
         "z": "6fd9c5c3c10bf6a2",
         "name": "Format Spot & Distance",
-        "func": "let type = \"spot\";\nlet id = msg.payload.spotId;\nlet freq1 = msg.payload.frequency;\nlet freq = parseFloat(freq1).toFixed(1)\nlet mode = msg.payload.mode;\nlet call = msg.payload.activator;\nlet commentpad = msg.payload.comments;\nlet comment = commentpad.padEnd(25);\nlet timeraw = msg.payload.spotTime;\nlet x = msg.payload.spotTime.replace(\":\",\"\");\nlet time = x.substr(11,4)+\"Z\";\n//let state = msg.payload.state;\nlet calllength = call.length;\nlet parkref = msg.payload.reference;\nlet parkname = msg.payload.name;\nlet grid = msg.payload.grid6;\nlet lat = msg.payload.latitude;\nlet lon = msg.payload.longitude;\nlet locationdesc = msg.payload.locationDesc;\nlet count = msg.payload.count;\nlet expire = msg.payload.expire;\n\n\nfunction deg2rad(deg) {\n  return deg * (Math.PI/180)\n}\n\nlet lat1 = global.get('homelat');\nlet lat2 = msg.payload.latitude;\nlet lon1 = global.get('homelon');\nlet lon2 = msg.payload.longitude;\n\nvar R = 6371; // Radius of the earth in km\nvar dLat = deg2rad(lat2-lat1);  // deg2rad below\nvar dLon = deg2rad(lon2-lon1); \n//var deglat1 = lat1 * (Math.PI/180);\n//var deglat2 = lat2 * (Math.PI/180);\nvar a = \n    Math.sin(dLat/2) * Math.sin(dLat/2) +\n    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * \n    Math.sin(dLon/2) * Math.sin(dLon/2)\n    ; \nvar c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); \nvar d = R * c; // Distance in km\nvar miles = d * 0.62137 //convert to miles\n\nlet distance = parseInt(miles) + \"M\";\n\nreturn {payload : {type:type,id:id,freq:freq, mode:mode,call:call,comment:comment,time:time,\nlocationdesc:locationdesc,calllength:calllength,parkref:parkref,parkname:parkname,grid:grid,lat:lat,lon:lon,distance:distance,count:count,expire:expire}};\n",
+        "func": "let type = \"spot\";\nlet id = msg.payload.spotId;\nlet freq1 = msg.payload.frequency;\nlet freq = parseFloat(freq1).toFixed(1)\nlet mode = msg.payload.mode;\nlet call = msg.payload.activator;\nlet commentpad = msg.payload.comments;\nlet comment = commentpad.padEnd(25);\nlet timeraw = msg.payload.spotTime;\nlet x = msg.payload.spotTime.replace(\":\",\"\");\nlet time = x.substr(11,4)+\"Z\";\n//let state = msg.payload.state;\nlet calllength = call.length;\nlet parkref = msg.payload.reference;\nlet parkname = msg.payload.name;\nlet grid = msg.payload.grid6;\nlet lat = msg.payload.latitude;\nlet lon = msg.payload.longitude;\nlet locationdesc = msg.payload.locationDesc;\nlet count = msg.payload.count;\nlet expire = msg.payload.expire;\n\n\nfunction deg2rad(deg) {\n  return deg * (Math.PI/180)\n}\n\nlet lat1 = global.get('homelat');\nlet lat2 = msg.payload.latitude;\nlet lon1 = global.get('homelon');\nlet lon2 = msg.payload.longitude;\n\nvar R = 6371; // Radius of the earth in km\nvar dLat = deg2rad(lat2-lat1);  // deg2rad below\nvar dLon = deg2rad(lon2-lon1); \n//var deglat1 = lat1 * (Math.PI/180);\n//var deglat2 = lat2 * (Math.PI/180);\nvar a = \n    Math.sin(dLat/2) * Math.sin(dLat/2) +\n    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * \n    Math.sin(dLon/2) * Math.sin(dLon/2)\n    ; \nvar c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); \nvar d = R * c; // Distance in km\nvar miles = d * 0.62137 //convert to miles\n\nlet distance = parseInt(miles) + \"M\";\n\nlet homelat = global.get('homelat');\nlet homelon = global.get('homelon');\n\nif (homelat === undefined || homelon === undefined)\n{\n    distance = 0;\n}\n\nreturn {payload : {type:type,id:id,freq:freq, mode:mode,call:call,comment:comment,time:time,\nlocationdesc:locationdesc,calllength:calllength,parkref:parkref,parkname:parkname,grid:grid,lat:lat,lon:lon,distance:distance,count:count,expire:expire}};\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -5225,39 +5233,6 @@
         ]
     },
     {
-        "id": "97d14070.d7033",
-        "type": "switch",
-        "z": "6fd9c5c3c10bf6a2",
-        "name": "US or CAN",
-        "property": "payload.locationDesc",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "cont",
-                "v": "US-",
-                "vt": "str"
-            },
-            {
-                "t": "cont",
-                "v": "CA-",
-                "vt": "str"
-            },
-            {
-                "t": "else"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 3,
-        "x": 1410,
-        "y": 420,
-        "wires": [
-            [],
-            [],
-            []
-        ]
-    },
-    {
         "id": "53434631.8ab898",
         "type": "string",
         "z": "6fd9c5c3c10bf6a2",
@@ -5317,6 +5292,7 @@
         "name": "POTA Spots OUT",
         "mode": "link",
         "links": [
+            "01e93c9ca44accb5",
             "2af9677931a76168"
         ],
         "x": 1381.2500076293945,
@@ -8741,8 +8717,8 @@
         "links": [
             "99686b3a60ee656b"
         ],
-        "x": 115,
-        "y": 660,
+        "x": 55,
+        "y": 760,
         "wires": [
             [
                 "ca6f81025bb8fa5b"
@@ -8760,7 +8736,7 @@
         "syntax": "mustache",
         "template": "select count(*) as call from callsignalert where callsign='{{payload.activator}}'",
         "output": "str",
-        "x": 520,
+        "x": 540,
         "y": 300,
         "wires": [
             [
@@ -8874,7 +8850,7 @@
         ],
         "outputs": 0,
         "cts": false,
-        "x": 1780,
+        "x": 1900,
         "y": 740,
         "wires": []
     },
@@ -8889,7 +8865,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1590,
+        "x": 1710,
         "y": 740,
         "wires": [
             [
@@ -8917,8 +8893,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 240,
-        "y": 660,
+        "x": 200,
+        "y": 760,
         "wires": [
             [
                 "b8fbe794d24d612a",
@@ -8965,11 +8941,11 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2150,
+        "x": 1830,
         "y": 300,
         "wires": [
             [
-                "bd66ee1b3b73c81f"
+                "cf59a02c3a461696"
             ]
         ]
     },
@@ -8990,7 +8966,7 @@
                 "t": "set",
                 "p": "topic",
                 "pt": "msg",
-                "to": "original.activator",
+                "to": "original.frequency",
                 "tot": "msg"
             }
         ],
@@ -9021,8 +8997,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1290,
-        "y": 260,
+        "x": 1370,
+        "y": 220,
         "wires": []
     },
     {
@@ -9033,8 +9009,8 @@
         "group": "8afbd37356b63495",
         "voice": "Google US English",
         "always": false,
-        "x": 2860,
-        "y": 740,
+        "x": 2420,
+        "y": 760,
         "wires": []
     },
     {
@@ -9055,8 +9031,8 @@
             [
                 "93770aeb36d8dcda",
                 "17991464ccd66a37",
-                "a51d49758a336c3f",
-                "3523629234faa7b5"
+                "3523629234faa7b5",
+                "a51d49758a336c3f"
             ]
         ]
     },
@@ -9065,7 +9041,7 @@
         "type": "debug",
         "z": "af115e9cb7244fd2",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -9073,8 +9049,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1630,
-        "y": 140,
+        "x": 1530,
+        "y": 260,
         "wires": []
     },
     {
@@ -9094,8 +9070,8 @@
         "bytopic": "topic",
         "topic": "topic",
         "outputs": 1,
-        "x": 870,
-        "y": 400,
+        "x": 1150,
+        "y": 380,
         "wires": [
             [
                 "ce094812a856ce14"
@@ -9106,15 +9082,15 @@
         "id": "ce094812a856ce14",
         "type": "function",
         "z": "af115e9cb7244fd2",
-        "name": "",
+        "name": "Reset Filter",
         "func": "msg.reset = msg.topic\ndelete msg.payload\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1020,
-        "y": 400,
+        "x": 1310,
+        "y": 380,
         "wires": [
             [
                 "8398a372224660fb"
@@ -9122,31 +9098,17 @@
         ]
     },
     {
-        "id": "bd66ee1b3b73c81f",
-        "type": "e-mail",
-        "z": "af115e9cb7244fd2",
-        "server": "smtp.gmail.com",
-        "port": "465",
-        "secure": true,
-        "tls": true,
-        "name": "",
-        "dname": "Email Alert",
-        "x": 2850,
-        "y": 780,
-        "wires": []
-    },
-    {
         "id": "4e4f7c4f30df19e8",
         "type": "function",
         "z": "af115e9cb7244fd2",
         "name": "Announcement Format",
-        "func": "msg.topic = \"Activator Alert!\"\nmsg.payload = \"Activator \" + msg.original.activator + \" Frequency: \" + msg.original.frequency + \" Mode: \" + msg.original.mode + \" Time: \" + msg.original.spotTime\n\nreturn msg; ",
+        "func": "msg.topic = \"Activator Alert!\"\nmsg.payload = \"Activator \" + msg.original.activator + \" on frequency: \" + msg.original.frequency + \" using mode: \" + msg.original.mode + \" Time: \" + msg.original.spotTime\n\nreturn msg; ",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2180,
+        "x": 1860,
         "y": 260,
         "wires": [
             [
@@ -9171,7 +9133,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 1,
-        "x": 1860,
+        "x": 1540,
         "y": 300,
         "wires": [
             [
@@ -9186,7 +9148,7 @@
         "type": "debug",
         "z": "af115e9cb7244fd2",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -9194,7 +9156,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 2130,
+        "x": 1810,
         "y": 340,
         "wires": []
     },
@@ -9203,7 +9165,7 @@
         "type": "debug",
         "z": "af115e9cb7244fd2",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -9211,7 +9173,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1750,
+        "x": 1870,
         "y": 700,
         "wires": []
     },
@@ -9226,7 +9188,7 @@
         "syntax": "mustache",
         "template": "select count(*) as reference from parkalert where park='{{payload.reference}}'",
         "output": "str",
-        "x": 510,
+        "x": 550,
         "y": 580,
         "wires": [
             [
@@ -9384,8 +9346,8 @@
         "bytopic": "topic",
         "topic": "topic",
         "outputs": 1,
-        "x": 870,
-        "y": 680,
+        "x": 1150,
+        "y": 660,
         "wires": [
             [
                 "28d5efe5ca53de7a"
@@ -9396,15 +9358,15 @@
         "id": "28d5efe5ca53de7a",
         "type": "function",
         "z": "af115e9cb7244fd2",
-        "name": "",
+        "name": "Reset Filter",
         "func": "msg.reset = msg.topic\ndelete msg.payload\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1020,
-        "y": 680,
+        "x": 1310,
+        "y": 660,
         "wires": [
             [
                 "c4e5877ebd8e5d18"
@@ -9580,8 +9542,8 @@
         "bytopic": "topic",
         "topic": "topic",
         "outputs": 1,
-        "x": 890,
-        "y": 980,
+        "x": 1170,
+        "y": 960,
         "wires": [
             [
                 "cb84d5e4724ef0ac"
@@ -9592,15 +9554,15 @@
         "id": "cb84d5e4724ef0ac",
         "type": "function",
         "z": "af115e9cb7244fd2",
-        "name": "",
+        "name": "Reset Filter",
         "func": "msg.reset = msg.topic\ndelete msg.payload\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1040,
-        "y": 980,
+        "x": 1330,
+        "y": 960,
         "wires": [
             [
                 "8bc0ae7a9d6516ae"
@@ -9776,8 +9738,8 @@
         "bytopic": "topic",
         "topic": "topic",
         "outputs": 1,
-        "x": 890,
-        "y": 1260,
+        "x": 1170,
+        "y": 1240,
         "wires": [
             [
                 "c23d626303767666"
@@ -9788,15 +9750,15 @@
         "id": "c23d626303767666",
         "type": "function",
         "z": "af115e9cb7244fd2",
-        "name": "",
+        "name": "Reset Filter",
         "func": "msg.reset = msg.topic\ndelete msg.payload\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1040,
-        "y": 1260,
+        "x": 1330,
+        "y": 1240,
         "wires": [
             [
                 "17f7b44c3665c12b"
@@ -9831,11 +9793,11 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2150,
+        "x": 1930,
         "y": 580,
         "wires": [
             [
-                "bd66ee1b3b73c81f"
+                "cf59a02c3a461696"
             ]
         ]
     },
@@ -9850,7 +9812,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2180,
+        "x": 1960,
         "y": 540,
         "wires": [
             [
@@ -9875,7 +9837,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 1,
-        "x": 1860,
+        "x": 1640,
         "y": 580,
         "wires": [
             [
@@ -9898,7 +9860,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 2130,
+        "x": 1910,
         "y": 620,
         "wires": []
     },
@@ -9913,11 +9875,11 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2150,
+        "x": 1950,
         "y": 880,
         "wires": [
             [
-                "bd66ee1b3b73c81f"
+                "cf59a02c3a461696"
             ]
         ]
     },
@@ -9932,7 +9894,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2180,
+        "x": 1980,
         "y": 840,
         "wires": [
             [
@@ -9957,7 +9919,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 1,
-        "x": 1860,
+        "x": 1660,
         "y": 880,
         "wires": [
             [
@@ -9980,7 +9942,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 2130,
+        "x": 1930,
         "y": 920,
         "wires": []
     },
@@ -9995,11 +9957,11 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2150,
+        "x": 1850,
         "y": 1160,
         "wires": [
             [
-                "bd66ee1b3b73c81f"
+                "cf59a02c3a461696"
             ]
         ]
     },
@@ -10014,7 +9976,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2180,
+        "x": 1880,
         "y": 1120,
         "wires": [
             [
@@ -10039,7 +10001,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 1,
-        "x": 1860,
+        "x": 1560,
         "y": 1160,
         "wires": [
             [
@@ -10062,8 +10024,177 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 2130,
+        "x": 1830,
         "y": 1200,
         "wires": []
+    },
+    {
+        "id": "cf59a02c3a461696",
+        "type": "function",
+        "z": "af115e9cb7244fd2",
+        "name": "REPLACE THIS FUNCTION WITH EMAIL NODE",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2530,
+        "y": 800,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2b733ef58fd5a483",
+        "type": "e-mail",
+        "z": "af115e9cb7244fd2",
+        "server": "smtp.gmail.com",
+        "port": "465",
+        "secure": true,
+        "tls": true,
+        "name": "",
+        "dname": "",
+        "x": 2390,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "4d6f731a.a8104c",
+        "type": "debug",
+        "z": "7fba952c219a3ff4",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 890,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "8e54f2fc.9c692",
+        "type": "tcp out",
+        "z": "7fba952c219a3ff4",
+        "host": "",
+        "port": "7300",
+        "beserver": "server",
+        "base64": false,
+        "end": false,
+        "name": "Telnet Out:7300",
+        "x": 900,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "01e93c9ca44accb5",
+        "type": "link in",
+        "z": "7fba952c219a3ff4",
+        "name": "Spots IN",
+        "links": [
+            "99686b3a60ee656b"
+        ],
+        "x": 175,
+        "y": 200,
+        "wires": [
+            [
+                "f7980430b0fe5395",
+                "74fbbd26cacdb943"
+            ]
+        ]
+    },
+    {
+        "id": "8ea8242eddf3dc3c",
+        "type": "inject",
+        "z": "7fba952c219a3ff4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"freq\":\"7000.1\", \"call\":\"AA0Z\", \"locationDesc\":\"us-mo\", \"comment\":\"this is a comment\",\"time\":\"1200Z\"}",
+        "payloadType": "json",
+        "x": 230,
+        "y": 240,
+        "wires": [
+            [
+                "f7980430b0fe5395"
+            ]
+        ]
+    },
+    {
+        "id": "f7980430b0fe5395",
+        "type": "function",
+        "z": "7fba952c219a3ff4",
+        "name": "Telnet 7300 Out Format",
+        "func": "\nconst d = new Date();\nlet x = d.getUTCHours();\nlet h = String(x).padStart(2,'0')\nlet y = d.getMinutes();\nlet m = String(y).padStart(2,'0')\n\nlet utc = h + m + \"Z\"\n\nlet freq = msg.payload.frequency\nfreq = parseInt(freq)\nfreq = freq.toFixed(1)\nfreq = freq.padStart(14)\nlet call = msg.payload.activator.padEnd(13)\nlet state = msg.payload.locationDesc.substring(0,5)\nlet county = msg.payload.reference.padEnd(4)\n//let comment1 = msg.payload.comments.padEnd(23)\nlet comment1 = msg.payload.comments.substring(0,20)\nlet comment = comment1.padEnd(23)\n\nmsg.payload = 'DX de P0TA:' + freq +'  '+ call + state + ' ' + comment + utc +'\\r\\n';\n\nreturn msg;\n\n\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 200,
+        "wires": [
+            [
+                "a73b045d704a249e"
+            ]
+        ]
+    },
+    {
+        "id": "74fbbd26cacdb943",
+        "type": "debug",
+        "z": "7fba952c219a3ff4",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 450,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "a73b045d704a249e",
+        "type": "delay",
+        "z": "7fba952c219a3ff4",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "500",
+        "timeoutUnits": "milliseconds",
+        "rate": "3",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 690,
+        "y": 200,
+        "wires": [
+            [
+                "8e54f2fc.9c692",
+                "4d6f731a.a8104c"
+            ]
+        ]
     }
 ]
